@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Academy of Athens Research Centre contributes to disaster resilience discussion",
+    "source": "Placeholder Source",
+    "date": "2026-07-08",
+    "category": "In the Media",
+    "summary": "A short summary of the article or interview will appear here before visitors continue to the original source.",
+    "url": "https://example.com/article",
+    "domain": "example.com",
+    "approved": true
+  },
+  {
+    "title": "New research insights on wildfire risk and climate adaptation",
+    "source": "Placeholder Source",
+    "date": "2026-07-07",
+    "category": "Research News",
+    "summary": "This card can be used for articles, interviews, policy mentions, reports, or announcements related to the Centre.",
+    "url": "https://example.com/article-2",
+    "domain": "example.com",
+    "approved": true
+  }
+]
