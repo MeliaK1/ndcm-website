@@ -11,6 +11,11 @@ async function loadNews() {
 
   try {
     const response = await fetch("data/news.json");
+
+    if (!response.ok) {
+      throw new Error("News file could not be loaded");
+    }
+
     const articles = await response.json();
 
     const approvedArticles = articles
