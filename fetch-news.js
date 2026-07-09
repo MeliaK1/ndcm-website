@@ -89,15 +89,14 @@ async function main() {
           if (isBlacklisted(domain)) continue;
 
           results.push({
-            title,
-            source: domain || "Google News",
-            date: pubDate.toISOString().slice(0, 10),
-            category: "In the Media",
-            professor: group.professor,
-            summary: `Article mentioning ${group.professor}. A short editorial summary can be added later.`,
-            url: link,
-            domain,
-            approved: true
+              title,
+              source: domain || "Google News",
+              date: pubDate.toISOString().slice(0, 10),
+              category: "In the Media",
+              professor: group.professor,
+              url: link,
+              domain,
+              approved: true
           });
         }
       } catch (error) {

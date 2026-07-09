@@ -31,8 +31,15 @@ async function loadNews() {
       <article class="news-feed-card">
         <p class="news-meta">${article.category} · ${article.date}</p>
         <h3>${article.title}</h3>
-        <p>${article.summary}</p>
-        <a href="${article.url}" target="_blank" rel="noopener noreferrer">
+        <p class="news-professor">
+          <strong>Professor:</strong> ${article.professor}
+        </p>
+
+        <p class="news-source">
+          <strong>Source:</strong> ${article.source}
+        </p>
+
+      <a href="${article.url}" target="_blank" rel="noopener noreferrer">
           Read full article →
         </a>
       </article>
