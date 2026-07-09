@@ -1,7 +1,6 @@
 const BLACKLISTED_DOMAINS = [
-  "example-bad-site.com",
-  "clickbait-news.com",
-  "lowqualityblog.com"
+  "documentonews.gr",
+  "www.documentonews.gr"
 ];
 
 async function loadNews() {
@@ -11,12 +10,22 @@ async function loadNews() {
 
   try {
     const response = await fetch("data/news.json");
+
+    if (!response.ok) {
+      throw new Error("News file could not be loaded");
+    }
+
     const articles = await response.json();
 
-    const approvedArticles = articles
+    let approvedArticles = articles
       .filter(article => article.approved === true)
-      .filter(article => !BLACKLISTED_DOMAINS.includes(article.domain))
-      .slice(0, 4);
+      .filter(article => !BLACKLISTED_DOMAINS.includes(article.domain));
+
+    const limit = newsContainer.dataset.newsLimit;
+
+    if (limit !== "all") {
+      approvedArticles = approvedArticles.slice(0, Number(limit || 4));
+    }
 
     newsContainer.innerHTML = approvedArticles.map(article => `
       <article class="news-feed-card">

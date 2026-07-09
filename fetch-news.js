@@ -25,8 +25,6 @@ const BLACKLISTED_DOMAINS = [
   "www.documentonews.gr"
 ];
 
-const MAX_ARTICLES = 12;
-
 function normaliseText(text) {
   return (text || "").toLowerCase();
 }
@@ -113,8 +111,7 @@ async function main() {
   );
 
   const sortedResults = uniqueResults
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, MAX_ARTICLES);
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   fs.writeFileSync("data/news.json", JSON.stringify(sortedResults, null, 2), "utf8");
 
