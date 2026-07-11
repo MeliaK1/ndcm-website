@@ -1,0 +1,40 @@
+name: Update Publications
+
+on:
+  schedule:
+    # Every Sunday at 07:25 UTC.
+    # Avoiding the top of the hour reduces possible scheduling delays.
+    - cron: "25 7 * * 0"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-publications
+  cancel-in-progress: true
+
+jobs:
+  update-publications:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch Google Scholar publications
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+        run: node fetch-publications.js
+
+      - name: Commit updated publications
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update automated publication feed"
+          file_pattern: data/publications.json
