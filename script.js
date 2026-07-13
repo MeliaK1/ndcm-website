@@ -1,13 +1,22 @@
-const langButton = document.querySelector('.lang-toggle');
-const translatable = document.querySelectorAll('[data-en][data-el]');
+const languageButton = document.querySelector(".lang-toggle");
 
-langButton?.addEventListener('click', () => {
-  const nextLang = langButton.dataset.lang === 'en' ? 'el' : 'en';
-  langButton.dataset.lang = nextLang;
-  translatable.forEach((el) => {
-    el.textContent = el.dataset[nextLang];
+if (languageButton) {
+  languageButton.addEventListener("click", () => {
+    const currentLanguage = languageButton.dataset.lang || "en";
+    const nextLanguage = currentLanguage === "en" ? "el" : "en";
+
+    document
+      .querySelectorAll("[data-en][data-el]")
+      .forEach(element => {
+        element.textContent = element.dataset[nextLanguage];
+      });
+
+    document.documentElement.lang = nextLanguage;
+    languageButton.dataset.lang = nextLanguage;
+    languageButton.textContent =
+      nextLanguage === "en" ? "EN | ΕΛ" : "ΕΛ | EN";
   });
-});
+}
 
 const menuButton = document.querySelector('.menu-btn');
 const nav = document.querySelector('.main-nav');
