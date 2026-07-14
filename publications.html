@@ -18,6 +18,7 @@
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
@@ -162,7 +163,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section publications-page-section">
       <div class="container">
         <div class="section-head publications-list-head">
           <div>
@@ -208,51 +209,141 @@
                 >
                   Oldest first
                 </option>
-
-                <option
-                  value="researcher"
-                  data-en="Researcher"
-                  data-el="Ερευνητή"
-                >
-                  Researcher
-                </option>
               </select>
             </div>
           </div>
         </div>
 
-        <div
-          class="publication-list publications-full-list"
-          data-publications-feed
-          data-publications-limit="all"
-        >
-          <p
-            data-en="Loading publications..."
-            data-el="Φόρτωση δημοσιεύσεων..."
+        <div class="publications-layout">
+          <aside
+            class="researcher-filter-panel"
+            aria-label="Filter publications by researcher"
           >
-            Loading publications...
-          </p>
-        </div>
+            <div class="researcher-filter-panel-inner">
+              <h3
+                data-en="Filter by researcher"
+                data-el="Φιλτράρισμα ανά ερευνητή"
+              >
+                Filter by researcher
+              </h3>
 
-        <div
-          class="publications-load-more"
-          data-publications-load-more
-        >
-          <p
-            id="publication-counter"
-            class="publication-counter"
-            aria-live="polite"
-          ></p>
+              <div
+                class="researcher-filter-options"
+                role="group"
+                aria-label="Researchers"
+              >
+                <button
+                  type="button"
+                  class="researcher-filter-button is-active"
+                  data-researcher-filter="all"
+                  aria-pressed="true"
+                  data-en="All researchers"
+                  data-el="Όλοι οι ερευνητές"
+                >
+                  All researchers
+                </button>
 
-          <button
-            id="load-more-publications"
-            class="load-more-button"
-            type="button"
-            data-en="Show 20 more"
-            data-el="Εμφάνιση 20 ακόμη"
-          >
-            Show 20 more
-          </button>
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="20dnM4UAAAAJ"
+                  aria-pressed="false"
+                >
+                  Costas Synolakis
+                </button>
+
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="Z5AxUbAAAAAJ"
+                  aria-pressed="false"
+                >
+                  Stamatios M. Krimigis
+                </button>
+
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="J9ARrjgAAAAJ"
+                  aria-pressed="false"
+                >
+                  Athanasios Fokas
+                </button>
+
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="nMuRV_cAAAAJ"
+                  aria-pressed="false"
+                >
+                  Christos S. Zerefos
+                </button>
+
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="z4j5_IIAAAAJ"
+                  aria-pressed="false"
+                >
+                  Andreas Karamanos
+                </button>
+
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="9jF1GewAAAAJ"
+                  aria-pressed="false"
+                >
+                  Emmanouil Floratos
+                </button>
+
+                <button
+                  type="button"
+                  class="researcher-filter-button"
+                  data-researcher-filter="mRVqqoUAAAAJ"
+                  aria-pressed="false"
+                >
+                  Georgios Marios Karagiannis
+                </button>
+              </div>
+            </div>
+          </aside>
+
+          <div class="publications-results">
+            <div
+              class="publication-list publications-full-list"
+              data-publications-feed
+              data-publications-limit="all"
+            >
+              <p
+                data-en="Loading publications..."
+                data-el="Φόρτωση δημοσιεύσεων..."
+              >
+                Loading publications...
+              </p>
+            </div>
+
+            <div
+              class="publications-load-more"
+              data-publications-load-more
+            >
+              <p
+                id="publication-counter"
+                class="publication-counter"
+                aria-live="polite"
+              ></p>
+
+              <button
+                id="load-more-publications"
+                class="load-more-button"
+                type="button"
+                data-en="Show 20 more"
+                data-el="Εμφάνιση 20 ακόμη"
+              >
+                Show 20 more
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
