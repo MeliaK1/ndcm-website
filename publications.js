@@ -2,6 +2,7 @@ const PUBLICATIONS_BATCH_SIZE = 20;
 
 let allPublications = [];
 let visibleCount = PUBLICATIONS_BATCH_SIZE;
+let selectedResearcherId = "all";
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -16,661 +17,461 @@ function isGreek() {
   return document.documentElement.lang === "el";
 }
 
-function t(en, el) {
-  return isGreek() ? el : en;
+function translate(english, greek) {
+  return isGreek() ? greek : english;
 }
 
 function formatResearchers(researchers) {
-  if (!Array.isArray(researchers)) return "";
+  if (!Array.isArray(researchers) || researchers.length === 0) {
+    return "";
+  }
 
   return researchers
-    .map(name => escapeHtml(name))
+    .map(researcher => escapeHtml(researcher))
     .join(", ");
 }
 
 function createPublicationCard(publication) {
+  const title = escapeHtml(
+    publication.title ||
+      translate("Untitled publication", "Δημοσίευση χωρίς τίτλο")
+  );
 
-  const title =
-    escapeHtml(publication.title);
-
-  const authors =
-    escapeHtml(
-      publication.authors ||
-      t(
+  const authors = escapeHtml(
+    publication.authors ||
+      translate(
         "Authors unavailable",
         "Μη διαθέσιμοι συγγραφείς"
       )
-    );
-
-  const publicationName =
-    escapeHtml(
-      publication.publication ||
-      t(
-        "Publication unavailable",
-        "Μη διαθέσιμη δημοσίευση"
-      )
-    );
-
-  const year =
-    escapeHtml(
-      publication.year ||
-      ""
-    );
-
-  const url =
-    escapeHtml(
-      publication.url || "#"
-    );
-
-  const citations =
-    Number(
-      publication.citations || 0
-    );
-
-  const researchers =
-    formatResearchers(
-      publication.researchers
-    );
-
-  return `
-
-<article class="publication-card">
-
-<div class="publication-card-top">
-
-<span class="pub-type">
-${year}
-</span>
-
-${
-citations>0
-?
-
-`<span class="publication-citations">
-
-${t(
-"Cited by",
-"Αναφορές"
-)}
-
-${citations}
-
-</span>`
-
-:
-
-""
-
-}
-
-</div>
-
-<h3>
-
-<a
-href="${url}"
-target="_blank"
-rel="noopener noreferrer"
->
-
-${title}
-
-</a>
-
-</h3>
-
-<p class="publication-authors">
-
-${authors}
-
-</p>
-
-<p class="publication-source">
-
-${publicationName}
-
-</p>
-
-${
-researchers
-
-?
-
-`
-
-<p class="publication-researchers">
-
-<strong>
-
-${t(
-"Centre researcher:",
-"Ερευνητής του Κέντρου:"
-)}
-
-</strong>
-
-${researchers}
-
-</p>
-
-`
-
-:
-
-""
-
-}
-
-<a
-
-class="text-link"
-
-href="${url}"
-
-target="_blank"
-
-rel="noopener noreferrer"
-
->
-
-${t(
-
-"View on Google Scholar →",
-
-"Προβολή στο Google Scholar →"
-
-)}
-
-</a>
-
-</article>
-
-`;
-
-}
-
-function sortPublications(data, mode) {
-
-const publications = [...data];
-
-if (mode === "oldest") {
-
-publications.sort((a,b)=>{
-
-const diff =
-Number(a.year||0)
--
-Number(b.year||0);
-
-if(diff!==0)
-return diff;
-
-return String(a.title)
-.localeCompare(
-String(b.title)
-);
-
-});
-
-return publications;
-
-}
-
-publications.sort((a,b)=>{
-
-const diff =
-Number(b.year||0)
--
-Number(a.year||0);
-
-if(diff!==0)
-return diff;
-
-return String(a.title)
-.localeCompare(
-String(b.title)
-);
-
-});
-
-return publications;
-
-}
-
-function buildResearcherFilter() {
-
-const filter =
-document.getElementById(
-"filter-researcher"
-);
-
-if(!filter)
-return;
-
-const names =
-Array.from(
-
-new Set(
-
-allPublications.flatMap(
-
-publication=>
-
-publication.researchers || []
-
-)
-
-)
-
-)
-
-.filter(Boolean)
-
-.sort();
-
-const previous =
-filter.value;
-
-filter.innerHTML=
-
-`
-<option value="all">
-
-${t(
-
-"All researchers",
-
-"Όλοι οι ερευνητές"
-
-)}
-
-</option>
-
-${names.map(name=>`
-
-<option value="${escapeHtml(name)}">
-
-${escapeHtml(name)}
-
-</option>
-
-`).join("")}
-
-`;
-
-if(
-names.includes(previous)
-){
-
-filter.value=previous;
-
-}
-
-}
-function updateCounter(totalVisible, totalAvailable) {
-
-  const counter =
-    document.getElementById(
-      "publication-counter"
-    );
-
-  if (!counter) return;
-
-  counter.textContent = t(
-    `Showing ${totalVisible} of ${totalAvailable} publications`,
-    `Εμφανίζονται ${totalVisible} από ${totalAvailable} δημοσιεύσεις`
   );
 
+  const publicationName = escapeHtml(
+    publication.publication ||
+      translate(
+        "Publication details unavailable",
+        "Δεν υπάρχουν διαθέσιμα στοιχεία δημοσίευσης"
+      )
+  );
+
+  const year = escapeHtml(
+    publication.year ||
+      translate("Year unavailable", "Μη διαθέσιμο έτος")
+  );
+
+  const url = escapeHtml(publication.url || "#");
+
+  const citations = Number(publication.citations || 0);
+
+  const researchers = formatResearchers(
+    publication.researchers
+  );
+
+  return `
+    <article class="publication-card">
+      <div class="publication-card-top">
+        <span class="pub-type">${year}</span>
+
+        ${
+          citations > 0
+            ? `
+              <span class="publication-citations">
+                ${translate("Cited by", "Αναφορές")} ${citations}
+              </span>
+            `
+            : ""
+        }
+      </div>
+
+      <h3>
+        <a
+          href="${url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ${title}
+        </a>
+      </h3>
+
+      <p class="publication-authors">
+        ${authors}
+      </p>
+
+      <p class="publication-source">
+        ${publicationName}
+      </p>
+
+      ${
+        researchers
+          ? `
+            <p class="publication-researchers">
+              <strong>
+                ${translate(
+                  "Centre researcher:",
+                  "Ερευνητής του Κέντρου:"
+                )}
+              </strong>
+
+              ${researchers}
+            </p>
+          `
+          : ""
+      }
+
+      <a
+        class="text-link"
+        href="${url}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ${translate(
+          "View on Google Scholar →",
+          "Προβολή στο Google Scholar →"
+        )}
+      </a>
+    </article>
+  `;
+}
+
+function sortPublications(publications, sortMode) {
+  const sortedPublications = [...publications];
+
+  if (sortMode === "oldest") {
+    return sortedPublications.sort((first, second) => {
+      const yearDifference =
+        Number(first.year || 0) -
+        Number(second.year || 0);
+
+      if (yearDifference !== 0) {
+        return yearDifference;
+      }
+
+      return String(first.title || "").localeCompare(
+        String(second.title || ""),
+        "en",
+        {
+          sensitivity: "base"
+        }
+      );
+    });
+  }
+
+  return sortedPublications.sort((first, second) => {
+    const yearDifference =
+      Number(second.year || 0) -
+      Number(first.year || 0);
+
+    if (yearDifference !== 0) {
+      return yearDifference;
+    }
+
+    return String(first.title || "").localeCompare(
+      String(second.title || ""),
+      "en",
+      {
+        sensitivity: "base"
+      }
+    );
+  });
+}
+
+function getSelectedSortMode() {
+  const sortSelect = document.getElementById(
+    "sort-publications"
+  );
+
+  return sortSelect?.value || "newest";
 }
 
 function getFilteredPublications() {
+  let publications = [...allPublications];
 
-  const researcherFilter =
-    document.getElementById(
-      "filter-researcher"
-    );
-
-  const sortSelect =
-    document.getElementById(
-      "sort-publications"
-    );
-
-  const selectedResearcher =
-    researcherFilter
-      ? researcherFilter.value
-      : "all";
-
-  const sortMode =
-    sortSelect
-      ? sortSelect.value
-      : "newest";
-
-  let results =
-    [...allPublications];
-
-  if (
-    selectedResearcher !== "all"
-  ) {
-
-    results =
-      results.filter(
-        publication =>
-          Array.isArray(
-            publication.researchers
-          ) &&
-          publication.researchers.includes(
-            selectedResearcher
-          )
+  if (selectedResearcherId !== "all") {
+    publications = publications.filter(publication => {
+      /*
+       * The automated publication data currently stores one
+       * scholarProfileId on each publication.
+       */
+      return (
+        String(publication.scholarProfileId || "") ===
+        selectedResearcherId
       );
-
+    });
   }
 
   return sortPublications(
-    results,
-    sortMode
+    publications,
+    getSelectedSortMode()
   );
-
 }
 
-function renderPublicationList() {
+function updateCounter(visible, total) {
+  const counter = document.getElementById(
+    "publication-counter"
+  );
 
-  const container =
-    document.querySelector(
-      "[data-publications-feed]"
-    );
-
-  if (!container)
+  if (!counter) {
     return;
+  }
 
-  const filtered =
+  counter.textContent = translate(
+    `Showing ${visible} of ${total} publications`,
+    `Εμφανίζονται ${visible} από ${total} δημοσιεύσεις`
+  );
+}
+
+function updateLoadMoreButton(hasMore) {
+  const button = document.getElementById(
+    "load-more-publications"
+  );
+
+  if (!button) {
+    return;
+  }
+
+  button.hidden = !hasMore;
+  button.disabled = !hasMore;
+
+  button.textContent = translate(
+    `Show ${PUBLICATIONS_BATCH_SIZE} more`,
+    `Εμφάνιση ${PUBLICATIONS_BATCH_SIZE} ακόμη`
+  );
+}
+
+function updateActiveResearcherButton() {
+  const buttons = document.querySelectorAll(
+    "[data-researcher-filter]"
+  );
+
+  buttons.forEach(button => {
+    const buttonResearcherId =
+      button.dataset.researcherFilter;
+
+    const isActive =
+      buttonResearcherId === selectedResearcherId;
+
+    button.classList.toggle("is-active", isActive);
+
+    button.setAttribute(
+      "aria-pressed",
+      String(isActive)
+    );
+  });
+}
+
+function renderFullPublicationsList() {
+  const container = document.querySelector(
+    '[data-publications-feed][data-publications-limit="all"]'
+  );
+
+  if (!container) {
+    return;
+  }
+
+  const filteredPublications =
     getFilteredPublications();
 
-  if (
-    filtered.length === 0
-  ) {
-
-    container.innerHTML =
-
-    `
+  if (filteredPublications.length === 0) {
+    container.innerHTML = `
       <p class="empty-state">
-
-        ${t(
-          "No publications found.",
-          "Δεν βρέθηκαν δημοσιεύσεις."
+        ${translate(
+          "No publications were found for this researcher.",
+          "Δεν βρέθηκαν δημοσιεύσεις για αυτόν τον ερευνητή."
         )}
-
       </p>
     `;
 
-    updateCounter(
-      0,
-      0
-    );
-
+    updateCounter(0, 0);
+    updateLoadMoreButton(false);
     return;
-
   }
 
-  const visible =
-    filtered.slice(
-      0,
-      visibleCount
-    );
+  const visiblePublications =
+    filteredPublications.slice(0, visibleCount);
 
-  container.innerHTML =
-    visible
-      .map(
-        createPublicationCard
-      )
-      .join("");
+  container.innerHTML = visiblePublications
+    .map(createPublicationCard)
+    .join("");
 
   updateCounter(
-    visible.length,
-    filtered.length
+    visiblePublications.length,
+    filteredPublications.length
   );
 
-  const button =
-    document.getElementById(
-      "load-more-publications"
-    );
+  updateLoadMoreButton(
+    visiblePublications.length <
+      filteredPublications.length
+  );
+}
 
-  if (button) {
+function renderHomepagePublications(container) {
+  const limit =
+    Number(container.dataset.publicationsLimit) || 3;
 
-    if (
-      visible.length >=
-      filtered.length
-    ) {
+  const latestPublications = sortPublications(
+    allPublications,
+    "newest"
+  ).slice(0, limit);
 
-      button.style.display =
-        "none";
+  if (latestPublications.length === 0) {
+    container.innerHTML = `
+      <p class="empty-state">
+        ${translate(
+          "No publications are available at the moment.",
+          "Δεν υπάρχουν διαθέσιμες δημοσιεύσεις αυτή τη στιγμή."
+        )}
+      </p>
+    `;
 
-    } else {
-
-      button.style.display =
-        "inline-flex";
-
-    }
-
+    return;
   }
 
+  container.innerHTML = latestPublications
+    .map(createPublicationCard)
+    .join("");
 }
+
+function attachResearcherFilterEvents() {
+  const buttons = document.querySelectorAll(
+    "[data-researcher-filter]"
+  );
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      selectedResearcherId =
+        button.dataset.researcherFilter || "all";
+
+      visibleCount = PUBLICATIONS_BATCH_SIZE;
+
+      updateActiveResearcherButton();
+      renderFullPublicationsList();
+    });
+  });
+}
+
+function attachSortEvent() {
+  const sortSelect = document.getElementById(
+    "sort-publications"
+  );
+
+  sortSelect?.addEventListener("change", () => {
+    visibleCount = PUBLICATIONS_BATCH_SIZE;
+    renderFullPublicationsList();
+  });
+}
+
+function attachLoadMoreEvent() {
+  const loadMoreButton = document.getElementById(
+    "load-more-publications"
+  );
+
+  loadMoreButton?.addEventListener("click", () => {
+    visibleCount += PUBLICATIONS_BATCH_SIZE;
+    renderFullPublicationsList();
+  });
+}
+
+function refreshGeneratedTranslations() {
+  document
+    .querySelectorAll("[data-publications-feed]")
+    .forEach(container => {
+      const limitSetting =
+        container.dataset.publicationsLimit || "all";
+
+      if (limitSetting === "all") {
+        renderFullPublicationsList();
+      } else {
+        renderHomepagePublications(container);
+      }
+    });
+}
+
+function attachLanguageEvent() {
+  const languageButton = document.querySelector(
+    ".lang-toggle"
+  );
+
+  languageButton?.addEventListener("click", () => {
+    /*
+     * script.js changes the page language during the same click.
+     * Waiting until the next event-loop cycle ensures that the
+     * generated publication text uses the new language.
+     */
+    window.setTimeout(() => {
+      refreshGeneratedTranslations();
+    }, 0);
+  });
+}
+
 async function loadPublications() {
+  const containers = document.querySelectorAll(
+    "[data-publications-feed]"
+  );
 
-  const containers =
-    document.querySelectorAll(
-      "[data-publications-feed]"
-    );
-
-  if (containers.length === 0)
+  if (containers.length === 0) {
     return;
+  }
 
   try {
-
-    const response =
-      await fetch(
-        "data/publications.json",
-        {
-          cache: "no-store"
-        }
-      );
+    const response = await fetch(
+      "data/publications.json",
+      {
+        cache: "no-store"
+      }
+    );
 
     if (!response.ok) {
-
       throw new Error(
-        "Unable to load publication data."
+        `Unable to load publication data: ${response.status}`
       );
-
     }
 
-    allPublications =
-      await response.json();
+    const publicationData = await response.json();
 
-    if (
-      !Array.isArray(
-        allPublications
-      )
-    ) {
-
+    if (!Array.isArray(publicationData)) {
       throw new Error(
-        "Publication data is invalid."
+        "Publication data is not a valid array."
       );
-
     }
 
-    buildResearcherFilter();
+    allPublications = publicationData;
 
     containers.forEach(container => {
+      const limitSetting =
+        container.dataset.publicationsLimit || "all";
 
-      const limit =
-        container.dataset
-          .publicationsLimit;
-
-      // Homepage
-
-      if (limit !== "all") {
-
-        const count =
-          Number(limit) || 3;
-
-        const latest =
-          sortPublications(
-            allPublications,
-            "newest"
-          ).slice(
-            0,
-            count
-          );
-
-        container.innerHTML =
-          latest
-            .map(
-              createPublicationCard
-            )
-            .join("");
-
-        return;
-
+      if (limitSetting === "all") {
+        renderFullPublicationsList();
+      } else {
+        renderHomepagePublications(container);
       }
-
-      // Publications page
-
-      renderPublicationList();
-
     });
 
-    const sort =
-      document.getElementById(
-        "sort-publications"
-      );
+    updateActiveResearcherButton();
 
-    sort?.addEventListener(
-      "change",
-      () => {
-
-        visibleCount =
-          PUBLICATIONS_BATCH_SIZE;
-
-        renderPublicationList();
-
-      }
-    );
-
-    const filter =
-      document.getElementById(
-        "filter-researcher"
-      );
-
-    filter?.addEventListener(
-      "change",
-      () => {
-
-        visibleCount =
-          PUBLICATIONS_BATCH_SIZE;
-
-        renderPublicationList();
-
-      }
-    );
-
-    const loadMore =
-      document.getElementById(
-        "load-more-publications"
-      );
-
-    loadMore?.addEventListener(
-      "click",
-      () => {
-
-        visibleCount +=
-          PUBLICATIONS_BATCH_SIZE;
-
-        renderPublicationList();
-
-      }
-    );
-    // Refresh labels when the language changes
-
-    const languageButton =
-      document.querySelector(
-        ".lang-toggle"
-      );
-
-    languageButton?.addEventListener(
-      "click",
-      () => {
-
-        // Give script.js time to update
-        setTimeout(() => {
-
-          buildResearcherFilter();
-
-          const loadMore =
-            document.getElementById(
-              "load-more-publications"
-            );
-
-          if (loadMore) {
-
-            loadMore.textContent = t(
-              `Show ${PUBLICATIONS_BATCH_SIZE} more`,
-              `Εμφάνιση ${PUBLICATIONS_BATCH_SIZE} ακόμη`
-            );
-
-          }
-
-          const counter =
-            document.getElementById(
-              "publication-counter"
-            );
-
-          if (counter) {
-
-            const filtered =
-              getFilteredPublications();
-
-            updateCounter(
-              Math.min(
-                visibleCount,
-                filtered.length
-              ),
-              filtered.length
-            );
-
-          }
-
-          renderPublicationList();
-
-        }, 0);
-
-      }
-    );
-
+    attachResearcherFilterEvents();
+    attachSortEvent();
+    attachLoadMoreEvent();
+    attachLanguageEvent();
   } catch (error) {
-
-    console.error(error);
+    console.error(
+      "Unable to load publications:",
+      error
+    );
 
     containers.forEach(container => {
-
       container.innerHTML = `
-
         <p class="empty-state">
-
-          ${t(
-
+          ${translate(
             "Publications could not be loaded at the moment.",
-
-            "Δεν ήταν δυνατή η φόρτωση των δημοσιεύσεων."
-
+            "Δεν ήταν δυνατή η φόρτωση των δημοσιεύσεων αυτή τη στιγμή."
           )}
-
         </p>
-
       `;
-
     });
 
+    updateCounter(0, 0);
+    updateLoadMoreButton(false);
   }
-
 }
 
 loadPublications();
