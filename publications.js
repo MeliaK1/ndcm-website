@@ -192,9 +192,9 @@ function getFilteredPublications() {
        * scholarProfileId on each publication.
        */
       return (
-        String(publication.scholarProfileId || "") ===
-        selectedResearcherId
-      );
+  Array.isArray(publication.researchers) &&
+  publication.researchers.includes(selectedResearcherId)
+);
     });
   }
 
