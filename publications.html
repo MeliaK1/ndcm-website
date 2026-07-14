@@ -18,7 +18,6 @@
   />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
@@ -44,9 +43,19 @@
         <div class="brand-mark">ΑΑ</div>
 
         <div>
-          <span class="brand-top">Academy of Athens</span>
+          <span
+            class="brand-top"
+            data-en="Academy of Athens"
+            data-el="Ακαδημία Αθηνών"
+          >
+            Academy of Athens
+          </span>
 
-          <span class="brand-name">
+          <span
+            class="brand-name"
+            data-en="Natural Disasters & Crisis Management Research Center"
+            data-el="Κέντρο Έρευνας Φυσικών Καταστροφών & Διαχείρισης Κρίσεων"
+          >
             Natural Disasters &<br />
             Crisis Management Research Center
           </span>
@@ -54,18 +63,56 @@
       </a>
 
       <nav class="main-nav" aria-label="Main navigation">
-        <a href="index.html#about">About</a>
-        <a href="index.html#people">People</a>
-        <a href="index.html#research">Research</a>
-        <a href="publications.html" aria-current="page">
+        <a
+          href="index.html#about"
+          data-en="About"
+          data-el="Σχετικά"
+        >
+          About
+        </a>
+
+        <a
+          href="people.html"
+          data-en="People"
+          data-el="Άνθρωποι"
+        >
+          People
+        </a>
+
+        <a
+          href="index.html#research"
+          data-en="Research"
+          data-el="Έρευνα"
+        >
+          Research
+        </a>
+
+        <a
+          href="publications.html"
+          aria-current="page"
+          data-en="Publications"
+          data-el="Δημοσιεύσεις"
+        >
           Publications
         </a>
-        <a href="news.html">News & Events</a>
-        <a href="index.html#contracts">Contracts</a>
+
+        <a
+          href="news.html"
+          data-en="News & Events"
+          data-el="Νέα & Εκδηλώσεις"
+        >
+          News & Events
+        </a>
       </nav>
 
       <div class="nav-actions">
-        <button class="search-btn" aria-label="Search">⌕</button>
+        <button
+          class="search-btn"
+          type="button"
+          aria-label="Search"
+        >
+          ⌕
+        </button>
 
         <button
           class="lang-toggle"
@@ -77,6 +124,7 @@
 
         <button
           class="menu-btn"
+          type="button"
           aria-label="Open menu"
           aria-expanded="false"
         >
@@ -89,23 +137,87 @@
   <main>
     <section class="page-hero publications-page-hero">
       <div class="container">
-        <p class="section-label">Research output</p>
+        <p
+          class="section-label"
+          data-en="Publications"
+          data-el="Δημοσιεύσεις"
+        >
+          Publications
+        </p>
 
-        <h1>Publications</h1>
+        <h1
+          data-en="Research Publications"
+          data-el="Επιστημονικές Δημοσιεύσεις"
+        >
+          Research Publications
+        </h1>
 
-        <p>
-          Explore the latest publications associated with the Centre’s
-          researchers, collected from their public Google Scholar profiles.
+        <p
+          data-en="Browse publications from members of the Natural Disasters and Crisis Management Research Center."
+          data-el="Περιηγηθείτε στις δημοσιεύσεις των μελών του Κέντρου Έρευνας Φυσικών Καταστροφών και Διαχείρισης Κρίσεων."
+        >
+          Browse publications from members of the Natural Disasters and
+          Crisis Management Research Center.
         </p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head publications-list-head">
           <div>
-            <p class="section-label">All publications</p>
-            <h2>Most recent first</h2>
+            <p
+              class="section-label"
+              data-en="All publications"
+              data-el="Όλες οι δημοσιεύσεις"
+            >
+              All publications
+            </p>
+
+            <h2
+              data-en="Publications"
+              data-el="Δημοσιεύσεις"
+            >
+              Publications
+            </h2>
+          </div>
+
+          <div class="publications-toolbar">
+            <div class="sort-group">
+              <label
+                for="sort-publications"
+                data-en="Sort by"
+                data-el="Ταξινόμηση κατά"
+              >
+                Sort by
+              </label>
+
+              <select id="sort-publications">
+                <option
+                  value="newest"
+                  data-en="Newest first"
+                  data-el="Νεότερες πρώτα"
+                >
+                  Newest first
+                </option>
+
+                <option
+                  value="oldest"
+                  data-en="Oldest first"
+                  data-el="Παλαιότερες πρώτα"
+                >
+                  Oldest first
+                </option>
+
+                <option
+                  value="researcher"
+                  data-en="Researcher"
+                  data-el="Ερευνητή"
+                >
+                  Researcher
+                </option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -114,14 +226,34 @@
           data-publications-feed
           data-publications-limit="all"
         >
-          <p>Loading publications...</p>
+          <p
+            data-en="Loading publications..."
+            data-el="Φόρτωση δημοσιεύσεων..."
+          >
+            Loading publications...
+          </p>
         </div>
 
-        <nav
-          class="publications-pagination"
-          data-publications-pagination
-          aria-label="Publications pagination"
-        ></nav>
+        <div
+          class="publications-load-more"
+          data-publications-load-more
+        >
+          <p
+            id="publication-counter"
+            class="publication-counter"
+            aria-live="polite"
+          ></p>
+
+          <button
+            id="load-more-publications"
+            class="load-more-button"
+            type="button"
+            data-en="Show 20 more"
+            data-el="Εμφάνιση 20 ακόμη"
+          >
+            Show 20 more
+          </button>
+        </div>
       </div>
     </section>
   </main>
@@ -129,34 +261,70 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <h3>
+        <h3
+          data-en="Natural Disasters & Crisis Management Research Center"
+          data-el="Κέντρο Έρευνας Φυσικών Καταστροφών & Διαχείρισης Κρίσεων"
+        >
           Natural Disasters & Crisis Management Research Center
         </h3>
 
-        <p>
-          Academy of Athens · Placeholder address, Athens, Greece
+        <p
+          data-en="Academy of Athens · Athens, Greece"
+          data-el="Ακαδημία Αθηνών · Αθήνα, Ελλάδα"
+        >
+          Academy of Athens · Athens, Greece
         </p>
       </div>
 
       <div>
-        <h4>Explore</h4>
-        <a href="index.html#about">About</a>
-        <a href="index.html#people">People</a>
-        <a href="index.html#research">Research</a>
-        <a href="publications.html">Publications</a>
-      </div>
+        <h4
+          data-en="Explore"
+          data-el="Εξερεύνηση"
+        >
+          Explore
+        </h4>
 
-      <div>
-        <h4>Contact</h4>
-        <a href="mailto:info@example.org">info@example.org</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">YouTube</a>
+        <a
+          href="index.html#about"
+          data-en="About"
+          data-el="Σχετικά"
+        >
+          About
+        </a>
+
+        <a
+          href="people.html"
+          data-en="People"
+          data-el="Άνθρωποι"
+        >
+          People
+        </a>
+
+        <a
+          href="index.html#research"
+          data-en="Research"
+          data-el="Έρευνα"
+        >
+          Research
+        </a>
+
+        <a
+          href="publications.html"
+          data-en="Publications"
+          data-el="Δημοσιεύσεις"
+        >
+          Publications
+        </a>
       </div>
     </div>
 
     <div class="container footer-bottom">
-      <small>© 2026 Academy of Athens.</small>
-      <small>Privacy Policy · Terms of Use · Site Map</small>
+      <small
+        data-en="© 2026 Academy of Athens."
+        data-el="© 2026 Ακαδημία Αθηνών."
+      >
+        © 2026 Academy of Athens.
+      </small>
     </div>
   </footer>
 

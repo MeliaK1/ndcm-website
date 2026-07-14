@@ -902,3 +902,56 @@ img {
     grid-template-columns: 1fr;
   }
 }
+.publications-toolbar{
+    display:flex;
+    justify-content:flex-end;
+    gap:1rem;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    margin-bottom:2rem;
+}
+
+.sort-group{
+    display:flex;
+    flex-direction:column;
+    gap:.35rem;
+}
+
+.sort-group label{
+    font-size:.85rem;
+    font-weight:600;
+    color:#5b6470;
+}
+
+.sort-group select{
+    padding:.6rem .9rem;
+    border:1px solid #d8dde6;
+    border-radius:10px;
+    background:#fff;
+    min-width:180px;
+}
+
+.publications-load-more{
+    margin-top:2rem;
+    text-align:center;
+}
+
+.publication-counter{
+    margin-bottom:1rem;
+    color:#5b6470;
+    font-weight:600;
+}
+
+.load-more-button{
+    padding:.8rem 1.6rem;
+    border:none;
+    border-radius:999px;
+    background:#0b5cab;
+    color:#fff;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.load-more-button:hover{
+    opacity:.9;
+}

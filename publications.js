@@ -1,4 +1,7 @@
-const PUBLICATIONS_PER_PAGE = 20;
+const PUBLICATIONS_BATCH_SIZE = 20;
+
+let allPublications = [];
+let visibleCount = PUBLICATIONS_BATCH_SIZE;
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -9,242 +12,665 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function formatResearchers(researchers) {
-  if (!Array.isArray(researchers) || researchers.length === 0) {
-    return "";
-  }
+function isGreek() {
+  return document.documentElement.lang === "el";
+}
 
-  return researchers.map(escapeHtml).join(", ");
+function t(en, el) {
+  return isGreek() ? el : en;
+}
+
+function formatResearchers(researchers) {
+  if (!Array.isArray(researchers)) return "";
+
+  return researchers
+    .map(name => escapeHtml(name))
+    .join(", ");
 }
 
 function createPublicationCard(publication) {
-  const title = escapeHtml(publication.title);
-  const authors = escapeHtml(publication.authors || "Authors unavailable");
-  const publicationName = escapeHtml(
-    publication.publication || "Publication details unavailable"
-  );
-  const year = escapeHtml(publication.year || "Year unavailable");
-  const url = escapeHtml(publication.url || "#");
-  const researchers = formatResearchers(publication.researchers);
-  const citations = Number(publication.citations || 0);
+
+  const title =
+    escapeHtml(publication.title);
+
+  const authors =
+    escapeHtml(
+      publication.authors ||
+      t(
+        "Authors unavailable",
+        "Μη διαθέσιμοι συγγραφείς"
+      )
+    );
+
+  const publicationName =
+    escapeHtml(
+      publication.publication ||
+      t(
+        "Publication unavailable",
+        "Μη διαθέσιμη δημοσίευση"
+      )
+    );
+
+  const year =
+    escapeHtml(
+      publication.year ||
+      ""
+    );
+
+  const url =
+    escapeHtml(
+      publication.url || "#"
+    );
+
+  const citations =
+    Number(
+      publication.citations || 0
+    );
+
+  const researchers =
+    formatResearchers(
+      publication.researchers
+    );
 
   return `
-    <article class="publication-card">
-      <div class="publication-card-top">
-        <span class="pub-type">${year}</span>
 
-        ${
-          citations > 0
-            ? `<span class="publication-citations">
-                 Cited by ${citations}
-               </span>`
-            : ""
-        }
-      </div>
+<article class="publication-card">
 
-      <h3>
-        <a
-          href="${url}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ${title}
-        </a>
-      </h3>
+<div class="publication-card-top">
 
-      <p class="publication-authors">${authors}</p>
+<span class="pub-type">
+${year}
+</span>
 
-      <p class="publication-source">${publicationName}</p>
+${
+citations>0
+?
 
-      ${
-        researchers
-          ? `<p class="publication-researchers">
-               <strong>Centre researcher:</strong> ${researchers}
-             </p>`
-          : ""
-      }
+`<span class="publication-citations">
 
-      <a
-        class="text-link"
-        href="${url}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View on Google Scholar →
-      </a>
-    </article>
-  `;
+${t(
+"Cited by",
+"Αναφορές"
+)}
+
+${citations}
+
+</span>`
+
+:
+
+""
+
 }
 
-function renderPagination({
-  container,
-  totalItems,
-  pageSize,
-  currentPage,
-  onPageChange
-}) {
-  const totalPages = Math.ceil(totalItems / pageSize);
+</div>
 
-  if (totalPages <= 1) {
-    container.innerHTML = "";
-    container.hidden = true;
-    return;
-  }
+<h3>
 
-  container.hidden = false;
+<a
+href="${url}"
+target="_blank"
+rel="noopener noreferrer"
+>
 
-  const buttons = [];
+${title}
 
-  buttons.push(`
-    <button
-      type="button"
-      class="pagination-button"
-      data-page="${currentPage - 1}"
-      ${currentPage === 1 ? "disabled" : ""}
-    >
-      Previous
-    </button>
-  `);
+</a>
 
-  for (let page = 1; page <= totalPages; page += 1) {
-    buttons.push(`
-      <button
-        type="button"
-        class="pagination-button ${
-          page === currentPage ? "is-active" : ""
-        }"
-        data-page="${page}"
-        aria-current="${page === currentPage ? "page" : "false"}"
-      >
-        ${page}
-      </button>
-    `);
-  }
+</h3>
 
-  buttons.push(`
-    <button
-      type="button"
-      class="pagination-button"
-      data-page="${currentPage + 1}"
-      ${currentPage === totalPages ? "disabled" : ""}
-    >
-      Next
-    </button>
-  `);
+<p class="publication-authors">
 
-  container.innerHTML = buttons.join("");
+${authors}
 
-  container.querySelectorAll("[data-page]").forEach(button => {
-    button.addEventListener("click", () => {
-      const requestedPage = Number(button.dataset.page);
+</p>
 
-      if (
-        Number.isInteger(requestedPage) &&
-        requestedPage >= 1 &&
-        requestedPage <= totalPages
-      ) {
-        onPageChange(requestedPage);
-      }
-    });
-  });
+<p class="publication-source">
+
+${publicationName}
+
+</p>
+
+${
+researchers
+
+?
+
+`
+
+<p class="publication-researchers">
+
+<strong>
+
+${t(
+"Centre researcher:",
+"Ερευνητής του Κέντρου:"
+)}
+
+</strong>
+
+${researchers}
+
+</p>
+
+`
+
+:
+
+""
+
 }
 
-async function loadPublications() {
-  const publicationContainers = document.querySelectorAll(
-    "[data-publications-feed]"
+<a
+
+class="text-link"
+
+href="${url}"
+
+target="_blank"
+
+rel="noopener noreferrer"
+
+>
+
+${t(
+
+"View on Google Scholar →",
+
+"Προβολή στο Google Scholar →"
+
+)}
+
+</a>
+
+</article>
+
+`;
+
+}
+
+function sortPublications(data, mode) {
+
+const publications = [...data];
+
+if (mode === "oldest") {
+
+publications.sort((a,b)=>{
+
+const diff =
+Number(a.year||0)
+-
+Number(b.year||0);
+
+if(diff!==0)
+return diff;
+
+return String(a.title)
+.localeCompare(
+String(b.title)
+);
+
+});
+
+return publications;
+
+}
+
+publications.sort((a,b)=>{
+
+const diff =
+Number(b.year||0)
+-
+Number(a.year||0);
+
+if(diff!==0)
+return diff;
+
+return String(a.title)
+.localeCompare(
+String(b.title)
+);
+
+});
+
+return publications;
+
+}
+
+function buildResearcherFilter() {
+
+const filter =
+document.getElementById(
+"filter-researcher"
+);
+
+if(!filter)
+return;
+
+const names =
+Array.from(
+
+new Set(
+
+allPublications.flatMap(
+
+publication=>
+
+publication.researchers || []
+
+)
+
+)
+
+)
+
+.filter(Boolean)
+
+.sort();
+
+const previous =
+filter.value;
+
+filter.innerHTML=
+
+`
+<option value="all">
+
+${t(
+
+"All researchers",
+
+"Όλοι οι ερευνητές"
+
+)}
+
+</option>
+
+${names.map(name=>`
+
+<option value="${escapeHtml(name)}">
+
+${escapeHtml(name)}
+
+</option>
+
+`).join("")}
+
+`;
+
+if(
+names.includes(previous)
+){
+
+filter.value=previous;
+
+}
+
+}
+function updateCounter(totalVisible, totalAvailable) {
+
+  const counter =
+    document.getElementById(
+      "publication-counter"
+    );
+
+  if (!counter) return;
+
+  counter.textContent = t(
+    `Showing ${totalVisible} of ${totalAvailable} publications`,
+    `Εμφανίζονται ${totalVisible} από ${totalAvailable} δημοσιεύσεις`
   );
 
-  if (publicationContainers.length === 0) {
-    return;
+}
+
+function getFilteredPublications() {
+
+  const researcherFilter =
+    document.getElementById(
+      "filter-researcher"
+    );
+
+  const sortSelect =
+    document.getElementById(
+      "sort-publications"
+    );
+
+  const selectedResearcher =
+    researcherFilter
+      ? researcherFilter.value
+      : "all";
+
+  const sortMode =
+    sortSelect
+      ? sortSelect.value
+      : "newest";
+
+  let results =
+    [...allPublications];
+
+  if (
+    selectedResearcher !== "all"
+  ) {
+
+    results =
+      results.filter(
+        publication =>
+          Array.isArray(
+            publication.researchers
+          ) &&
+          publication.researchers.includes(
+            selectedResearcher
+          )
+      );
+
   }
+
+  return sortPublications(
+    results,
+    sortMode
+  );
+
+}
+
+function renderPublicationList() {
+
+  const container =
+    document.querySelector(
+      "[data-publications-feed]"
+    );
+
+  if (!container)
+    return;
+
+  const filtered =
+    getFilteredPublications();
+
+  if (
+    filtered.length === 0
+  ) {
+
+    container.innerHTML =
+
+    `
+      <p class="empty-state">
+
+        ${t(
+          "No publications found.",
+          "Δεν βρέθηκαν δημοσιεύσεις."
+        )}
+
+      </p>
+    `;
+
+    updateCounter(
+      0,
+      0
+    );
+
+    return;
+
+  }
+
+  const visible =
+    filtered.slice(
+      0,
+      visibleCount
+    );
+
+  container.innerHTML =
+    visible
+      .map(
+        createPublicationCard
+      )
+      .join("");
+
+  updateCounter(
+    visible.length,
+    filtered.length
+  );
+
+  const button =
+    document.getElementById(
+      "load-more-publications"
+    );
+
+  if (button) {
+
+    if (
+      visible.length >=
+      filtered.length
+    ) {
+
+      button.style.display =
+        "none";
+
+    } else {
+
+      button.style.display =
+        "inline-flex";
+
+    }
+
+  }
+
+}
+async function loadPublications() {
+
+  const containers =
+    document.querySelectorAll(
+      "[data-publications-feed]"
+    );
+
+  if (containers.length === 0)
+    return;
 
   try {
-    const response = await fetch("data/publications.json", {
-      cache: "no-store"
-    });
+
+    const response =
+      await fetch(
+        "data/publications.json",
+        {
+          cache: "no-store"
+        }
+      );
 
     if (!response.ok) {
+
       throw new Error(
-        `Publication file could not be loaded: ${response.status}`
-      );
-    }
-
-    const publications = await response.json();
-
-    if (!Array.isArray(publications)) {
-      throw new Error("Publication data is not an array.");
-    }
-
-    publicationContainers.forEach(container => {
-      const limitSetting = container.dataset.publicationsLimit || "all";
-      const paginationContainer = document.querySelector(
-        "[data-publications-pagination]"
+        "Unable to load publication data."
       );
 
-      if (publications.length === 0) {
-        container.innerHTML = `
-          <p class="empty-state">
-            No publications are available at the moment.
-          </p>
-        `;
+    }
+
+    allPublications =
+      await response.json();
+
+    if (
+      !Array.isArray(
+        allPublications
+      )
+    ) {
+
+      throw new Error(
+        "Publication data is invalid."
+      );
+
+    }
+
+    buildResearcherFilter();
+
+    containers.forEach(container => {
+
+      const limit =
+        container.dataset
+          .publicationsLimit;
+
+      // Homepage
+
+      if (limit !== "all") {
+
+        const count =
+          Number(limit) || 3;
+
+        const latest =
+          sortPublications(
+            allPublications,
+            "newest"
+          ).slice(
+            0,
+            count
+          );
+
+        container.innerHTML =
+          latest
+            .map(
+              createPublicationCard
+            )
+            .join("");
+
         return;
+
       }
 
-      // Homepage: show only the three most recent publications.
-      if (limitSetting !== "all") {
-        const limit = Number(limitSetting) || 3;
+      // Publications page
 
-        container.innerHTML = publications
-          .slice(0, limit)
-          .map(createPublicationCard)
-          .join("");
+      renderPublicationList();
 
-        return;
-      }
-
-      // Full publications page: show 20 per page.
-      let currentPage = 1;
-
-      function renderPage(page) {
-        currentPage = page;
-
-        const start = (currentPage - 1) * PUBLICATIONS_PER_PAGE;
-        const end = start + PUBLICATIONS_PER_PAGE;
-        const pageItems = publications.slice(start, end);
-
-        container.innerHTML = pageItems
-          .map(createPublicationCard)
-          .join("");
-
-        if (paginationContainer) {
-          renderPagination({
-            container: paginationContainer,
-            totalItems: publications.length,
-            pageSize: PUBLICATIONS_PER_PAGE,
-            currentPage,
-            onPageChange: renderPage
-          });
-        }
-
-        window.scrollTo({
-          top: container.offsetTop - 120,
-          behavior: "smooth"
-        });
-      }
-
-      renderPage(1);
     });
+
+    const sort =
+      document.getElementById(
+        "sort-publications"
+      );
+
+    sort?.addEventListener(
+      "change",
+      () => {
+
+        visibleCount =
+          PUBLICATIONS_BATCH_SIZE;
+
+        renderPublicationList();
+
+      }
+    );
+
+    const filter =
+      document.getElementById(
+        "filter-researcher"
+      );
+
+    filter?.addEventListener(
+      "change",
+      () => {
+
+        visibleCount =
+          PUBLICATIONS_BATCH_SIZE;
+
+        renderPublicationList();
+
+      }
+    );
+
+    const loadMore =
+      document.getElementById(
+        "load-more-publications"
+      );
+
+    loadMore?.addEventListener(
+      "click",
+      () => {
+
+        visibleCount +=
+          PUBLICATIONS_BATCH_SIZE;
+
+        renderPublicationList();
+
+      }
+    );
+    // Refresh labels when the language changes
+
+    const languageButton =
+      document.querySelector(
+        ".lang-toggle"
+      );
+
+    languageButton?.addEventListener(
+      "click",
+      () => {
+
+        // Give script.js time to update
+        setTimeout(() => {
+
+          buildResearcherFilter();
+
+          const loadMore =
+            document.getElementById(
+              "load-more-publications"
+            );
+
+          if (loadMore) {
+
+            loadMore.textContent = t(
+              `Show ${PUBLICATIONS_BATCH_SIZE} more`,
+              `Εμφάνιση ${PUBLICATIONS_BATCH_SIZE} ακόμη`
+            );
+
+          }
+
+          const counter =
+            document.getElementById(
+              "publication-counter"
+            );
+
+          if (counter) {
+
+            const filtered =
+              getFilteredPublications();
+
+            updateCounter(
+              Math.min(
+                visibleCount,
+                filtered.length
+              ),
+              filtered.length
+            );
+
+          }
+
+          renderPublicationList();
+
+        }, 0);
+
+      }
+    );
+
   } catch (error) {
-    console.error("Unable to load publications:", error);
 
-    publicationContainers.forEach(container => {
+    console.error(error);
+
+    containers.forEach(container => {
+
       container.innerHTML = `
+
         <p class="empty-state">
-          Publications could not be loaded at the moment.
+
+          ${t(
+
+            "Publications could not be loaded at the moment.",
+
+            "Δεν ήταν δυνατή η φόρτωση των δημοσιεύσεων."
+
+          )}
+
         </p>
+
       `;
+
     });
+
   }
+
 }
 
 loadPublications();
