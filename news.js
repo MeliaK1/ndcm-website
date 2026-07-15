@@ -1,6 +1,8 @@
 const BLACKLISTED_DOMAINS = [
   "documentonews.gr",
-  "www.documentonews.gr"
+  "www.documentonews.gr",
+  "www.avgi.gr/",
+  "avgi.gr"
 ];
 function getNewsLanguage() {
   return document.documentElement.lang === "el"
