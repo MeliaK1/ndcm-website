@@ -2,7 +2,33 @@ const BLACKLISTED_DOMAINS = [
   "documentonews.gr",
   "www.documentonews.gr"
 ];
+function getNewsLanguage() {
+  return document.documentElement.lang === "el"
+    ? "el"
+    : "en";
+}
 
+function getAcademicianName(article) {
+  const language = getNewsLanguage();
+
+  if (language === "el") {
+    return (
+      article.academicianEl ||
+      article.professorEl ||
+      article.academician ||
+      article.professor ||
+      ""
+    );
+  }
+
+  return (
+    article.academicianEn ||
+    article.professorEn ||
+    article.academician ||
+    article.professor ||
+    ""
+  );
+}
 async function loadNews() {
   const newsContainer = document.querySelector("[data-news-feed]");
 
@@ -31,12 +57,14 @@ async function loadNews() {
       <article class="news-feed-card">
         <p class="news-meta">${article.category} · ${article.date}</p>
         <h3>${article.title}</h3>
-        <p class="news-professor">
-          <strong>Professor:</strong> ${article.professor}
-        </p>
+        <p class="news-academician">
+          <strong>
+            ${getNewsLanguage() === "el"
+              ? "Ακαδημαϊκός:"
+              : "Academician:"}
+          </strong>
 
-        <p class="news-source">
-          <strong>Source:</strong> ${article.source}
+          ${getAcademicianName(article)}
         </p>
 
       <a href="${article.url}" target="_blank" rel="noopener noreferrer">
