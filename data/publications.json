@@ -16,7 +16,7 @@
     "id": "20dnM4UAAAAJ:oursBaop5wYC",
     "title": "A novel asymptotic technique for integrals involving the Hankel contour and the Bleistein asymptotic formula",
     "authors": "AS Fokas, J Lenells",
-    "publication": "arXiv preprint arXiv:2605.03466, 2026",
+    "publication": "Mathematics 14 (12), 2204, 2026",
     "year": "2026",
     "citations": 1,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:oursBaop5wYC",
@@ -153,6 +153,19 @@
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
       "Costas Synolakis"
+    ]
+  },
+  {
+    "id": "J9ARrjgAAAAJ:tzM49s52ZIMC",
+    "title": "Preference for warning information sources from a global dataset",
+    "authors": "GM Karagiannis, S Dryhurst, G Pescaroli",
+    "publication": "Safety Science, 107379, 2026",
+    "year": "2026",
+    "citations": 0,
+    "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=J9ARrjgAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=J9ARrjgAAAAJ:tzM49s52ZIMC",
+    "scholarProfileId": "J9ARrjgAAAAJ",
+    "researchers": [
+      "Georgios Marios Karagiannis"
     ]
   },
   {
@@ -1318,7 +1331,7 @@
     "authors": "G Pescaroli, S Dryhurst, GM Karagiannis",
     "publication": "Frontiers in Communication 10, 1451800, 2025",
     "year": "2025",
-    "citations": 20,
+    "citations": 21,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=J9ARrjgAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=J9ARrjgAAAAJ:kzcrU_BdoSEC",
     "scholarProfileId": "J9ARrjgAAAAJ",
     "researchers": [
@@ -1613,19 +1626,6 @@
     ]
   },
   {
-    "id": "J9ARrjgAAAAJ:tzM49s52ZIMC",
-    "title": "Preference For Warning Information Sources from a Global Dataset",
-    "authors": "GM Karagiannis, S Dryhurst, G Pescaroli",
-    "publication": "Available at SSRN 5816182, 2025",
-    "year": "2025",
-    "citations": 0,
-    "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=J9ARrjgAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=J9ARrjgAAAAJ:tzM49s52ZIMC",
-    "scholarProfileId": "J9ARrjgAAAAJ",
-    "researchers": [
-      "Georgios Marios Karagiannis"
-    ]
-  },
-  {
     "id": "nMuRV_cAAAAJ:RfUwGJFMQ-0C",
     "title": "Seasonal Variability and Monthly Trends in Upper Tropospheric Humidity for the Period 1979–2020",
     "authors": "C Benetatos, K Eleftheratos, PT Nastos, C Zerefos",
@@ -1683,7 +1683,7 @@
     "authors": "A Chatziafratis, AS Fokas, K Kalimeris",
     "publication": "Partial Differential Equations in Applied Mathematics 14, 101144, 2025",
     "year": "2025",
-    "citations": 16,
+    "citations": 17,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:XAp-VaTZjjwC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -2333,7 +2333,7 @@
     "authors": "CE Synolakis, GM Karagiannis",
     "publication": "PNAS nexus 3 (5), pgae151, 2024",
     "year": "2024",
-    "citations": 72,
+    "citations": 73,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:wE-fMHVdjMkC",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -2490,7 +2490,7 @@
     "authors": "J Kapsomenakis, C Douvis, A Poupkou, S Zerefos, S Solomos, T Stavraka, ...",
     "publication": "Environment, Development and Sustainability 25 (12), 14519-14544, 2023",
     "year": "2023",
-    "citations": 80,
+    "citations": 81,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:TaaCk18tZOkC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -2620,7 +2620,7 @@
     "authors": "A Fokas, E Kaxiras",
     "publication": "",
     "year": "2023",
-    "citations": 18,
+    "citations": 19,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:Xz60mAmATU4C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -2672,7 +2672,7 @@
     "authors": "AS Fokas, AR Its, AA Kapaev, VY Novokshenov",
     "publication": "American Mathematical Society, 2023",
     "year": "2023",
-    "citations": 773,
+    "citations": 775,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:nb7KW1ujOQ8C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -2799,7 +2799,7 @@
   {
     "id": "20dnM4UAAAAJ:RMgMIBzvq-4C",
     "title": "The korteweg–de vries equation with forcing involving products of eigenfunctions",
-    "authors": "A Fokas, A Latifi",
+    "authors": "AS Fokas, A Latifi",
     "publication": "J. Of Math. Phy., Anal., Geom 19, 2023",
     "year": "2023",
     "citations": 2,
@@ -2932,7 +2932,7 @@
     "authors": "P Lynett, M McCann, Z Zhou, W Renteria, J Borrero, D Greer, O Fa’anunu, ...",
     "publication": "Nature 609 (7928), 728-733, 2022",
     "year": "2022",
-    "citations": 187,
+    "citations": 189,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:mWEH9CqjF64C",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -3036,7 +3036,7 @@
     "authors": "O Kairis, A Karamanos, D Voloudakis, J Kapsomenakis, C Aratzioglou, ...",
     "publication": "Land 11 (3), 395, 2022",
     "year": "2022",
-    "citations": 40,
+    "citations": 41,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:XiVPGOgt02cC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -3050,7 +3050,7 @@
     "authors": "AS Fokas",
     "publication": "Proceedings. Mathematical, Physical, and Engineering Sciences 478 (2263 …, 2022",
     "year": "2022",
-    "citations": 21,
+    "citations": 22,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:48xauSegjOkC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -3285,7 +3285,7 @@
     "authors": "MI Desai, DG Mitchell, DJ McComas, JF Drake, T Phan, JR Szalay, ...",
     "publication": "The Astrophysical Journal 927 (1), 62, 2022",
     "year": "2022",
-    "citations": 23,
+    "citations": 24,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:D4n_APcuzvwC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -3480,7 +3480,7 @@
     "authors": "A Wagner, Y Bennouna, AM Blechschmidt, G Brasseur, S Chabrillat, ...",
     "publication": "Elem Sci Anth 9 (1), 00171, 2021",
     "year": "2021",
-    "citations": 53,
+    "citations": 54,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:lgwcVrK6X84C",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -3740,7 +3740,7 @@
     "authors": "A Pavlidis, E Floratos",
     "publication": "Physical Review A 103 (3), 032417, 2021",
     "year": "2021",
-    "citations": 59,
+    "citations": 60,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:kRWSkSYxWN8C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -3766,7 +3766,7 @@
     "authors": "AS Fokas, GA Kastis",
     "publication": "Journal of medical Internet research 23 (5), e22431, 2021",
     "year": "2021",
-    "citations": 16,
+    "citations": 17,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:0EnyYjriUFMC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -4405,7 +4405,7 @@
     "authors": "MI Desai, DG Mitchell, JR Szalay, EC Roelof, J Giacalone, ME Hill, ...",
     "publication": "The Astrophysical Journal Supplement Series 246 (2), 56, 2020",
     "year": "2020",
-    "citations": 21,
+    "citations": 20,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:hwlm9Y4obscC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -4769,7 +4769,7 @@
     "authors": "SM Krimigis, RB Decker, EC Roelof, ME Hill, CO Bostrom, K Dialynas, ...",
     "publication": "Nature Astronomy 3 (11), 997-1006, 2019",
     "year": "2019",
-    "citations": 104,
+    "citations": 105,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:vkDViGfkvYEC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -4925,7 +4925,7 @@
     "authors": "SA Stern, HA Weaver, JR Spencer, CB Olkin, GR Gladstone, WM Grundy, ...",
     "publication": "Science 364 (6441), eaaw9771, 2019",
     "year": "2019",
-    "citations": 216,
+    "citations": 215,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:Sw8WaQuuSIgC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -5261,7 +5261,7 @@
     "id": "20dnM4UAAAAJ:eQOLeE2rZwMC",
     "title": "The unified transform for mixed boundary condition problems in unbounded domains",
     "authors": "MJ Colbrook, LJ Ayton, AS Fokas",
-    "publication": "Proceedings. Mathematical, physical, and engineering sciences 475 (2222 …, 2019",
+    "publication": "Proceedings of the Royal Society A 475 (2222), 20180605, 2019",
     "year": "2019",
     "citations": 37,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:eQOLeE2rZwMC",
@@ -5315,7 +5315,7 @@
     "authors": "K Garane, ME Koukouli, T Verhoelst, C Lerot, KP Heue, V Fioletov, ...",
     "publication": "Atmospheric Measurement Techniques 12 (10), 5263-5287, 2019",
     "year": "2019",
-    "citations": 170,
+    "citations": 171,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:wMgC3FpKEyYC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -5628,7 +5628,7 @@
     "authors": "AS Fokas, MC Van der Weele",
     "publication": "Journal of Mathematical Physics 59 (9), 2018",
     "year": "2018",
-    "citations": 32,
+    "citations": 33,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:fbc8zXXH2BUC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -5953,7 +5953,7 @@
     "authors": "SM KRIMIGIS, T SUNDBERG",
     "publication": "Mercury: The View after MESSENGER 21, 461, 2018",
     "year": "2018",
-    "citations": 29,
+    "citations": 28,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:PbrqR9PZhrEC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -6018,7 +6018,7 @@
     "authors": "AS Fokas, CG Vayenas, DP Grigoriou",
     "publication": "Physica A: Statistical Mechanics and its Applications 492, 737-746, 2018",
     "year": "2018",
-    "citations": 18,
+    "citations": 19,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:kw52XkFRtyQC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -6083,7 +6083,7 @@
     "authors": "J Rao, Y Zhang, AS Fokas, J He",
     "publication": "Nonlinearity 31 (9), 4090-4107, 2018",
     "year": "2018",
-    "citations": 139,
+    "citations": 140,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:q3oQSFYPqjQC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -6681,7 +6681,7 @@
     "authors": "T Bountis, AS Fokas, EZ Psarakis",
     "publication": "International Journal of Arts and Technology 10 (1), 27-42, 2017",
     "year": "2017",
-    "citations": 25,
+    "citations": 26,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:d1gkVwhDpl0C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -6915,7 +6915,7 @@
     "authors": "N Sergis, CM Jackman, MF Thomsen, SM Krimigis, DG Mitchell, ...",
     "publication": "Journal of Geophysical Research: Space Physics 122 (2), 1803-1815, 2017",
     "year": "2017",
-    "citations": 47,
+    "citations": 48,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:8_tS2Vw13FcC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -7097,7 +7097,7 @@
     "authors": "ME Hill, DG Mitchell, GB Andrews, SA Cooper, RS Gurnee, JR Hayes, ...",
     "publication": "Journal of Geophysical Research: Space Physics 122 (2), 1513-1530, 2017",
     "year": "2017",
-    "citations": 82,
+    "citations": 84,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:Vch7EZszQGgC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -7254,7 +7254,7 @@
     "authors": "J Adam, D Adamová, MM Aggarwal, G Aglieri Rinella, M Agnello, ...",
     "publication": "Nuclear Physics A 956, 2016",
     "year": "2016",
-    "citations": 107,
+    "citations": 106,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:tS2w5q8j5-wC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -7502,7 +7502,7 @@
     "authors": "J Luterbacher, JP Werner, JE Smerdon, L Fernández-Donado, ...",
     "publication": "Environmental research letters 11 (2), 024001, 2016",
     "year": "2016",
-    "citations": 504,
+    "citations": 505,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:nVrZBo8bIpAC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -7593,7 +7593,7 @@
     "authors": "LF Burlaga, NF Ness, JD Richardson, RB Decker, SM Krimigis",
     "publication": "The Astrophysical Journal 818 (2), 147, 2016",
     "year": "2016",
-    "citations": 19,
+    "citations": 20,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:mu2_AnMl8iYC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -7619,7 +7619,7 @@
     "authors": "AS Fokas",
     "publication": "Nonlinearity 29 (2), 319-324, 2016",
     "year": "2016",
-    "citations": 331,
+    "citations": 332,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:mlAyqtXpCwEC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -7632,7 +7632,7 @@
     "authors": "DJ McComas, N Alexander, N Angold, S Bale, C Beebe, B Birdwell, ...",
     "publication": "Space Science Reviews 204 (1), 187-256, 2016",
     "year": "2016",
-    "citations": 297,
+    "citations": 303,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:Amrzk_ktLr0C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -7749,7 +7749,7 @@
     "authors": "GC Ho, RD Starr, SM Krimigis, JD Vandegriff, DN Baker, RE Gold, ...",
     "publication": "Geophysical Research Letters 43 (2), 550-555, 2016",
     "year": "2016",
-    "citations": 40,
+    "citations": 39,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:0iM-huCvmk0C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -7788,7 +7788,7 @@
     "authors": "CG Vayenas, AS Fokas, D Grigoriou",
     "publication": "Physica A: Statistical Mechanics and its Applications 450, 37-48, 2016",
     "year": "2016",
-    "citations": 29,
+    "citations": 30,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:ubry08Y2EpUC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -8165,7 +8165,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "Physical Review C 91 (2), 024609, 2015",
     "year": "2015",
-    "citations": 505,
+    "citations": 507,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:TIZ-Mc8IlK0C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -8295,7 +8295,7 @@
     "authors": "A Inness, AM Blechschmidt, I Bouarar, S Chabrillat, M Crepulja, ...",
     "publication": "Atmospheric chemistry and physics 15 (9), 5275-5303, 2015",
     "year": "2015",
-    "citations": 161,
+    "citations": 162,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:Y0pCki6q_DkC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -8347,7 +8347,7 @@
     "authors": "B Abelev, J Adam, D Adamova, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "Journal of High Energy Physics 2015 (6), 1-41, 2015",
     "year": "2015",
-    "citations": 486,
+    "citations": 492,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:KlAtU1dfN6UC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -8750,7 +8750,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "Physics Letters B 741, 38-50, 2015",
     "year": "2015",
-    "citations": 93,
+    "citations": 91,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:KUbvn5osdkgC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9234,7 +9234,7 @@
     "authors": "CG Vayenas, S Souentie, A Fokas",
     "publication": "Physica A: Statistical Mechanics and its Applications 405, 360-379, 2014",
     "year": "2014",
-    "citations": 40,
+    "citations": 41,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:tH6gc1N1XXoC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -9364,7 +9364,7 @@
     "authors": "B Abelev, J Adam, D Adamova, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "Physical Review C 90 (3), 034904, 2014",
     "year": "2014",
-    "citations": 376,
+    "citations": 379,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:BwyfMAYsbu0C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9390,7 +9390,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, GA Rinella, M Agnello, ...",
     "publication": "Physics Letters B 738, 97-108, 2014",
     "year": "2014",
-    "citations": 154,
+    "citations": 155,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:-f6ydRqryjwC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9442,7 +9442,7 @@
     "authors": "B Abelev, J Adam, D Adamova, MM Aggarwal, GA Rinella, M Agnello, ...",
     "publication": "Physics Letters B 734, 314-327, 2014",
     "year": "2014",
-    "citations": 569,
+    "citations": 568,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:TFP_iSt0sucC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9455,7 +9455,7 @@
     "authors": "AS Fokas, B Pelloni",
     "publication": "Unified Transform for Boundary Value Problems: Applications and Advances, 1-9, 2014",
     "year": "2014",
-    "citations": 13,
+    "citations": 14,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:O0nohqN1r9EC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -9689,7 +9689,7 @@
     "authors": "ALICE Collaboration alice-publications@ cern. ch, B Abelev, J Adam, ...",
     "publication": "The European Physical Journal C 74 (10), 3077, 2014",
     "year": "2014",
-    "citations": 139,
+    "citations": 138,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:Wp0gIr-vW9MC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9728,7 +9728,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, G Aglieri Rinella, ...",
     "publication": "Physical review letters 113 (23), 232504, 2014",
     "year": "2014",
-    "citations": 316,
+    "citations": 317,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:HoB7MX3m0LUC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9741,7 +9741,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "Physics Letters B 739, 139-151, 2014",
     "year": "2014",
-    "citations": 148,
+    "citations": 146,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:eq2jaN3J8jMC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9806,7 +9806,7 @@
     "authors": "B Abelev, J Adam, D Adamova, AM Adare, MM Aggarwal, ...",
     "publication": "Journal of High Energy Physics 2014 (2), 1-26, 2014",
     "year": "2014",
-    "citations": 395,
+    "citations": 393,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:9vf0nzSNQJEC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9898,7 +9898,7 @@
     "authors": "B Abelev, J Adam, D Adamova, MM Aggarwal, G Aglieri Rinella, ...",
     "publication": "Physical review letters 113 (23), 232301, 2014",
     "year": "2014",
-    "citations": 289,
+    "citations": 293,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:_Ybze24A_UAC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9924,7 +9924,7 @@
     "authors": "ALICE Collaboration alice-publications@ cern. ch, B Abelev, J Adam, ...",
     "publication": "The European Physical Journal C 74 (8), 2974, 2014",
     "year": "2014",
-    "citations": 339,
+    "citations": 340,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:e5wmG9Sq2KIC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9937,7 +9937,7 @@
     "authors": "B Abelev",
     "publication": "Journal of Instrumentation 9, 2014",
     "year": "2014",
-    "citations": 176,
+    "citations": 175,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:OP4eGU-M3BUC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -9989,7 +9989,7 @@
     "authors": "B Abelev, J Adam, D Adamova, AM Adare, MM Aggarwal, GA Rinella, ...",
     "publication": "Physics Letters B 728, 216-227, 2014",
     "year": "2014",
-    "citations": 625,
+    "citations": 629,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:RGFaLdJalmkC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10002,7 +10002,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, G Aglieri Rinella, ...",
     "publication": "Physical Review C 90 (5), 054901, 2014",
     "year": "2014",
-    "citations": 442,
+    "citations": 439,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:LkGwnXOMwfcC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10041,7 +10041,7 @@
     "authors": "B Abelev, J Adam, D Adamova, AM Adare, MM Aggarwal, GA Rinella, ...",
     "publication": "Physics Letters B 728, 25-38, 2014",
     "year": "2014",
-    "citations": 947,
+    "citations": 945,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:W5xh706n7nkC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10106,7 +10106,7 @@
     "authors": "ALICE Collaboration alice-publications@ cern. ch, B Abelev, J Adam, ...",
     "publication": "The European Physical Journal C 74 (10), 3108, 2014",
     "year": "2014",
-    "citations": 186,
+    "citations": 187,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:q-HalDI95KYC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10249,7 +10249,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, GA Rinella, M Agnello, ...",
     "publication": "Physics Letters B 736, 196-207, 2014",
     "year": "2014",
-    "citations": 487,
+    "citations": 489,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:IjCSPb-OGe4C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10379,7 +10379,7 @@
     "authors": "B Abelev, J Adam, D Adamova, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "Journal of high energy physics 2014 (12), 1-25, 2014",
     "year": "2014",
-    "citations": 234,
+    "citations": 232,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:35r97b3x0nAC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10405,7 +10405,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, GA Rinella, M Agnello, ...",
     "publication": "Journal of Physics G: Nuclear and Particle Physics 41 (8), 2014",
     "year": "2014",
-    "citations": 791,
+    "citations": 792,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:1sJd4Hv_s6UC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10483,7 +10483,7 @@
     "authors": "AS Fokas, S De Lillo",
     "publication": "Physica Scripta 89 (3), 038004, 2014",
     "year": "2014",
-    "citations": 12,
+    "citations": 13,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:MAUkC_7iAq8C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -10548,7 +10548,7 @@
     "authors": "B Abelev, J Adam, D Adamová, MM Aggarwal, M Agnello, A Agostinelli, ...",
     "publication": "The European Physical Journal C 74 (9), 3054, 2014",
     "year": "2014",
-    "citations": 224,
+    "citations": 225,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:eJXPG6dFmWUC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10587,7 +10587,7 @@
     "authors": "B Abelev, J Adam, D Adamova, MM Aggarwal, GA Rinella, M Agnello, ...",
     "publication": "Physical Review C 89 (2), 024911, 2014",
     "year": "2014",
-    "citations": 124,
+    "citations": 123,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:UxriW0iASnsC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10808,7 +10808,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physical Review C—Nuclear Physics 88 (4), 044910, 2013",
     "year": "2013",
-    "citations": 1243,
+    "citations": 1238,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:hMsQuOkrut0C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10821,7 +10821,7 @@
     "authors": "E Abbas, B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physics Letters B 726 (4-5), 610-622, 2013",
     "year": "2013",
-    "citations": 372,
+    "citations": 370,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:_Re3VWB3Y0AC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10847,7 +10847,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physical Review C—Nuclear Physics 88 (4), 044909, 2013",
     "year": "2013",
-    "citations": 1181,
+    "citations": 1188,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:_FxGoFyzp5QC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10873,7 +10873,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, GA Rinella, ...",
     "publication": "Physics Letters B 723 (4-5), 267-279, 2013",
     "year": "2013",
-    "citations": 117,
+    "citations": 118,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:bEWYMUwI8FkC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10899,7 +10899,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physical Review D—Particles, Fields, Gravitation, and Cosmology 87 (5), 052016, 2013",
     "year": "2013",
-    "citations": 110,
+    "citations": 109,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:_B80troHkn4C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10912,7 +10912,7 @@
     "authors": "ALICE Collaboration Eugenio. Scapparone@ bo. infn. it, E Abbas, ...",
     "publication": "The European Physical Journal C 73 (11), 2617, 2013",
     "year": "2013",
-    "citations": 518,
+    "citations": 519,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:mvPsJ3kp5DgC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10977,7 +10977,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physical review letters 111 (23), 232302, 2013",
     "year": "2013",
-    "citations": 165,
+    "citations": 164,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:yB1At4FlUx8C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -10990,7 +10990,7 @@
     "authors": "JM Raines, DJ Gershman, TH Zurbuchen, M Sarantos, JA Slavin, ...",
     "publication": "Journal of Geophysical Research: Space Physics 118 (4), 1604-1619, 2013",
     "year": "2013",
-    "citations": 109,
+    "citations": 108,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:MpfHP-DdYjUC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -11120,7 +11120,7 @@
     "authors": "Ø Hov, U Cubasch, E Fischer, P Höppe, T Iversen, N Gunnar Kvamstø, ...",
     "publication": "Norwegian Meteorological Institute, 2013",
     "year": "2013",
-    "citations": 105,
+    "citations": 106,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:U4n9YNQMCAIC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -11315,7 +11315,7 @@
     "authors": "B Abelev, J Adam, D Adamova, AM Adare, MM Aggarwal, ...",
     "publication": "Physical review letters 111 (22), 222301, 2013",
     "year": "2013",
-    "citations": 636,
+    "citations": 635,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:qUcmZB5y_30C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -11380,7 +11380,7 @@
     "authors": "B Abelev, J Adam, D Adamova, AM Adare, M Aggarwal, GA Rinella, ...",
     "publication": "Physics Letters B 719 (1-3), 29-41, 2013",
     "year": "2013",
-    "citations": 1886,
+    "citations": 1870,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:2VqYfGB8ITEC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -11432,7 +11432,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physical review letters 111 (10), 102301, 2013",
     "year": "2013",
-    "citations": 359,
+    "citations": 360,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:eMMeJKvmdy0C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -11471,7 +11471,7 @@
     "authors": "B Abelev, J Adam, D Adamova, AM Adare, MM Aggarwal, GA Rinella, ...",
     "publication": "Physics Letters B 727 (4-5), 371-380, 2013",
     "year": "2013",
-    "citations": 371,
+    "citations": 367,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:zA6iFVUQeVQC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -11653,7 +11653,7 @@
     "authors": "SM Krimigis, RB Decker, EC Roelof, ME Hill, TP Armstrong, G Gloeckler, ...",
     "publication": "Science 341 (6142), 144-147, 2013",
     "year": "2013",
-    "citations": 253,
+    "citations": 254,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:edDO8Oi4QzsC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -11783,7 +11783,7 @@
     "authors": "D Mantzavinos, AS Fokas",
     "publication": "European Journal of Applied Mathematics 24 (6), 857-886, 2013",
     "year": "2013",
-    "citations": 30,
+    "citations": 31,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:vRqMK49ujn8C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -12264,7 +12264,7 @@
     "authors": "CS Zerefos, K Tourpali, K Eleftheratos, S Kazadzis, C Meleti, U Feister, ...",
     "publication": "Atmospheric Chemistry and Physics 12 (5), 2469-2477, 2012",
     "year": "2012",
-    "citations": 68,
+    "citations": 69,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:anf4URPfarAC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -12472,7 +12472,7 @@
     "authors": "B Abelev, J Adam, D Adamová, AM Adare, MM Aggarwal, ...",
     "publication": "Physical Review D—Particles, Fields, Gravitation, and Cosmology 86 (11), 112007, 2012",
     "year": "2012",
-    "citations": 248,
+    "citations": 250,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:ZuybSZzF8UAC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -12485,7 +12485,7 @@
     "authors": "JA Slavin, BJ Anderson, DN Baker, M Benna, SA Boardsen, RE Gold, ...",
     "publication": "Journal of Geophysical Research: Space Physics 117 (A1), 2012",
     "year": "2012",
-    "citations": 111,
+    "citations": 110,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:WZBGuue-350C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -12498,7 +12498,7 @@
     "authors": "T Sundberg, JA Slavin, SA Boardsen, BJ Anderson, H Korth, GC Ho, ...",
     "publication": "Journal of Geophysical Research: Space Physics 117 (A12), 2012",
     "year": "2012",
-    "citations": 102,
+    "citations": 101,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:sNmaIFBj_lkC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -12797,7 +12797,7 @@
     "authors": "GC Ho, SM Krimigis, RE Gold, DN Baker, BJ Anderson, H Korth, JA Slavin, ...",
     "publication": "Journal of Geophysical Research: Space Physics 117 (A12), 2012",
     "year": "2012",
-    "citations": 43,
+    "citations": 42,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:dBIO0h50nwkC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -12849,7 +12849,7 @@
     "authors": "AS Fokas, EA Spence",
     "publication": "Siam Review 54 (2), 291-324, 2012",
     "year": "2012",
-    "citations": 103,
+    "citations": 104,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:M3ejUd6NZC8C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -13733,7 +13733,7 @@
     "authors": "K Eleftheratos, CS Zerefos, C Varotsos, I Kapsomenakis",
     "publication": "International journal of remote sensing 32 (21), 6395-6405, 2011",
     "year": "2011",
-    "citations": 13,
+    "citations": 14,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:AXPGKjj_ei8C",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -13772,7 +13772,7 @@
     "authors": "CM Philandras, PT Nastos, J Kapsomenakis, KC Douvis, G Tselioudis, ...",
     "publication": "Natural Hazards and Earth System Sciences 11 (12), 3235-3250, 2011",
     "year": "2011",
-    "citations": 322,
+    "citations": 323,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:uWQEDVKXjbEC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -13889,7 +13889,7 @@
     "authors": "JM Raines, JA Slavin, TH Zurbuchen, G Gloeckler, BJ Anderson, ...",
     "publication": "Planetary and Space Science 59 (15), 2004-2015, 2011",
     "year": "2011",
-    "citations": 104,
+    "citations": 105,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:Fu2w8maKXqMC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -13902,7 +13902,7 @@
     "authors": "TH Zurbuchen, JM Raines, JA Slavin, DJ Gershman, JA Gilbert, ...",
     "publication": "Science 333 (6051), 1862-1865, 2011",
     "year": "2011",
-    "citations": 136,
+    "citations": 135,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:eJXPG6dFmWUC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -13915,7 +13915,7 @@
     "authors": "GC Ho, SM Krimigis, RE Gold, DN Baker, JA Slavin, BJ Anderson, H Korth, ...",
     "publication": "Science 333 (6051), 1865-1868, 2011",
     "year": "2011",
-    "citations": 52,
+    "citations": 53,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:Ri6SYOTghG4C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -13980,7 +13980,7 @@
     "authors": "GC Ho, RD Starr, RE Gold, SM Krimigis, JA Slavin, DN Baker, ...",
     "publication": "Planetary and Space Science 59 (15), 2016-2025, 2011",
     "year": "2011",
-    "citations": 43,
+    "citations": 44,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:AvfA0Oy_GE0C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -14475,7 +14475,7 @@
     "authors": "ΕΜΕΚ Αλλαγής",
     "publication": "Τράπεζα της Ελλάδος, Aθήνα, 2011",
     "year": "2011",
-    "citations": 31,
+    "citations": 32,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=9jF1GewAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=9jF1GewAAAAJ:P5F9QuxV20EC",
     "scholarProfileId": "9jF1GewAAAAJ",
     "researchers": [
@@ -14527,7 +14527,7 @@
     "authors": "A Poupkou, T Giannaros, K Markakis, I Kioutsioukis, G Curci, D Melas, ...",
     "publication": "Environmental Modelling & Software 25 (12), 1845-1856, 2010",
     "year": "2010",
-    "citations": 97,
+    "citations": 98,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:ye4kPcJQO24C",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -14839,7 +14839,7 @@
     "authors": "V Huijnen, HJ Eskes, A Poupkou, H Elbern, KF Boersma, G Foret, ...",
     "publication": "Atmospheric Chemistry and Physics 10 (7), 3273-3296, 2010",
     "year": "2010",
-    "citations": 171,
+    "citations": 172,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:FAceZFleit8C",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -15320,7 +15320,7 @@
     "authors": "JA Slavin, BJ Anderson, DN Baker, M Benna, SA Boardsen, G Gloeckler, ...",
     "publication": "Science 329 (5992), 665-668, 2010",
     "year": "2010",
-    "citations": 225,
+    "citations": 224,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:hMod-77fHWUC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -15489,7 +15489,7 @@
     "authors": "J Lenells, AS Fokas",
     "publication": "Journal of mathematical physics 51 (2), 2010",
     "year": "2010",
-    "citations": 29,
+    "citations": 30,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:otzGkya1bYkC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -15606,7 +15606,7 @@
     "authors": "EC Roelof, RB Decker, SM Krimigis",
     "publication": "AIP Conference Proceedings 1216 (1), 359-362, 2010",
     "year": "2010",
-    "citations": 13,
+    "citations": 14,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:buQ7SEKw-1sC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -15710,7 +15710,7 @@
     "authors": "I Kioutsioukis, D Melas, C Zerefos",
     "publication": "International Journal of Climatology 30 (11), 1723-1737, 2010",
     "year": "2010",
-    "citations": 173,
+    "citations": 174,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:IWHjjKOFINEC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -15931,7 +15931,7 @@
     "authors": "RB Decker, SM Krimigis, EC Roelof, ME Hill",
     "publication": "Pickup Ions Throughout the Heliosphere and Beyond 1302, 51-57, 2010",
     "year": "2010",
-    "citations": 27,
+    "citations": 28,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:_FM0Bhl9EiAC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -16342,6 +16342,19 @@
     ]
   },
   {
+    "id": "20dnM4UAAAAJ:nZcligLrVowC",
+    "title": "Electro–magneto-encephalography for a three-shell model: distributed current in arbitrary, spherical and ellipsoidal geometries",
+    "authors": "AS Fokas",
+    "publication": "Journal of The Royal Society Interface 6 (34), 479-488, 2009",
+    "year": "2009",
+    "citations": 59,
+    "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:nZcligLrVowC",
+    "scholarProfileId": "20dnM4UAAAAJ",
+    "researchers": [
+      "Athanassios S. Fokas"
+    ]
+  },
+  {
     "id": "z4j5_IIAAAAJ:5rMqqAh47xYC",
     "title": "Electron absorption signatures in the vicinity of Rhea: Evidence for a debris disk",
     "authors": "GH Jones, E Roussos, N Krupp, SM Krimigis, DT Young",
@@ -16594,7 +16607,7 @@
     "authors": "DJ McComas, F Allegrini, P Bochsler, M Bzowski, ER Christian, GB Crew, ...",
     "publication": "Science 326 (5955), 959-962, 2009",
     "year": "2009",
-    "citations": 633,
+    "citations": 635,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:Y0pCki6q_DkC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -16659,7 +16672,7 @@
     "authors": "P Schippers, N André, RE Johnson, M Blanc, I Dandouras, AJ Coates, ...",
     "publication": "Journal of Geophysical Research: Space Physics 114 (A12), 2009",
     "year": "2009",
-    "citations": 29,
+    "citations": 28,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:GtLg2Ama23sC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -16672,7 +16685,7 @@
     "authors": "SM Krimigis, DG Mitchell, EC Roelof, KC Hsieh, DJ McComas",
     "publication": "Science 326 (5955), 971-973, 2009",
     "year": "2009",
-    "citations": 164,
+    "citations": 166,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:f2IySw72cVMC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -16724,7 +16737,7 @@
     "authors": "AS Fokas",
     "publication": "Studies in Applied Mathematics 122 (4), 347-359, 2009",
     "year": "2009",
-    "citations": 23,
+    "citations": 24,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:HhcuHIWmDEUC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -17036,7 +17049,7 @@
     "authors": "J Lenells, AS Fokas",
     "publication": "Nonlinearity 22 (1), 11-27, 2009",
     "year": "2009",
-    "citations": 194,
+    "citations": 195,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:4vMrXwiscB8C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -17751,7 +17764,7 @@
     "authors": "AS Fokas",
     "publication": "Conf. Ser. Appl. Math 78, 2008",
     "year": "2008",
-    "citations": 623,
+    "citations": 625,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:sA9dB-pw3HoC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -18058,19 +18071,6 @@
     ]
   },
   {
-    "id": "20dnM4UAAAAJ:nZcligLrVowC",
-    "title": "Electro–magneto-encephalography for a three-shell model: distributed current in arbitrary, spherical and ellipsoidal geometries",
-    "authors": "AS Fokas",
-    "publication": "Journal of The Royal Society Interface 6 (34), 479, 2008",
-    "year": "2008",
-    "citations": 59,
-    "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:nZcligLrVowC",
-    "scholarProfileId": "20dnM4UAAAAJ",
-    "researchers": [
-      "Athanassios S. Fokas"
-    ]
-  },
-  {
     "id": "z4j5_IIAAAAJ:08ZZubdj9fEC",
     "title": "ENA periodicities at Saturn",
     "authors": "JF Carbary, DG Mitchell, P Brandt, C Paranicas, SM Krimigis",
@@ -18336,7 +18336,7 @@
     "authors": "HJ Kisch, J Keller, C Benjamini, CE Synolakis, JA MacGillivray, HJ Bruins, ...",
     "publication": "Journal of Archaeological Science 35 (1), 191-212, 2008",
     "year": "2008",
-    "citations": 281,
+    "citations": 282,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:evX43VCCuoAC",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -18414,7 +18414,7 @@
     "authors": "N André, M Blanc, S Maurice, P Schippers, E Pallier, TI Gombosi, ...",
     "publication": "Reviews of Geophysics 46 (4), 2008",
     "year": "2008",
-    "citations": 36,
+    "citations": 37,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:2VqYfGB8ITEC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -18440,7 +18440,7 @@
     "authors": "JL Bona, AS Fokas",
     "publication": "Nonlinearity 21 (10), T195-T203, 2008",
     "year": "2008",
-    "citations": 119,
+    "citations": 118,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:yFnVuubrUp4C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -18557,7 +18557,7 @@
     "authors": "RB Decker, SM Krimigis, EC Roelof, ME Hill, TP Armstrong, G Gloeckler, ...",
     "publication": "Nature 454 (7200), 67-70, 2008",
     "year": "2008",
-    "citations": 285,
+    "citations": 286,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:roLk4NBRz8UC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -18570,7 +18570,7 @@
     "authors": "JA Slavin, MH Acuña, BJ Anderson, DN Baker, M Benna, G Gloeckler, ...",
     "publication": "science 321 (5885), 85-89, 2008",
     "year": "2008",
-    "citations": 198,
+    "citations": 197,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:5McdzzY_mmwC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -18661,7 +18661,7 @@
     "authors": "TH Zurbuchen, JM Raines, G Gloeckler, SM Krimigis, JA Slavin, PL Koehn, ...",
     "publication": "Science 321 (5885), 90-92, 2008",
     "year": "2008",
-    "citations": 161,
+    "citations": 160,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:mVmsd5A6BfQC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -18739,7 +18739,7 @@
     "authors": "P Schippers, M Blanc, N André, I Dandouras, GR Lewis, LK Gilbert, ...",
     "publication": "Journal of Geophysical Research: Space Physics 113 (A7), 2008",
     "year": "2008",
-    "citations": 480,
+    "citations": 479,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:hqOjcs7Dif8C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -18804,7 +18804,7 @@
     "authors": "AS Fokas",
     "publication": "Contemporary Mathematics 458, 71-80, 2008",
     "year": "2008",
-    "citations": 16,
+    "citations": 17,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:F2UWTTQJPOcC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -19442,7 +19442,7 @@
     "authors": "SM Krimigis, N Sergis, DG Mitchell, DC Hamilton, N Krupp",
     "publication": "Nature 450 (7172), 1050-1053, 2007",
     "year": "2007",
-    "citations": 107,
+    "citations": 108,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=600&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:pqnbT2bcN3wC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -19468,7 +19468,7 @@
     "authors": "K Eleftheratos, CS Zerefos, P Zanis, DS Balis, G Tselioudis, K Gierens, ...",
     "publication": "Atmospheric Chemistry and Physics 7 (10), 2631-2642, 2007",
     "year": "2007",
-    "citations": 44,
+    "citations": 45,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:TlpoogIpr_IC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -20937,7 +20937,7 @@
     "authors": "MI Desai, GM Mason, RE Gold, SM Krimigis, CMS Cohen, RA Mewaldt, ...",
     "publication": "The Astrophysical Journal 649 (1), 470-489, 2006",
     "year": "2006",
-    "citations": 191,
+    "citations": 195,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=600&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:-f6ydRqryjwC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -21028,7 +21028,7 @@
     "authors": "U Kânoğlu, C Synolakis",
     "publication": "Physical Review Letters 97 (14), 148501, 2006",
     "year": "2006",
-    "citations": 140,
+    "citations": 141,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:9ZlFYXVOiuMC",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -21067,7 +21067,7 @@
     "authors": "AS Fokas",
     "publication": "Physical review letters 96 (19), 190201, 2006",
     "year": "2006",
-    "citations": 219,
+    "citations": 220,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:dBIO0h50nwkC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -21158,7 +21158,7 @@
     "authors": "J Luterbacher, E Xoplaki, C Casty, H Wanner, A Pauling, M Küttel, ...",
     "publication": "Developments in Earth and environmental Sciences 4, 27-148, 2006",
     "year": "2006",
-    "citations": 324,
+    "citations": 325,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:kz9GbA2Ns4gC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -21197,7 +21197,7 @@
     "authors": "JC Borrero, CE Synolakis, H Fritz",
     "publication": "Earthquake Spectra 22 (3_suppl), 93-104, 2006",
     "year": "2006",
-    "citations": 89,
+    "citations": 88,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:R3hNpaxXUhUC",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -21262,7 +21262,7 @@
     "authors": "MJ Ablowitz, AS Fokas, ZH Musslimani",
     "publication": "Journal of Fluid Mechanics 562, 313-343, 2006",
     "year": "2006",
-    "citations": 188,
+    "citations": 189,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:-f6ydRqryjwC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -21379,7 +21379,7 @@
     "authors": "D Lario, MB Kallenrode, RB Decker, EC Roelof, SM Krimigis, A Aran, ...",
     "publication": "The Astrophysical Journal 653 (2), 1531-1544, 2006",
     "year": "2006",
-    "citations": 153,
+    "citations": 157,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=600&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:nb7KW1ujOQ8C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -21860,7 +21860,7 @@
     "authors": "AS Fokas, B Pelloni",
     "publication": "IMA journal of applied mathematics 70 (4), 564-587, 2005",
     "year": "2005",
-    "citations": 117,
+    "citations": 118,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:bKqednn6t2AC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -21873,7 +21873,7 @@
     "authors": "AS Fokas, DT Papageorgiou",
     "publication": "Studies in Applied Mathematics 114 (1), 95-114, 2005",
     "year": "2005",
-    "citations": 27,
+    "citations": 28,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:1taIhTC69MYC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -22081,7 +22081,7 @@
     "authors": "RB Decker, SM Krimigis",
     "publication": "Science 309, 2020, 2005",
     "year": "2005",
-    "citations": 92,
+    "citations": 93,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=700&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:1HYIo8DVeu0C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -22614,7 +22614,7 @@
     "authors": "PLF Liu, TR Wu, F Raichlen, CE Synolakis, JC Borrero",
     "publication": "Journal of fluid Mechanics 536, 107-144, 2005",
     "year": "2005",
-    "citations": 370,
+    "citations": 371,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:zYLM7Y9cAGgC",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -23030,7 +23030,7 @@
     "authors": "RB Decker, SM Krimigis, EC Roelof, ME Hill, TP Armstrong, G Gloeckler, ...",
     "publication": "Science 309 (5743), 2020-2024, 2005",
     "year": "2005",
-    "citations": 495,
+    "citations": 498,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=700&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:u5HHmVD_uO8C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -23732,7 +23732,7 @@
     "authors": "DS Balis, V Amiridis, S Nickovic, A Papayannis, C Zerefos",
     "publication": "Geophysical Research Letters 31 (13), 2004",
     "year": "2004",
-    "citations": 142,
+    "citations": 143,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:DyXnQzXoVgIC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -24499,7 +24499,7 @@
     "authors": "MJ Ablowitz, AS Fokas",
     "publication": "Cambridge university press, 2003",
     "year": "2003",
-    "citations": 1715,
+    "citations": 1717,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:gsN89kCJA0AC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -24811,7 +24811,7 @@
     "authors": "ME Wiedenbeck, GM Mason, ER Christian, CMS Cohen, AC Cummings, ...",
     "publication": "AIP Conference Proceedings 679 (1), 652-655, 2003",
     "year": "2003",
-    "citations": 28,
+    "citations": 29,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=700&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:35r97b3x0nAC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -25162,7 +25162,7 @@
     "authors": "AS Fokas",
     "publication": "Academic Press, 2003",
     "year": "2003",
-    "citations": 693,
+    "citations": 696,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:hGdtkIFZdKAC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -25175,7 +25175,7 @@
     "authors": "A Stohl, P Bonasoni, P Cristofanelli, W Collins, J Feichter, A Frank, ...",
     "publication": "Journal of Geophysical Research: Atmospheres 108 (D12), 2003",
     "year": "2003",
-    "citations": 654,
+    "citations": 655,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:p__nRnzSRKYC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -25383,7 +25383,7 @@
     "authors": "RB Decker, SM Krimigis",
     "publication": "Advances in Space Research 32 (4), 597-602, 2003",
     "year": "2003",
-    "citations": 77,
+    "citations": 76,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=700&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:-FonjvnnhkoC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -25474,7 +25474,7 @@
     "authors": "AS Fokas",
     "publication": "IMA Journal of Applied Mathematics 67 (6), 559-590, 2002",
     "year": "2002",
-    "citations": 181,
+    "citations": 183,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:4DMP91E08xMC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -25786,7 +25786,7 @@
     "authors": "AS Fokas",
     "publication": "Communications in mathematical physics 230 (1), 1-39, 2002",
     "year": "2002",
-    "citations": 329,
+    "citations": 330,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:OR75R8vi5nAC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -25929,7 +25929,7 @@
     "authors": "DS Balis, CS Zerefos, K Kourtidis, AF Bais, A Hofzumahaus, A Kraus, ...",
     "publication": "Journal of Geophysical Research: Atmospheres 107 (D18), PAU 5-1-PAU 5-12, 2002",
     "year": "2002",
-    "citations": 67,
+    "citations": 68,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:jU7OWUQzBzMC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -27229,7 +27229,7 @@
     "authors": "SC Solomon, RL McNutt Jr, RE Gold, MH Acuña, DN Baker, WV Boynton, ...",
     "publication": "Planetary and Space Science 49 (14-15), 1445-1465, 2001",
     "year": "2001",
-    "citations": 457,
+    "citations": 458,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=800&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:9yKSN-GCB0IC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -28269,7 +28269,7 @@
     "authors": "SM Krimigis, DG Mitchell, DH Hamilton, S Livi, J Dandouras",
     "publication": "AAS/Division for Planetary Sciences Meeting Abstracts# 31 31, 64.04, 1999",
     "year": "1999",
-    "citations": 10,
+    "citations": 9,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=800&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:LXmCCkuhhTsC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -28607,7 +28607,7 @@
     "authors": "RE Gold, SM Krimigis, SE Hawkins III, DK Haggerty, DA Lohr, E Fiore, ...",
     "publication": "Space Science Reviews 86 (1), 541-562, 1998",
     "year": "1998",
-    "citations": 473,
+    "citations": 479,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=800&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:d1gkVwhDpl0C",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -29049,7 +29049,7 @@
     "authors": "GM Mason, RE Gold, SM Krimigis, JE Mazur, GB Andrews, KA Daley, ...",
     "publication": "Space Science Reviews 86 (1), 409-448, 1998",
     "year": "1998",
-    "citations": 295,
+    "citations": 298,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=800&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:eQOLeE2rZwMC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -29114,7 +29114,7 @@
     "authors": "AS Fokas, PJ Olver, P Rosenau",
     "publication": "Algebraic aspects of integrable systems: in memory of Irene Dorfman, 93-101, 1997",
     "year": "1997",
-    "citations": 67,
+    "citations": 66,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:fPk4N6BV_jEC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -29140,7 +29140,7 @@
     "authors": "AS Fokas",
     "publication": "Proceedings of the Royal Society of London. Series A: Mathematical, Physical …, 1997",
     "year": "1997",
-    "citations": 750,
+    "citations": 752,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:UebtZRa9Y70C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -30141,7 +30141,7 @@
     "authors": "AS Fokas, IM Gelfand",
     "publication": "Communications in Mathematical Physics 177 (1), 203-220, 1996",
     "year": "1996",
-    "citations": 139,
+    "citations": 140,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:QYdC8u9Cj1oC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -30661,7 +30661,7 @@
     "authors": "AS Fokas",
     "publication": "Physica D: Nonlinear Phenomena 87 (1-4), 145-150, 1995",
     "year": "1995",
-    "citations": 664,
+    "citations": 665,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:WJVC3Jt7v1AC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -30778,7 +30778,7 @@
     "authors": "AS Fokas",
     "publication": "Acta Applicandae Mathematica 39 (1-3), 295-305, 1995",
     "year": "1995",
-    "citations": 101,
+    "citations": 102,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:D_sINldO8mEC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -31168,7 +31168,7 @@
     "authors": "AS Fokas",
     "publication": "Inverse Problems 10 (2), L19-L22, 1994",
     "year": "1994",
-    "citations": 130,
+    "citations": 131,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:p__nRnzSRKYC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -31311,7 +31311,7 @@
     "authors": "S Tadepalli, CE Synolakis",
     "publication": "Proceedings of the Royal Society of London. Series A: Mathematical and …, 1994",
     "year": "1994",
-    "citations": 483,
+    "citations": 485,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:2osOgNQ5qMEC",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -32065,7 +32065,7 @@
     "authors": "CS Zerefos, AF Bais, IC Ziomas, RD Bojkov",
     "publication": "Journal of Geophysical Research: Atmospheres 97 (D9), 10135-10144, 1992",
     "year": "1992",
-    "citations": 111,
+    "citations": 112,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=500&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:SjuI4pbJlxcC",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -32195,7 +32195,7 @@
     "authors": "AS Fokas, AR Its, AV Kitaev",
     "publication": "Communications in Mathematical Physics 147 (2), 395-430, 1992",
     "year": "1992",
-    "citations": 697,
+    "citations": 698,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:hMod-77fHWUC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -32845,7 +32845,7 @@
     "authors": "AS Fokas, PM Santini",
     "publication": "Physica D: Nonlinear Phenomena 44 (1-2), 99-130, 1990",
     "year": "1990",
-    "citations": 329,
+    "citations": 330,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:70eg2SAEIzsC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -33144,7 +33144,7 @@
     "authors": "AR Its, AV Kitaev, AS Fokas",
     "publication": "Russian Mathematical Surveys 45 (6), 155-157, 1990",
     "year": "1990",
-    "citations": 115,
+    "citations": 116,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:UHK10RUVsp4C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -33261,7 +33261,7 @@
     "authors": "AS Fokas, PM Santini",
     "publication": "Physical review letters 63 (13), 1329, 1989",
     "year": "1989",
-    "citations": 275,
+    "citations": 276,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=300&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:3fE2CSJIrl8C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -34041,7 +34041,7 @@
     "authors": "PM Santini, AS Fokas",
     "publication": "Communications in mathematical physics 115 (3), 375-419, 1988",
     "year": "1988",
-    "citations": 250,
+    "citations": 251,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:cFHS6HbyZ2cC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -34054,7 +34054,7 @@
     "authors": "AS Fokas, PM Santini",
     "publication": "Communications in mathematical physics 116 (3), 449-474, 1988",
     "year": "1988",
-    "citations": 179,
+    "citations": 180,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:LkGwnXOMwfcC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -34236,7 +34236,7 @@
     "authors": "JB Drossopoulos, AJ Karamanos, CA Niavis",
     "publication": "Annals of Botany 59 (2), 173-180, 1987",
     "year": "1987",
-    "citations": 41,
+    "citations": 42,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=9jF1GewAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=9jF1GewAAAAJ:2osOgNQ5qMEC",
     "scholarProfileId": "9jF1GewAAAAJ",
     "researchers": [
@@ -34366,7 +34366,7 @@
     "authors": "ATY Lui, RW McEntire, SM Krimigis",
     "publication": "Journal of Geophysical Research: Space Physics 92 (A7), 7459-7470, 1987",
     "year": "1987",
-    "citations": 277,
+    "citations": 278,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=1000&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:zYLM7Y9cAGgC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -34561,7 +34561,7 @@
     "authors": "AS Fokas",
     "publication": "Studies in Applied Mathematics 77 (3), 253-299, 1987",
     "year": "1987",
-    "citations": 462,
+    "citations": 463,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:PELIpwtuRlgC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -34665,7 +34665,7 @@
     "authors": "CE Synolakis",
     "publication": "Journal of Fluid Mechanics 185, 523-545, 1987",
     "year": "1987",
-    "citations": 1409,
+    "citations": 1411,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=Z5AxUbAAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=Z5AxUbAAAAAJ:u5HHmVD_uO8C",
     "scholarProfileId": "Z5AxUbAAAAAJ",
     "researchers": [
@@ -35198,7 +35198,7 @@
     "authors": "RW McEntire, ATY Lui, SM Krimigis, EP Keath",
     "publication": "Geophysical research letters 12 (5), 317-320, 1985",
     "year": "1985",
-    "citations": 32,
+    "citations": 33,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=1000&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:V3AGJWp-ZtQC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -35250,7 +35250,7 @@
     "authors": "JB Drossopoulos, AJ Karamanos, CA Niavis",
     "publication": "Annals of botany 56 (3), 291-305, 1985",
     "year": "1985",
-    "citations": 54,
+    "citations": 55,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=9jF1GewAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=9jF1GewAAAAJ:hqOjcs7Dif8C",
     "scholarProfileId": "9jF1GewAAAAJ",
     "researchers": [
@@ -35471,7 +35471,7 @@
     "authors": "ET Sarris, SM Krimigis",
     "publication": "Astrophysical Journal, Part 1 (ISSN 0004-637X), vol. 298, Nov. 15, 1985, p …, 1985",
     "year": "1985",
-    "citations": 90,
+    "citations": 91,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=1000&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:RHpTSmoSYBkC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -36017,7 +36017,7 @@
     "authors": "AS Fokas",
     "publication": "Physical Review Letters 51 (1), 3, 1983",
     "year": "1983",
-    "citations": 145,
+    "citations": 146,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:ClCfbGk0d_YC",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -36173,7 +36173,7 @@
     "authors": "MJ Ablowitz, DB Yaacov, AS Fokas",
     "publication": "Studies in Applied Mathematics 69 (2), 135-143, 1983",
     "year": "1983",
-    "citations": 398,
+    "citations": 399,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:86PQX7AUzd4C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -37018,7 +37018,7 @@
     "authors": "EG Floratos, C Kounnas, R Lacaze",
     "publication": "Nuclear Physics B 192 (2), 417-462, 1981",
     "year": "1981",
-    "citations": 436,
+    "citations": 437,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:VL0QpB8kHFEC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -37278,7 +37278,7 @@
     "authors": "EG Floratos, R Lacaze, C Kounnas",
     "publication": "Physics Letters B 98 (1-2), 89-95, 1981",
     "year": "1981",
-    "citations": 232,
+    "citations": 233,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:N5tVd3kTz84C",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -37343,7 +37343,7 @@
     "authors": "AS Fokas, B Fuchssteiner",
     "publication": "Physics letters A 86 (6-7), 341-345, 1981",
     "year": "1981",
-    "citations": 262,
+    "citations": 263,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:TIZ-Mc8IlK0C",
     "scholarProfileId": "20dnM4UAAAAJ",
     "researchers": [
@@ -37902,7 +37902,7 @@
     "authors": "EG Floratos, DA Ross, CT Sachrajda",
     "publication": "Nuclear Physics B 152 (3-4), 493-520, 1979",
     "year": "1979",
-    "citations": 411,
+    "citations": 413,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:M05iB0D1s5AC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -38201,7 +38201,7 @@
     "authors": "EG Floratos, DA Ross, CT Sachrajda",
     "publication": "Nuclear Physics B 139, 545-546, 1978",
     "year": "1978",
-    "citations": 279,
+    "citations": 280,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:uWiczbcajpAC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -38578,7 +38578,7 @@
     "authors": "CS Zerefos, HT Mantis",
     "publication": "Archiv für Meteorologie, Geophysik und Bioklimatologie, Serie B 25 (1), 33-39, 1977",
     "year": "1977",
-    "citations": 14,
+    "citations": 15,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=nMuRV_cAAAAJ&cstart=600&pagesize=100&sortby=pubdate&citation_for_view=nMuRV_cAAAAJ:pyW8ca7W8N0C",
     "scholarProfileId": "nMuRV_cAAAAJ",
     "researchers": [
@@ -38617,7 +38617,7 @@
     "authors": "EG Floratos, DA Ross, CT Sachrajda",
     "publication": "Nuclear Physics B 129 (1), 66-88, 1977",
     "year": "1977",
-    "citations": 750,
+    "citations": 752,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=mRVqqoUAAAAJ&cstart=200&pagesize=100&sortby=pubdate&citation_for_view=mRVqqoUAAAAJ:HDshCWvjkbEC",
     "scholarProfileId": "mRVqqoUAAAAJ",
     "researchers": [
@@ -38994,7 +38994,7 @@
     "authors": "TP Armstrong, SM Krimigis",
     "publication": "Journal of Geophysical Research 81 (4), 677-682, 1976",
     "year": "1976",
-    "citations": 40,
+    "citations": 41,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=1100&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:J-pR_7NvFogC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -39592,7 +39592,7 @@
     "authors": "EC Roelof, SM Krimigis",
     "publication": "Journal of Geophysical Research 78 (25), 5375-5410, 1973",
     "year": "1973",
-    "citations": 159,
+    "citations": 160,
     "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=z4j5_IIAAAAJ&cstart=1200&pagesize=100&sortby=pubdate&citation_for_view=z4j5_IIAAAAJ:LkGwnXOMwfcC",
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
@@ -42496,6 +42496,19 @@
     "scholarProfileId": "z4j5_IIAAAAJ",
     "researchers": [
       "Stamatios Krimigis"
+    ]
+  },
+  {
+    "id": "20dnM4UAAAAJ:bXQfdp6S9ecC",
+    "title": "SPEC IAL IS SUE The unified transform for evolution equations on the half-line with time-periodic boundary conditions",
+    "authors": "AS Fokas, MC van der Weele",
+    "publication": "",
+    "year": "",
+    "citations": 0,
+    "url": "https://scholar.google.com/citations?view_op=view_citation&hl=el&user=20dnM4UAAAAJ&cstart=400&pagesize=100&sortby=pubdate&citation_for_view=20dnM4UAAAAJ:bXQfdp6S9ecC",
+    "scholarProfileId": "20dnM4UAAAAJ",
+    "researchers": [
+      "Athanassios S. Fokas"
     ]
   },
   {
