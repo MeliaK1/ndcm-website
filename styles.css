@@ -552,10 +552,9 @@ img {
 }
 
 .people-grid-featured {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  max-width: 760px;
+  grid-template-columns: repeat(2, minmax(0, 320px));
+  gap: 32px;
+  justify-content: start;
   align-items: stretch;
 }
 
@@ -585,20 +584,17 @@ img {
 
 .person-image-link {
   display: block;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  background: #eef2f6;
+  width: 180px;
+  margin: 0 auto 18px;
 }
 
 .person-photo {
-  width: 100%;
-  height: 100%;
-  display: block;
-  margin: 0;
-  border-radius: 0;
+  width: 180px;
+  height: 220px;
   object-fit: cover;
   object-position: center top;
-  transition: transform 0.35s ease;
+  display: block;
+  border-radius: 8px;
 }
 
 .person-card:hover .person-photo {
