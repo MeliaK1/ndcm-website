@@ -4,6 +4,36 @@ let allPublications = [];
 let visibleCount = PUBLICATIONS_BATCH_SIZE;
 let selectedResearcherId = "all";
 
+const RESEARCHER_NAME_MAP = {
+  "Costas Synolakis": [
+    "Costas Synolakis"
+  ],
+
+  "Stamatios M. Krimigis": [
+    "Stamatios Krimigis"
+  ],
+
+  "Athanasios Fokas": [
+    "Athanassios S. Fokas"
+  ],
+
+  "Christos S. Zerefos": [
+    "Christos Zerefos"
+  ],
+
+  "Andreas Karamanos": [
+    "Karamanos Andreas"
+  ],
+
+  "Emmanouil Floratos": [
+    "EMMANUEL FLORATOS"
+  ],
+
+  "Georgios Marios Karagiannis": [
+    "Georgios Marios Karagiannis"
+  ]
+};
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -124,8 +154,8 @@ function createPublicationCard(publication) {
         rel="noopener noreferrer"
       >
         ${translate(
-          "View on Google Scholar →",
-          "Προβολή στο Google Scholar →"
+          "View on Google Scholar",
+          "Προβολή στο Google Scholar"
         )}
       </a>
     </article>
@@ -186,17 +216,24 @@ function getFilteredPublications() {
   let publications = [...allPublications];
 
   if (selectedResearcherId !== "all") {
-    publications = publications.filter(publication => {
-      /*
-       * The automated publication data currently stores one
-       * scholarProfileId on each publication.
-       */
-      return (
-  Array.isArray(publication.researchers) &&
-  publication.researchers.includes(selectedResearcherId)
-);
-    });
-  }
+
+  const acceptedNames =
+    RESEARCHER_NAME_MAP[selectedResearcherId] ||
+    [selectedResearcherId];
+
+  publications = publications.filter(publication => {
+
+    if (!Array.isArray(publication.researchers)) {
+      return false;
+    }
+
+    return publication.researchers.some(
+      researcher => acceptedNames.includes(researcher)
+    );
+
+  });
+
+}
 
   return sortPublications(
     publications,
