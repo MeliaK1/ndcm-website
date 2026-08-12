@@ -556,6 +556,7 @@ img {
   gap: 32px;
   justify-content: start;
   align-items: stretch;
+  padding: 40px 32px 32px;
 }
 
 @media (max-width: 700px) {
@@ -575,6 +576,7 @@ img {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   text-align: left;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 40px 32px 32px;
 }
 
 .person-card:hover {
@@ -585,7 +587,7 @@ img {
 .person-image-link {
   display: block;
   width: 180px;
-  margin: 0 auto 22px;
+  margin: 0 auto 28px;
 }
 
 .person-photo {
@@ -795,6 +797,7 @@ img {
   .homepage-shell {
     grid-template-columns: 1fr;
   }
+
 
   .news-rail {
     position: static;
