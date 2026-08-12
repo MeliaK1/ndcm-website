@@ -70,7 +70,7 @@ async function loadNews() {
         </p>
 
       <a href="${article.url}" target="_blank" rel="noopener noreferrer">
-          Read full article →
+          Read full article
         </a>
       </article>
     `).join("");
