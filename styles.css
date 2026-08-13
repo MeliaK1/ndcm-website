@@ -654,6 +654,34 @@ img {
   font-size: 1.15rem;
 }
 
+.people-intro {
+  padding: 64px 0 40px;
+}
+
+.people-intro .section-label {
+  margin-bottom: 12px;
+}
+
+.people-intro h1 {
+  margin: 0 0 20px;
+  color: var(--navy);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.people-intro-copy {
+  max-width: 1000px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.people-profiles-section {
+  padding-top: 32px;
+}
+
 .people-profile-list {
   display: grid;
   gap: 2rem;
