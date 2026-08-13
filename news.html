@@ -9,43 +9,152 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="index.html">
-        <div class="brand-logo">
-          <img
-            src="images/logo/academy-of-athens-logo.png"
-            alt="Academy of Athens"
-          />
-        </div>
-        <div>
-          <span class="brand-top">Academy of Athens</span>
-          <span class="brand-name">Natural Disasters &<br>Crisis Management Research Center</span>
-        </div>
+  <div class="container nav-wrap">
+
+    <a
+      class="brand"
+      href="index.html"
+      aria-label="Academy of Athens Research Center homepage"
+    >
+      <div class="brand-logo">
+        <img
+          src="images/logo/academy-of-athens-logo.png"
+          alt="Academy of Athens"
+        />
+      </div>
+
+      <div>
+        <span
+          class="brand-top"
+          data-en="Academy of Athens"
+          data-el="Ακαδημία Αθηνών"
+        >
+          Academy of Athens
+        </span>
+
+        <span
+          class="brand-name"
+          data-en="Natural Disasters & Crisis Management Research Center"
+          data-el="Κέντρο Έρευνας Φυσικών Καταστροφών & Διαχείρισης Κρίσεων"
+        >
+          Natural Disasters &<br />
+          Crisis Management Research Center
+        </span>
+      </div>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a
+        href="index.html#about"
+        data-en="About"
+        data-el="Σχετικά"
+      >
+        About
       </a>
 
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="index.html#about">About</a>
-        <a href="index.html#people">People</a>
-        <a href="index.html#research">Research</a>
-        <a href="index.html#publications">Publications</a>
-        <a href="news.html">News & Events</a>
-      </nav>
+      <a
+        href="people.html"
+        data-en="People"
+        data-el="Άνθρωποι"
+      >
+        People
+      </a>
+
+      <a
+        href="index.html#research"
+        data-en="Research"
+        data-el="Έρευνα"
+      >
+        Research
+      </a>
+
+      <a
+        href="publications.html"
+        data-en="Publications"
+        data-el="Δημοσιεύσεις"
+      >
+        Publications
+      </a>
+
+      <a
+        href="news.html"
+        aria-current="page"
+        data-en="News & Events"
+        data-el="Νέα & Εκδηλώσεις"
+      >
+        News & Events
+      </a>
+    </nav>
+
+    <div class="nav-actions">
+      <button
+        class="search-btn"
+        type="button"
+        aria-label="Search"
+      >
+        ⌕
+      </button>
+
+      <button
+        class="lang-toggle"
+        type="button"
+        data-lang="en"
+        aria-label="Switch language"
+      >
+        EN | ΕΛ
+      </button>
+
+      <button
+        class="menu-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
     </div>
-  </header>
+
+  </div>
+</header>
 
   <main>
     <section class="page-hero">
-      <div class="container">
-        <p class="section-label">News & Events</p>
-        <h1>Latest news, interviews and media mentions</h1>
-        <p>Updates related to the Centre, its researchers and public engagement.</p>
-      </div>
-    </section>
+  <div class="container">
+
+    <p
+      class="section-label"
+      data-en="News & Events"
+      data-el="Νέα & Εκδηλώσεις"
+    >
+      News & Events
+    </p>
+
+    <h1
+      data-en="Latest news, interviews and media mentions"
+      data-el="Τελευταία νέα, συνεντεύξεις και αναφορές στα μέσα ενημέρωσης"
+    >
+      Latest news, interviews and media mentions
+    </h1>
+
+    <p
+      data-en="Updates related to the Centre, its academicians and public engagement."
+      data-el="Ενημερώσεις σχετικά με το Κέντρο, τους ακαδημαϊκούς του και τη δημόσια παρουσία του."
+    >
+      Updates related to the Centre, its academicians and public engagement.
+    </p>
+
+  </div>
+</section>
 
     <section class="section">
       <div class="container">
         <div data-news-feed data-news-limit="all">
-          <p>Loading latest news...</p>
+          <p
+            data-en="Loading latest news..."
+            data-el="Φόρτωση τελευταίων ειδήσεων..."
+          >
+          Loading latest news...
+          </p>
         </div>
       </div>
     </section>
@@ -130,5 +239,6 @@
 </footer>
 
   <script src="news.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
