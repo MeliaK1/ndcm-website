@@ -661,6 +661,7 @@ img {
 
 .people-profile {
   display: block;
+  width: 100%;
   padding: 2rem;
   scroll-margin-top: 120px;
   background: #ffffff;
@@ -673,8 +674,10 @@ img {
 }
 
 .people-profile p {
-  max-width: 850px;
+  width: 100%;
+  max-width: none;
   line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
 
 .people-profile .text-link {
