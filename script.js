@@ -24,9 +24,9 @@ function applyLanguage(language) {
 }
 
 /*
- * Restore the language selected by the visitor.
- * If no language has previously been selected,
- * use English.
+ * Restore the visitor's saved language.
+ * English is used only if no language
+ * has previously been selected.
  */
 const savedLanguage =
   localStorage.getItem("ndcm-language") || "en";
@@ -34,60 +34,51 @@ const savedLanguage =
 applyLanguage(savedLanguage);
 
 /*
- * Change language when the visitor clicks
- * the EN | ΕΛ button.
+ * Change and save the language.
  */
-if (languageButton) {
-  languageButton.addEventListener("click", () => {
-    const currentLanguage =
-      document.documentElement.lang === "el"
-        ? "el"
-        : "en";
+languageButton?.addEventListener("click", () => {
+  const currentLanguage =
+    document.documentElement.lang === "el"
+      ? "el"
+      : "en";
 
-    const nextLanguage =
-      currentLanguage === "en"
-        ? "el"
-        : "en";
+  const nextLanguage =
+    currentLanguage === "en"
+      ? "el"
+      : "en";
 
-    localStorage.setItem(
-      "ndcm-language",
-      nextLanguage
-    );
+  localStorage.setItem(
+    "ndcm-language",
+    nextLanguage
+  );
 
-    applyLanguage(nextLanguage);
+  applyLanguage(nextLanguage);
 
-    /*
-     * Tell dynamically generated content,
-     * such as News and Publications,
-     * that the language has changed.
-     */
-    document.dispatchEvent(
-      new CustomEvent("languageChanged", {
-        detail: {
-          language: nextLanguage
-        }
-      })
-    );
-  });
-}
+  document.dispatchEvent(
+    new CustomEvent("languageChanged", {
+      detail: {
+        language: nextLanguage
+      }
+    })
+  );
+});
 
-if (languageButton) {
-  languageButton.addEventListener("click", () => {
-    const currentLanguage = languageButton.dataset.lang || "en";
-    const nextLanguage = currentLanguage === "en" ? "el" : "en";
 
-    document
-      .querySelectorAll("[data-en][data-el]")
-      .forEach(element => {
-        element.textContent = element.dataset[nextLanguage];
-      });
+const menuButton = document.querySelector(".menu-btn");
+const nav = document.querySelector(".main-nav");
 
-    document.documentElement.lang = nextLanguage;
-    languageButton.dataset.lang = nextLanguage;
-    languageButton.textContent =
-      nextLanguage === "en" ? "EN | ΕΛ" : "ΕΛ | EN";
-  });
-}
+menuButton?.addEventListener("click", () => {
+  const isOpen =
+    menuButton.getAttribute("aria-expanded") === "true";
+
+  menuButton.setAttribute(
+    "aria-expanded",
+    String(!isOpen)
+  );
+
+  nav?.classList.toggle("is-open");
+});
+
 
 const menuButton = document.querySelector('.menu-btn');
 const nav = document.querySelector('.main-nav');
