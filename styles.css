@@ -591,6 +591,7 @@ img {
 }
 
 .person-photo {
+  margin-top: 10px;
   width: 180px;
   height: 220px;
   object-fit: cover;
