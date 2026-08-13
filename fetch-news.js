@@ -108,7 +108,6 @@ const SEARCH_GROUPS = [
 
     names: [
       "Γεώργιος Μάριος Καραγιάννης",
-      "Γιώργος Καραγιάννης",
       "Γ. Μ. Καραγιάννης",
       "Georgios Marios Karagiannis",
       "Georgios M. Karagiannis",
