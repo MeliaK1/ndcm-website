@@ -4,13 +4,6 @@ const { XMLParser } = require("fast-xml-parser");
 
 /*
  * Academicians and recognised name variants.
- *
- * Google News will run a separate search for each alias.
- * This helps capture:
- * - Greek and English spellings
- * - shortened first names
- * - initials
- * - alternative transliterations
  */
 const SEARCH_GROUPS = [
   {
@@ -25,7 +18,10 @@ const SEARCH_GROUPS = [
       "Stamatios Krimigis",
       "Stamatios M. Krimigis",
       "S. Krimigis"
-    ]
+    ],
+
+    surnameGreek: "Κριμιζής",
+    surnameEnglish: "Krimigis"
   },
 
   {
@@ -42,7 +38,10 @@ const SEARCH_GROUPS = [
       "Constantine Synolakis",
       "C. Synolakis",
       "K. Synolakis"
-    ]
+    ],
+
+    surnameGreek: "Συνολάκης",
+    surnameEnglish: "Synolakis"
   },
 
   {
@@ -56,7 +55,10 @@ const SEARCH_GROUPS = [
       "Christos Zerefos",
       "Christos S. Zerefos",
       "C. Zerefos"
-    ]
+    ],
+
+    surnameGreek: "Ζερεφός",
+    surnameEnglish: "Zerefos"
   },
 
   {
@@ -71,7 +73,10 @@ const SEARCH_GROUPS = [
       "Athanassios Fokas",
       "Athanassios S. Fokas",
       "A. Fokas"
-    ]
+    ],
+
+    surnameGreek: "Φωκάς",
+    surnameEnglish: "Fokas"
   },
 
   {
@@ -85,7 +90,10 @@ const SEARCH_GROUPS = [
       "Andreas Karamanos",
       "Andreas I. Karamanos",
       "A. Karamanos"
-    ]
+    ],
+
+    surnameGreek: "Καραμάνος",
+    surnameEnglish: "Karamanos"
   },
 
   {
@@ -99,7 +107,10 @@ const SEARCH_GROUPS = [
       "Emmanouil Floratos",
       "Emmanuel Floratos",
       "E. Floratos"
-    ]
+    ],
+
+    surnameGreek: "Φλωράτος",
+    surnameEnglish: "Floratos"
   },
 
   {
@@ -108,22 +119,51 @@ const SEARCH_GROUPS = [
 
     names: [
       "Γεώργιος Μάριος Καραγιάννης",
-      "Γ. Μ. Καραγιάννης",
       "Georgios Marios Karagiannis",
-      "Georgios M. Karagiannis",
-      "G. M. Karagiannis"
-    ]
+    ],
+
+    surnameGreek: "Καραγιάννης",
+    surnameEnglish: "Karagiannis"
   }
 ];
 
 
 /*
- * Domains that should not appear.
+ * Priority media outlets.
+ *
+ * We run extra surname-based searches
+ * specifically against these publishers.
+ */
+const PRIORITY_SITES = [
+  "protothema.gr",
+  "naftemporiki.gr",
+  "kathimerini.gr"
+];
+
+
+/*
+ * Domains excluded from the site.
  */
 const BLACKLISTED_DOMAINS = [
   "documentonews.gr",
   "avgi.gr"
 ];
+
+
+/*
+ * Normalise text for comparison.
+ */
+function normaliseText(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase("el-GR")
+    .replace(/[“”"'’‘«»]/g, "")
+    .replace(/[–—]/g, "-")
+    .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 
 /*
@@ -160,13 +200,11 @@ function isBlacklisted(domain) {
 
 
 /*
- * Create the Google News RSS search.
- *
- * Each alias is searched separately.
+ * Standard exact-name Google News search.
  */
-function buildGoogleNewsRssUrl(name) {
+function buildGoogleNewsRssUrl(queryText) {
   const query =
-    encodeURIComponent(`"${name}"`);
+    encodeURIComponent(queryText);
 
   return (
     "https://news.google.com/rss/search" +
@@ -179,7 +217,7 @@ function buildGoogleNewsRssUrl(name) {
 
 
 /*
- * Download and parse an RSS feed.
+ * Fetch and parse RSS.
  */
 async function fetchRss(url) {
   const response =
@@ -204,10 +242,7 @@ async function fetchRss(url) {
 
 
 /*
- * Extract the publisher shown by Google News.
- *
- * Google News RSS commonly provides a <source>
- * element containing the original publisher.
+ * Extract original publisher name.
  */
 function getPublisher(item) {
   if (!item?.source) {
@@ -229,153 +264,268 @@ function getPublisher(item) {
 
 
 /*
- * Create a reasonably stable key for
- * duplicate detection.
+ * Remove publisher suffixes from titles.
+ *
+ * Example:
+ *
+ * "Title here - ProtoThema"
+ * "Title here - Kathimerini"
+ *
+ * become:
+ *
+ * "Title here"
  */
-function createArticleKey(article) {
-  return String(article.title || "")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
+function stripPublisherFromTitle(title) {
+  return String(title || "")
+    .replace(
+      /\s[-–—]\s(?:protothema|πρωτο θεμα|naftemporiki|η ναυτεμπορικη|ναυτεμπορικη|kathimerini|καθημερινη|ertnews|cnn\.gr|skai\.gr|ant1 tv).*$/i,
+      ""
+    )
     .trim();
 }
 
 
+/*
+ * Create a title key used for deduplication.
+ */
+function createArticleKey(article) {
+  const cleanTitle =
+    stripPublisherFromTitle(
+      article.title
+    );
+
+  return normaliseText(cleanTitle);
+}
+
+
+/*
+ * Check whether two titles are effectively
+ * the same after normalisation.
+ */
+function titlesAreEquivalent(
+  titleA,
+  titleB
+) {
+  return (
+    createArticleKey({
+      title: titleA
+    }) ===
+    createArticleKey({
+      title: titleB
+    })
+  );
+}
+
+
+/*
+ * Add article only if an equivalent title
+ * does not already exist.
+ */
+function addUniqueArticle(
+  results,
+  article
+) {
+  const duplicate =
+    results.some(existing =>
+      titlesAreEquivalent(
+        existing.title,
+        article.title
+      )
+    );
+
+  if (!duplicate) {
+    results.push(article);
+  }
+}
+
+
+/*
+ * Process one RSS query.
+ */
+async function processQuery({
+  query,
+  group,
+  results
+}) {
+
+  const rssUrl =
+    buildGoogleNewsRssUrl(query);
+
+  console.log(
+    `Searching Google News for: ${query}`
+  );
+
+  try {
+
+    const feed =
+      await fetchRss(rssUrl);
+
+    const items =
+      feed?.rss?.channel?.item || [];
+
+    const itemList =
+      Array.isArray(items)
+        ? items
+        : [items];
+
+    for (const item of itemList) {
+
+      const title =
+        item.title || "";
+
+      const link =
+        item.link || "";
+
+      if (!title || !link) {
+        continue;
+      }
+
+      const pubDate =
+        item.pubDate
+          ? new Date(item.pubDate)
+          : new Date();
+
+      const googleDomain =
+        getDomain(link);
+
+      const publisher =
+        getPublisher(item);
+
+      if (
+        isBlacklisted(publisher) ||
+        isBlacklisted(googleDomain)
+      ) {
+        continue;
+      }
+
+      const article = {
+        title,
+
+        date:
+          pubDate
+            .toISOString()
+            .slice(0, 10),
+
+        category:
+          "In the Media",
+
+        academicianEn:
+          group.academicianEn,
+
+        academicianEl:
+          group.academicianEl,
+
+        url:
+          link,
+
+        publisher,
+
+        domain:
+          googleDomain,
+
+        approved:
+          true
+      };
+
+      addUniqueArticle(
+        results,
+        article
+      );
+    }
+
+  } catch (error) {
+
+    console.error(
+      `Could not fetch news for ${query}:`,
+      error.message
+    );
+
+  }
+}
+
+
 async function main() {
+
   const results = [];
 
-  for (const group of SEARCH_GROUPS) {
 
-    for (const name of group.names) {
+  for (
+    const group
+    of SEARCH_GROUPS
+  ) {
 
-      const rssUrl =
-        buildGoogleNewsRssUrl(name);
+    /*
+     * 1. Search every known name variant.
+     */
+    for (
+      const name
+      of group.names
+    ) {
 
-      console.log(
-        `Searching Google News for: ${name}`
-      );
+      await processQuery({
+        query: `"${name}"`,
+        group,
+        results
+      });
 
-      try {
-        const feed =
-          await fetchRss(rssUrl);
-
-        const items =
-          feed?.rss?.channel?.item || [];
-
-        const itemList =
-          Array.isArray(items)
-            ? items
-            : [items];
-
-        for (const item of itemList) {
-
-          const title =
-            item.title || "";
-
-          const link =
-            item.link || "";
-
-          if (!title || !link) {
-            continue;
-          }
-
-          const pubDate =
-            item.pubDate
-              ? new Date(item.pubDate)
-              : new Date();
-
-          const googleDomain =
-            getDomain(link);
-
-          const publisher =
-            getPublisher(item);
-
-          /*
-           * IMPORTANT:
-           *
-           * We deliberately DO NOT require
-           * the academician's name to appear
-           * in the headline.
-           *
-           * Google News has already returned
-           * this article for the exact-name
-           * search above.
-           *
-           * The previous titleContainsName()
-           * test discarded articles where the
-           * academician appeared in the story
-           * but not in the headline.
-           */
-
-          if (
-            isBlacklisted(publisher) ||
-            isBlacklisted(googleDomain)
-          ) {
-            continue;
-          }
-
-          results.push({
-            title,
-
-            date:
-              pubDate
-                .toISOString()
-                .slice(0, 10),
-
-            category:
-              "In the Media",
-
-            academicianEn:
-              group.academicianEn,
-
-            academicianEl:
-              group.academicianEl,
-
-            url:
-              link,
-
-            publisher:
-              publisher,
-
-            domain:
-              googleDomain,
-
-            approved:
-              true
-          });
-        }
-
-      } catch (error) {
-        console.error(
-          `Could not fetch news for ${name}:`,
-          error.message
-        );
-      }
     }
+
+
+    /*
+     * 2. Run additional surname-only
+     * searches on priority publishers.
+     *
+     * This is what should help us capture
+     * articles where the name appears in
+     * the description/body but not headline.
+     */
+    for (
+      const site
+      of PRIORITY_SITES
+    ) {
+
+      await processQuery({
+        query:
+          `${group.surnameGreek} site:${site}`,
+        group,
+        results
+      });
+
+      await processQuery({
+        query:
+          `${group.surnameEnglish} site:${site}`,
+        group,
+        results
+      });
+
+    }
+
   }
 
 
   /*
-   * Remove duplicates.
-   *
-   * Searching multiple aliases will often
-   * return the same article more than once.
+   * Final safety deduplication.
    */
-  const uniqueResults =
-    Array.from(
-      new Map(
-        results.map(article => [
-          createArticleKey(article),
-          article
-        ])
-      ).values()
+  const deduplicatedResults = [];
+
+  for (
+    const article
+    of results
+  ) {
+
+    addUniqueArticle(
+      deduplicatedResults,
+      article
     );
+
+  }
 
 
   /*
    * Newest first.
    */
   const sortedResults =
-    uniqueResults.sort(
+    deduplicatedResults.sort(
       (a, b) =>
         new Date(b.date) -
         new Date(a.date)
@@ -394,8 +544,9 @@ async function main() {
 
 
   console.log(
-    `Updated data/news.json with ${sortedResults.length} articles.`
+    `Updated data/news.json with ${sortedResults.length} unique articles.`
   );
+
 }
 
 
