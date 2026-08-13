@@ -7,12 +7,10 @@ const { XMLParser } = require("fast-xml-parser");
  * ACADEMICIANS INCLUDED IN AUTOMATED NEWS SEARCH
  * ============================================================
  *
- * IMPORTANT:
- * Fokas, Karamanos, Floratos and Karagiannis have deliberately
- * been removed because their names generate too many unrelated
- * results.
+ * Only these three academicians are included because the other
+ * names were generating too many unrelated results.
  *
- * Articles are accepted ONLY when a recognised version of the
+ * An article is accepted ONLY when a recognised version of the
  * academician's name appears in the headline.
  */
 
@@ -288,20 +286,9 @@ function titleContainsAcademician(
  * URL QUALITY VALIDATION
  * ============================================================
  *
- * Reject URLs that clearly represent:
- * - category pages
- * - archive pages
- * - search results
- * - tag pages
- * - author indexes
- * - pagination
- * - homepages
+ * Reject obvious archive, category, search and pagination URLs.
  *
- * This specifically prevents URLs such as:
- *
- * /finance/economy/page/398/?page=1360
- *
- * from being accepted as individual articles.
+ * Google News article URLs are allowed.
  */
 
 function isValidArticleUrl(url) {
@@ -319,10 +306,7 @@ function isValidArticleUrl(url) {
 
 
   /*
-   * Google News redirect URLs are allowed.
-   *
-   * Google News RSS commonly provides these instead
-   * of the final publisher URL.
+   * Google News article redirect URLs are valid.
    */
   if (
     parsed.hostname === "news.google.com"
@@ -357,11 +341,11 @@ function isValidArticleUrl(url) {
 
 
   /*
-   * Reject obvious pagination paths.
+   * Reject pagination paths.
    *
    * Examples:
    * /page/2/
-   * /page/398/
+   * /finance/economy/page/398/
    */
   if (
     /\/page\/\d+\/?$/i.test(
@@ -432,8 +416,7 @@ function isValidArticleUrl(url) {
 
 
   /*
-   * Reject URLs that end simply in a generic
-   * news/category section.
+   * Reject obvious section landing pages.
    */
   const genericSections = [
     "/news/",
@@ -459,10 +442,7 @@ function isValidArticleUrl(url) {
 
 
   /*
-   * Require a reasonably substantial path.
-   *
-   * Individual articles normally contain
-   * more than one meaningful path segment.
+   * Require more than one meaningful path segment.
    */
   const segments =
     pathname
@@ -576,13 +556,13 @@ function stripPublisherFromTitle(
 
 
 /*
- * Google News normally formats headlines as:
+ * Remove a likely publisher suffix.
  *
- * Article headline - Publisher
+ * Example:
  *
- * Remove the final publisher section when necessary.
+ * Article title - Kathimerini
+ * Article title - ProtoThema
  */
-
 function stripGenericPublisherSuffix(
   title
 ) {
@@ -603,7 +583,7 @@ function stripGenericPublisherSuffix(
 
 
   /*
-   * Do not remove long headline fragments.
+   * Do not remove long genuine headline fragments.
    */
   if (
     possiblePublisher.length > 45
@@ -789,39 +769,13 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 3. URL VALIDATION
+       * 3. RSS LINK VALIDATION
        * --------------------------------------------------------
-       */
-
-      const publisherUrl =
-        getPublisherUrl(item);
-
-
-      /*
-       * Validate publisher URL when Google provides one.
        *
-       * This is the important check for archive/category
-       * pages such as the Naftemporiki example.
+       * The actual Google News RSS result must look like
+       * a valid article link.
        */
-      if (
-        publisherUrl &&
-        !isValidArticleUrl(
-          publisherUrl
-        )
-      ) {
 
-        console.log(
-          `Rejected - invalid publisher/article URL: ${publisherUrl}`
-        );
-
-        continue;
-      }
-
-
-      /*
-       * Also ensure the RSS link itself has an acceptable
-       * structure.
-       */
       if (
         !isValidArticleUrl(
           link
@@ -838,7 +792,40 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 4. DATE
+       * 4. PUBLISHER URL
+       * --------------------------------------------------------
+       *
+       * IMPORTANT:
+       *
+       * Google News often gives us the publisher homepage
+       * in <source>, for example:
+       *
+       * https://www.kathimerini.gr/
+       *
+       * That does NOT mean the article itself is invalid.
+       *
+       * We therefore use the publisher URL only when it looks
+       * like a genuine individual article URL.
+       *
+       * Otherwise we fall back to the Google News article link.
+       */
+
+      const publisherUrl =
+        getPublisherUrl(item);
+
+
+      const validPublisherArticleUrl =
+        publisherUrl &&
+        isValidArticleUrl(
+          publisherUrl
+        )
+          ? publisherUrl
+          : "";
+
+
+      /*
+       * --------------------------------------------------------
+       * 5. DATE
        * --------------------------------------------------------
        */
 
@@ -862,7 +849,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 5. PUBLISHER
+       * 6. PUBLISHER INFORMATION
        * --------------------------------------------------------
        */
 
@@ -876,7 +863,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 6. CREATE ARTICLE
+       * 7. CREATE ARTICLE
        * --------------------------------------------------------
        */
 
@@ -898,13 +885,13 @@ async function processNameSearch({
           group.academicianEl,
 
         /*
-         * Prefer the publisher URL when it is a validated
-         * individual article URL.
+         * Use publisher article URL only when it passed
+         * article URL validation.
          *
-         * Otherwise use the Google News article redirect.
+         * Otherwise keep the Google News link.
          */
         url:
-          publisherUrl ||
+          validPublisherArticleUrl ||
           link,
 
         publisher,
@@ -920,7 +907,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 7. DEDUPLICATE
+       * 8. DEDUPLICATE
        * --------------------------------------------------------
        */
 
@@ -953,8 +940,11 @@ async function main() {
 
 
   /*
-   * Search ONLY recognised name variants
-   * for the three selected academicians.
+   * Search only recognised name variants.
+   *
+   * There are:
+   * - no surname-only searches
+   * - no article-body searches
    */
 
   for (
@@ -979,7 +969,9 @@ async function main() {
 
 
   /*
-   * Final duplicate check.
+   * ==========================================================
+   * FINAL DEDUPLICATION
+   * ==========================================================
    */
 
   const uniqueResults = [];
@@ -999,7 +991,9 @@ async function main() {
 
 
   /*
-   * Newest articles first.
+   * ==========================================================
+   * SORT NEWEST FIRST
+   * ==========================================================
    */
 
   uniqueResults.sort(
@@ -1010,7 +1004,9 @@ async function main() {
 
 
   /*
-   * Rewrite news.json from scratch.
+   * ==========================================================
+   * WRITE NEWS.JSON
+   * ==========================================================
    */
 
   fs.writeFileSync(
@@ -1034,7 +1030,9 @@ async function main() {
 
 
 /*
- * Run.
+ * ============================================================
+ * RUN
+ * ============================================================
  */
 
 main().catch(error => {
