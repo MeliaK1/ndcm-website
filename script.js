@@ -84,3 +84,16 @@ menuButton?.addEventListener("click", () => {
 
   nav?.classList.toggle("is-open");
 });
+/*
+ * Close the mobile menu after selecting a link.
+ */
+nav?.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    nav.classList.remove("is-open");
+
+    menuButton?.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+  });
+});
