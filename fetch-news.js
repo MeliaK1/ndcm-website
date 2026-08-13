@@ -4,20 +4,16 @@ const { XMLParser } = require("fast-xml-parser");
 
 /*
  * ============================================================
- * ACADEMICIANS AND ACCEPTED NAME VARIANTS
+ * ACADEMICIANS INCLUDED IN AUTOMATED NEWS SEARCH
  * ============================================================
  *
- * We search Google News separately for each of these names.
- *
  * IMPORTANT:
- * An article is only accepted if one of these recognised names
- * also appears in the ARTICLE TITLE.
+ * Fokas, Karamanos, Floratos and Karagiannis have deliberately
+ * been removed because their names generate too many unrelated
+ * results.
  *
- * We do NOT:
- * - search by surname alone
- * - inspect the article body
- * - accept an article simply because Google associated it
- *   with the search query
+ * Articles are accepted ONLY when a recognised version of the
+ * academician's name appears in the headline.
  */
 
 const SEARCH_GROUPS = [
@@ -44,7 +40,6 @@ const SEARCH_GROUPS = [
       "Κώστας Συνολάκης",
       "Κωνσταντίνος Συνολάκης",
       "Κ. Συνολάκης",
-      "Κ Συνολάκης",
       "Costas Synolakis",
       "Konstantinos Synolakis",
       "Constantine Synolakis",
@@ -65,16 +60,6 @@ const SEARCH_GROUPS = [
       "Christos S. Zerefos",
       "C. Zerefos"
     ]
-  },
-
-  {
-    academicianEn: "Georgios Marios Karagiannis",
-    academicianEl: "Γεώργιος Μάριος Καραγιάννης",
-
-    names: [
-      "Γεώργιος Μάριος Καραγιάννης",
-      "Georgios Marios Karagiannis"
-    ]
   }
 ];
 
@@ -83,8 +68,6 @@ const SEARCH_GROUPS = [
  * ============================================================
  * BLACKLIST
  * ============================================================
- *
- * Do not include articles from these publishers.
  */
 
 const BLACKLISTED_DOMAINS = [
@@ -93,13 +76,6 @@ const BLACKLISTED_DOMAINS = [
   "avgi.gr"
 ];
 
-
-/*
- * Some Google News RSS feeds identify the publisher by name
- * rather than giving us the publisher domain directly.
- *
- * These values help catch those cases too.
- */
 
 const BLACKLISTED_PUBLISHER_NAMES = [
   "documentonews",
@@ -158,7 +134,7 @@ function getDomain(url) {
 
 /*
  * ============================================================
- * GOOGLE NEWS SOURCE / PUBLISHER
+ * GOOGLE NEWS PUBLISHER INFORMATION
  * ============================================================
  */
 
@@ -210,7 +186,7 @@ function getPublisherDomain(item) {
 
 /*
  * ============================================================
- * BLACKLIST CHECK
+ * BLACKLIST CHECKS
  * ============================================================
  */
 
@@ -224,13 +200,13 @@ function isBlacklistedDomain(domain) {
 
   return BLACKLISTED_DOMAINS.some(
     blockedDomain => {
-      const cleanBlocked =
+      const blocked =
         normaliseDomain(blockedDomain);
 
       return (
-        cleanDomain === cleanBlocked ||
+        cleanDomain === blocked ||
         cleanDomain.endsWith(
-          `.${cleanBlocked}`
+          `.${blocked}`
         )
       );
     }
@@ -255,14 +231,11 @@ function isBlacklistedPublisher(publisher) {
 }
 
 
-function articleIsBlacklisted(item, link) {
-  /*
-   * The RSS link itself will often be
-   * news.google.com, so we check several
-   * different signals.
-   */
-
-  const googleLinkDomain =
+function articleIsBlacklisted(
+  item,
+  link
+) {
+  const linkDomain =
     getDomain(link);
 
   const publisherDomain =
@@ -272,15 +245,9 @@ function articleIsBlacklisted(item, link) {
     getPublisher(item);
 
   return (
-    isBlacklistedDomain(
-      googleLinkDomain
-    ) ||
-    isBlacklistedDomain(
-      publisherDomain
-    ) ||
-    isBlacklistedPublisher(
-      publisher
-    )
+    isBlacklistedDomain(linkDomain) ||
+    isBlacklistedDomain(publisherDomain) ||
+    isBlacklistedPublisher(publisher)
   );
 }
 
@@ -292,8 +259,10 @@ function articleIsBlacklisted(item, link) {
  *
  * The academician MUST appear in the headline.
  *
- * We do not inspect article body text.
- * We do not use surname-only searches.
+ * We do NOT:
+ * - search surnames alone
+ * - inspect article body text
+ * - accept results just because Google returned them
  */
 
 function titleContainsAcademician(
@@ -316,10 +285,204 @@ function titleContainsAcademician(
 
 /*
  * ============================================================
- * GOOGLE NEWS RSS URL
+ * URL QUALITY VALIDATION
  * ============================================================
  *
- * Search only recognised full-name / initial variants.
+ * Reject URLs that clearly represent:
+ * - category pages
+ * - archive pages
+ * - search results
+ * - tag pages
+ * - author indexes
+ * - pagination
+ * - homepages
+ *
+ * This specifically prevents URLs such as:
+ *
+ * /finance/economy/page/398/?page=1360
+ *
+ * from being accepted as individual articles.
+ */
+
+function isValidArticleUrl(url) {
+  if (!url) {
+    return false;
+  }
+
+  let parsed;
+
+  try {
+    parsed = new URL(url);
+  } catch {
+    return false;
+  }
+
+
+  /*
+   * Google News redirect URLs are allowed.
+   *
+   * Google News RSS commonly provides these instead
+   * of the final publisher URL.
+   */
+  if (
+    parsed.hostname === "news.google.com"
+  ) {
+    return (
+      parsed.pathname.includes(
+        "/rss/articles/"
+      ) ||
+      parsed.pathname.includes(
+        "/articles/"
+      )
+    );
+  }
+
+
+  const pathname =
+    parsed.pathname.toLowerCase();
+
+  const search =
+    parsed.search.toLowerCase();
+
+
+  /*
+   * Reject homepages.
+   */
+  if (
+    pathname === "/" ||
+    pathname === ""
+  ) {
+    return false;
+  }
+
+
+  /*
+   * Reject obvious pagination paths.
+   *
+   * Examples:
+   * /page/2/
+   * /page/398/
+   */
+  if (
+    /\/page\/\d+\/?$/i.test(
+      pathname
+    ) ||
+    /\/page\/\d+\//i.test(
+      pathname
+    )
+  ) {
+    return false;
+  }
+
+
+  /*
+   * Reject pagination query parameters.
+   *
+   * Examples:
+   * ?page=1360
+   * ?paged=4
+   */
+  if (
+    /[?&](page|paged)=\d+/i.test(
+      search
+    )
+  ) {
+    return false;
+  }
+
+
+  /*
+   * Reject common archive/category/search URLs.
+   */
+  const invalidPathPatterns = [
+    /\/category\//i,
+    /\/categories\//i,
+    /\/tag\//i,
+    /\/tags\//i,
+    /\/author\//i,
+    /\/authors\//i,
+    /\/archive\//i,
+    /\/archives\//i,
+    /\/search\//i,
+    /\/topic\//i,
+    /\/topics\//i
+  ];
+
+
+  if (
+    invalidPathPatterns.some(
+      pattern =>
+        pattern.test(pathname)
+    )
+  ) {
+    return false;
+  }
+
+
+  /*
+   * Reject common search query pages.
+   */
+  if (
+    /[?&](s|search|q)=/i.test(
+      search
+    )
+  ) {
+    return false;
+  }
+
+
+  /*
+   * Reject URLs that end simply in a generic
+   * news/category section.
+   */
+  const genericSections = [
+    "/news/",
+    "/economy/",
+    "/finance/",
+    "/society/",
+    "/politics/",
+    "/world/",
+    "/greece/",
+    "/science/",
+    "/culture/",
+    "/business/"
+  ];
+
+
+  if (
+    genericSections.includes(
+      pathname
+    )
+  ) {
+    return false;
+  }
+
+
+  /*
+   * Require a reasonably substantial path.
+   *
+   * Individual articles normally contain
+   * more than one meaningful path segment.
+   */
+  const segments =
+    pathname
+      .split("/")
+      .filter(Boolean);
+
+
+  if (segments.length < 2) {
+    return false;
+  }
+
+
+  return true;
+}
+
+
+/*
+ * ============================================================
+ * GOOGLE NEWS RSS SEARCH
+ * ============================================================
  */
 
 function buildGoogleNewsRssUrl(name) {
@@ -368,25 +531,8 @@ async function fetchRss(url) {
 
 /*
  * ============================================================
- * TITLE DEDUPLICATION
+ * TITLE CLEANING FOR DEDUPLICATION
  * ============================================================
- *
- * Google News frequently appends the publisher:
- *
- * "Article title - ProtoThema"
- *
- * Another website may contain:
- *
- * "Article title - Some Other Site"
- *
- * We strip the publisher associated with each RSS item before
- * comparing the titles.
- */
-
-
-/*
- * Escape characters so publisher names can safely be used
- * inside a regular expression.
  */
 
 function escapeRegExp(value) {
@@ -420,22 +566,21 @@ function stripPublisherFromTitle(
       "i"
     );
 
-  result =
-    result.replace(
+  return result
+    .replace(
       publisherPattern,
       ""
-    );
-
-  return result.trim();
+    )
+    .trim();
 }
 
 
 /*
- * Remove a likely publisher suffix even when Google does not
- * provide a usable <source>.
+ * Google News normally formats headlines as:
  *
- * We only remove the final " - publisher" section when that
- * final section is short enough to look like an outlet name.
+ * Article headline - Publisher
+ *
+ * Remove the final publisher section when necessary.
  */
 
 function stripGenericPublisherSuffix(
@@ -456,10 +601,9 @@ function stripGenericPublisherSuffix(
       parts.length - 1
     ].trim();
 
+
   /*
-   * Publisher suffixes are generally short.
-   * Avoid stripping long pieces of genuine
-   * headline text.
+   * Do not remove long headline fragments.
    */
   if (
     possiblePublisher.length > 45
@@ -474,6 +618,12 @@ function stripGenericPublisherSuffix(
 }
 
 
+/*
+ * ============================================================
+ * DUPLICATE KEY
+ * ============================================================
+ */
+
 function createArticleKey(article) {
   let title =
     stripPublisherFromTitle(
@@ -487,10 +637,6 @@ function createArticleKey(article) {
     );
 
   return normaliseText(title)
-    /*
-     * Ignore most punctuation for duplicate
-     * comparisons.
-     */
     .replace(
       /[^\p{L}\p{N}\s]/gu,
       " "
@@ -502,7 +648,7 @@ function createArticleKey(article) {
 
 /*
  * ============================================================
- * ADD ARTICLE WITHOUT DUPLICATES
+ * ADD UNIQUE ARTICLE
  * ============================================================
  */
 
@@ -518,13 +664,13 @@ function addUniqueArticle(
   }
 
   const duplicate =
-    results.some(existing => {
-      return (
+    results.some(
+      existing =>
         createArticleKey(
           existing
         ) === newKey
-      );
-    });
+    );
+
 
   if (duplicate) {
     console.log(
@@ -534,13 +680,14 @@ function addUniqueArticle(
     return;
   }
 
+
   results.push(article);
 }
 
 
 /*
  * ============================================================
- * PROCESS ONE GOOGLE NEWS SEARCH
+ * PROCESS ONE NAME SEARCH
  * ============================================================
  */
 
@@ -549,39 +696,49 @@ async function processNameSearch({
   group,
   results
 }) {
+
   const rssUrl =
     buildGoogleNewsRssUrl(
       name
     );
 
+
   console.log(
     `Searching Google News for: "${name}"`
   );
 
+
   try {
+
     const feed =
       await fetchRss(
         rssUrl
       );
 
+
     const items =
       feed?.rss?.channel?.item || [];
+
 
     const itemList =
       Array.isArray(items)
         ? items
         : [items];
 
+
     for (const item of itemList) {
+
       const title =
         String(
           item?.title || ""
         ).trim();
 
+
       const link =
         String(
           item?.link || ""
         ).trim();
+
 
       if (!title || !link) {
         continue;
@@ -590,14 +747,8 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * RELEVANCE TEST
+       * 1. HEADLINE RELEVANCE
        * --------------------------------------------------------
-       *
-       * This is the critical safeguard.
-       *
-       * Even though Google returned the article for an academician
-       * search, we still reject it unless a recognised version of
-       * the academician's name appears IN THE HEADLINE.
        */
 
       if (
@@ -606,8 +757,9 @@ async function processNameSearch({
           group.names
         )
       ) {
+
         console.log(
-          `Rejected because academician is not in title: ${title}`
+          `Rejected - academician not in headline: ${title}`
         );
 
         continue;
@@ -616,7 +768,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * BLACKLIST TEST
+       * 2. BLACKLIST
        * --------------------------------------------------------
        */
 
@@ -626,8 +778,9 @@ async function processNameSearch({
           link
         )
       ) {
+
         console.log(
-          `Blacklisted publisher rejected: ${title}`
+          `Rejected - blacklisted publisher: ${title}`
         );
 
         continue;
@@ -636,18 +789,67 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * DATE
+       * 3. URL VALIDATION
+       * --------------------------------------------------------
+       */
+
+      const publisherUrl =
+        getPublisherUrl(item);
+
+
+      /*
+       * Validate publisher URL when Google provides one.
+       *
+       * This is the important check for archive/category
+       * pages such as the Naftemporiki example.
+       */
+      if (
+        publisherUrl &&
+        !isValidArticleUrl(
+          publisherUrl
+        )
+      ) {
+
+        console.log(
+          `Rejected - invalid publisher/article URL: ${publisherUrl}`
+        );
+
+        continue;
+      }
+
+
+      /*
+       * Also ensure the RSS link itself has an acceptable
+       * structure.
+       */
+      if (
+        !isValidArticleUrl(
+          link
+        )
+      ) {
+
+        console.log(
+          `Rejected - invalid RSS URL: ${link}`
+        );
+
+        continue;
+      }
+
+
+      /*
+       * --------------------------------------------------------
+       * 4. DATE
        * --------------------------------------------------------
        */
 
       let pubDate =
         item.pubDate
-          ? new Date(item.pubDate)
+          ? new Date(
+              item.pubDate
+            )
           : new Date();
 
-      /*
-       * Protect against invalid RSS dates.
-       */
+
       if (
         Number.isNaN(
           pubDate.getTime()
@@ -660,12 +862,13 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * PUBLISHER INFORMATION
+       * 5. PUBLISHER
        * --------------------------------------------------------
        */
 
       const publisher =
         getPublisher(item);
+
 
       const publisherDomain =
         getPublisherDomain(item);
@@ -673,7 +876,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * ARTICLE OBJECT
+       * 6. CREATE ARTICLE
        * --------------------------------------------------------
        */
 
@@ -694,11 +897,17 @@ async function processNameSearch({
         academicianEl:
           group.academicianEl,
 
+        /*
+         * Prefer the publisher URL when it is a validated
+         * individual article URL.
+         *
+         * Otherwise use the Google News article redirect.
+         */
         url:
+          publisherUrl ||
           link,
 
-        publisher:
-          publisher,
+        publisher,
 
         domain:
           publisherDomain ||
@@ -711,7 +920,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * DEDUPLICATION
+       * 7. DEDUPLICATE
        * --------------------------------------------------------
        */
 
@@ -722,10 +931,12 @@ async function processNameSearch({
     }
 
   } catch (error) {
+
     console.error(
       `Could not fetch news for "${name}":`,
       error.message
     );
+
   }
 }
 
@@ -737,58 +948,58 @@ async function processNameSearch({
  */
 
 async function main() {
+
   const results = [];
 
 
   /*
-   * Search every recognised name variant.
-   *
-   * There are NO surname-only searches here.
+   * Search ONLY recognised name variants
+   * for the three selected academicians.
    */
 
   for (
     const group
     of SEARCH_GROUPS
   ) {
+
     for (
       const name
       of group.names
     ) {
+
       await processNameSearch({
         name,
         group,
         results
       });
+
     }
+
   }
 
 
   /*
-   * ==========================================================
-   * FINAL DEDUPLICATION
-   * ==========================================================
-   *
-   * This second pass is intentional.
-   * Multiple alias searches can return the same story.
+   * Final duplicate check.
    */
 
   const uniqueResults = [];
+
 
   for (
     const article
     of results
   ) {
+
     addUniqueArticle(
       uniqueResults,
       article
     );
+
   }
 
 
   /*
-   * ==========================================================
-   * SORT NEWEST FIRST
-   * ==========================================================
+   * Newest articles first.
    */
 
   uniqueResults.sort(
@@ -799,37 +1010,40 @@ async function main() {
 
 
   /*
-   * ==========================================================
-   * WRITE JSON
-   * ==========================================================
+   * Rewrite news.json from scratch.
    */
 
   fs.writeFileSync(
     "data/news.json",
+
     JSON.stringify(
       uniqueResults,
       null,
       2
     ),
+
     "utf8"
   );
 
 
   console.log(
-    `Updated data/news.json with ${uniqueResults.length} unique, approved articles.`
+    `Updated data/news.json with ${uniqueResults.length} unique, validated articles.`
   );
+
 }
 
 
 /*
- * Run the updater.
+ * Run.
  */
 
 main().catch(error => {
+
   console.error(
     "News update failed:",
     error
   );
 
   process.exitCode = 1;
+
 });
