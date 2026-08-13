@@ -305,8 +305,8 @@ img {
   color: rgba(255, 255, 255, 0.72);
 }
 
-.section {
-  padding: 88px 0;
+.people-profiles-section {
+  padding-top: 32px;
 }
 
 .compact-section {
@@ -800,7 +800,7 @@ img {
 @media (max-width: 1100px) {
   .homepage-shell {
     grid-template-columns: 1fr;
-  }
+  } 
 
 
   .news-rail {
@@ -808,7 +808,7 @@ img {
     order: -1;
     padding: 0 0 72px;
   }
-
+}
 
 @media (max-width: 980px) {
   .main-nav {
@@ -840,12 +840,6 @@ img {
     flex-direction: column;
   }
 }
-
-  .people-profile {
-    grid-template-columns: 1fr;
-    padding: 1.25rem;
-  }
-
 
 @media (max-width: 640px) {
   .container {
