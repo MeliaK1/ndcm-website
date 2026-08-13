@@ -1,4 +1,6 @@
 const languageButton = document.querySelector(".lang-toggle");
+const menuButton = document.querySelector(".menu-btn");
+const nav = document.querySelector(".main-nav");
 
 function applyLanguage(language) {
   const selectedLanguage =
@@ -54,6 +56,11 @@ languageButton?.addEventListener("click", () => {
 
   applyLanguage(nextLanguage);
 
+  /*
+   * Notify other scripts, such as news.js
+   * and publications.js, that the language
+   * has changed.
+   */
   document.dispatchEvent(
     new CustomEvent("languageChanged", {
       detail: {
@@ -63,10 +70,9 @@ languageButton?.addEventListener("click", () => {
   );
 });
 
-
-const menuButton = document.querySelector(".menu-btn");
-const nav = document.querySelector(".main-nav");
-
+/*
+ * Mobile navigation.
+ */
 menuButton?.addEventListener("click", () => {
   const isOpen =
     menuButton.getAttribute("aria-expanded") === "true";
@@ -77,14 +83,4 @@ menuButton?.addEventListener("click", () => {
   );
 
   nav?.classList.toggle("is-open");
-});
-
-
-const menuButton = document.querySelector('.menu-btn');
-const nav = document.querySelector('.main-nav');
-
-menuButton?.addEventListener('click', () => {
-  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!isOpen));
-  nav?.classList.toggle('is-open');
 });
