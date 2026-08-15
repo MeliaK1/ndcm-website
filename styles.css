@@ -698,13 +698,7 @@ img {
   margin-bottom: 38px;
 }
 
-.authority-number {
-  color: var(--teal-dark);
-  font-family: "IBM Plex Sans", Arial, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-}
+
 
 .authority-title-row h2 {
   margin: 0;
