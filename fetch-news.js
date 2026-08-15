@@ -4,37 +4,44 @@ const { XMLParser } = require("fast-xml-parser");
 
 /*
  * ============================================================
- * ACADEMICIANS INCLUDED IN AUTOMATED NEWS SEARCH
+ * ACADEMICIANS INCLUDED IN THE AUTOMATED NEWS FEED
  * ============================================================
  *
- * Only these three academicians are included because the other
- * names were generating too many unrelated results.
+ * Only:
+ * - Costas Synolakis
+ * - Georgios Marios Karagiannis
  *
- * An article is accepted ONLY when a recognised version of the
- * academician's name appears in the headline.
+ * Articles are accepted only when an approved version
+ * of the name appears in the HEADLINE.
+ *
+ * We do NOT:
+ * - search surnames alone
+ * - inspect article body text
+ * - accept generic "Γιώργος Καραγιάννης"
+ * - accept generic "Karagiannis"
  */
 
 const SEARCH_GROUPS = [
   {
-    academicianEn: "Stamatios M. Krimigis",
-    academicianEl: "Σταμάτιος Μ. Κριμιζής",
-
-    names: [
-      "Σταμάτης Κριμιζής",
-      "Σταμάτιος Κριμιζής",
-      "Σ. Κριμιζής",
-      "Stamatis Krimizis",
-      "Stamatios Krimigis",
-      "Stamatios M. Krimigis",
-      "S. Krimigis"
-    ]
-  },
-
-  {
     academicianEn: "Costas Synolakis",
     academicianEl: "Κώστας Συνολάκης",
 
-    names: [
+    /*
+     * Synolakis has a distinctive surname, so a broader
+     * set of full-name / initial variants is acceptable.
+     */
+    searchNames: [
+      "Κώστας Συνολάκης",
+      "Κωνσταντίνος Συνολάκης",
+      "Κ. Συνολάκης",
+      "Costas Synolakis",
+      "Konstantinos Synolakis",
+      "Constantine Synolakis",
+      "C. Synolakis",
+      "K. Synolakis"
+    ],
+
+    headlineNames: [
       "Κώστας Συνολάκης",
       "Κωνσταντίνος Συνολάκης",
       "Κ. Συνολάκης",
@@ -47,16 +54,25 @@ const SEARCH_GROUPS = [
   },
 
   {
-    academicianEn: "Christos S. Zerefos",
-    academicianEl: "Χρήστος Σ. Ζερεφός",
+    academicianEn: "Georgios Marios Karagiannis",
+    academicianEl: "Γεώργιος Μάριος Καραγιάννης",
 
-    names: [
-      "Χρήστος Ζερεφός",
-      "Χρήστος Σ. Ζερεφός",
-      "Χ. Ζερεφός",
-      "Christos Zerefos",
-      "Christos S. Zerefos",
-      "C. Zerefos"
+    /*
+     * Karagiannis is deliberately much stricter.
+     *
+     * We search and accept only highly specific
+     * versions of his full name.
+     */
+    searchNames: [
+      "Γεώργιος Μάριος Καραγιάννης",
+      "Γιώργος Μάριος Καραγιάννης",
+      "Georgios Marios Karagiannis"
+    ],
+
+    headlineNames: [
+      "Γεώργιος Μάριος Καραγιάννης",
+      "Γιώργος Μάριος Καραγιάννης",
+      "Georgios Marios Karagiannis"
     ]
   }
 ];
@@ -171,20 +187,15 @@ function getPublisherUrl(item) {
 
 
 function getPublisherDomain(item) {
-  const publisherUrl =
-    getPublisherUrl(item);
-
-  if (!publisherUrl) {
-    return "";
-  }
-
-  return getDomain(publisherUrl);
+  return getDomain(
+    getPublisherUrl(item)
+  );
 }
 
 
 /*
  * ============================================================
- * BLACKLIST CHECKS
+ * BLACKLIST CHECK
  * ============================================================
  */
 
@@ -229,23 +240,20 @@ function isBlacklistedPublisher(publisher) {
 }
 
 
-function articleIsBlacklisted(
-  item,
-  link
-) {
-  const linkDomain =
-    getDomain(link);
+function articleIsBlacklisted(item) {
+  const publisher =
+    getPublisher(item);
 
   const publisherDomain =
     getPublisherDomain(item);
 
-  const publisher =
-    getPublisher(item);
-
   return (
-    isBlacklistedDomain(linkDomain) ||
-    isBlacklistedDomain(publisherDomain) ||
-    isBlacklistedPublisher(publisher)
+    isBlacklistedDomain(
+      publisherDomain
+    ) ||
+    isBlacklistedPublisher(
+      publisher
+    )
   );
 }
 
@@ -255,207 +263,24 @@ function articleIsBlacklisted(
  * HEADLINE RELEVANCE
  * ============================================================
  *
- * The academician MUST appear in the headline.
+ * This is the main relevance safeguard.
  *
- * We do NOT:
- * - search surnames alone
- * - inspect article body text
- * - accept results just because Google returned them
+ * Google can return broad results.
+ * The website accepts narrowly.
  */
 
 function titleContainsAcademician(
   title,
-  names
+  headlineNames
 ) {
   const cleanTitle =
     normaliseText(title);
 
-  return names.some(name => {
-    const cleanName =
-      normaliseText(name);
-
-    return cleanTitle.includes(
-      cleanName
-    );
-  });
-}
-
-
-/*
- * ============================================================
- * URL QUALITY VALIDATION
- * ============================================================
- *
- * Reject obvious archive, category, search and pagination URLs.
- *
- * Google News article URLs are allowed.
- */
-
-function isValidArticleUrl(url) {
-  if (!url) {
-    return false;
-  }
-
-  let parsed;
-
-  try {
-    parsed = new URL(url);
-  } catch {
-    return false;
-  }
-
-
-  /*
-   * Google News article redirect URLs are valid.
-   */
-  if (
-    parsed.hostname === "news.google.com"
-  ) {
-    return (
-      parsed.pathname.includes(
-        "/rss/articles/"
-      ) ||
-      parsed.pathname.includes(
-        "/articles/"
-      )
-    );
-  }
-
-
-  const pathname =
-    parsed.pathname.toLowerCase();
-
-  const search =
-    parsed.search.toLowerCase();
-
-
-  /*
-   * Reject homepages.
-   */
-  if (
-    pathname === "/" ||
-    pathname === ""
-  ) {
-    return false;
-  }
-
-
-  /*
-   * Reject pagination paths.
-   *
-   * Examples:
-   * /page/2/
-   * /finance/economy/page/398/
-   */
-  if (
-    /\/page\/\d+\/?$/i.test(
-      pathname
-    ) ||
-    /\/page\/\d+\//i.test(
-      pathname
+  return headlineNames.some(name =>
+    cleanTitle.includes(
+      normaliseText(name)
     )
-  ) {
-    return false;
-  }
-
-
-  /*
-   * Reject pagination query parameters.
-   *
-   * Examples:
-   * ?page=1360
-   * ?paged=4
-   */
-  if (
-    /[?&](page|paged)=\d+/i.test(
-      search
-    )
-  ) {
-    return false;
-  }
-
-
-  /*
-   * Reject common archive/category/search URLs.
-   */
-  const invalidPathPatterns = [
-    /\/category\//i,
-    /\/categories\//i,
-    /\/tag\//i,
-    /\/tags\//i,
-    /\/author\//i,
-    /\/authors\//i,
-    /\/archive\//i,
-    /\/archives\//i,
-    /\/search\//i,
-    /\/topic\//i,
-    /\/topics\//i
-  ];
-
-
-  if (
-    invalidPathPatterns.some(
-      pattern =>
-        pattern.test(pathname)
-    )
-  ) {
-    return false;
-  }
-
-
-  /*
-   * Reject common search query pages.
-   */
-  if (
-    /[?&](s|search|q)=/i.test(
-      search
-    )
-  ) {
-    return false;
-  }
-
-
-  /*
-   * Reject obvious section landing pages.
-   */
-  const genericSections = [
-    "/news/",
-    "/economy/",
-    "/finance/",
-    "/society/",
-    "/politics/",
-    "/world/",
-    "/greece/",
-    "/science/",
-    "/culture/",
-    "/business/"
-  ];
-
-
-  if (
-    genericSections.includes(
-      pathname
-    )
-  ) {
-    return false;
-  }
-
-
-  /*
-   * Require more than one meaningful path segment.
-   */
-  const segments =
-    pathname
-      .split("/")
-      .filter(Boolean);
-
-
-  if (segments.length < 2) {
-    return false;
-  }
-
-
-  return true;
+  );
 }
 
 
@@ -511,7 +336,7 @@ async function fetchRss(url) {
 
 /*
  * ============================================================
- * TITLE CLEANING FOR DEDUPLICATION
+ * TITLE DEDUPLICATION
  * ============================================================
  */
 
@@ -540,32 +365,19 @@ function stripPublisherFromTitle(
       String(publisher).trim()
     );
 
-  const publisherPattern =
+  const pattern =
     new RegExp(
       `\\s[-–—]\\s*${escapedPublisher}\\s*$`,
       "i"
     );
 
   return result
-    .replace(
-      publisherPattern,
-      ""
-    )
+    .replace(pattern, "")
     .trim();
 }
 
 
-/*
- * Remove a likely publisher suffix.
- *
- * Example:
- *
- * Article title - Kathimerini
- * Article title - ProtoThema
- */
-function stripGenericPublisherSuffix(
-  title
-) {
+function stripGenericPublisherSuffix(title) {
   const value =
     String(title || "").trim();
 
@@ -581,13 +393,11 @@ function stripGenericPublisherSuffix(
       parts.length - 1
     ].trim();
 
-
   /*
-   * Do not remove long genuine headline fragments.
+   * A short final fragment is likely
+   * to be the publisher name.
    */
-  if (
-    possiblePublisher.length > 45
-  ) {
+  if (possiblePublisher.length > 45) {
     return value;
   }
 
@@ -597,12 +407,6 @@ function stripGenericPublisherSuffix(
     .trim();
 }
 
-
-/*
- * ============================================================
- * DUPLICATE KEY
- * ============================================================
- */
 
 function createArticleKey(article) {
   let title =
@@ -626,12 +430,6 @@ function createArticleKey(article) {
 }
 
 
-/*
- * ============================================================
- * ADD UNIQUE ARTICLE
- * ============================================================
- */
-
 function addUniqueArticle(
   results,
   article
@@ -644,13 +442,10 @@ function addUniqueArticle(
   }
 
   const duplicate =
-    results.some(
-      existing =>
-        createArticleKey(
-          existing
-        ) === newKey
+    results.some(existing =>
+      createArticleKey(existing) ===
+      newKey
     );
-
 
   if (duplicate) {
     console.log(
@@ -659,7 +454,6 @@ function addUniqueArticle(
 
     return;
   }
-
 
   results.push(article);
 }
@@ -678,33 +472,24 @@ async function processNameSearch({
 }) {
 
   const rssUrl =
-    buildGoogleNewsRssUrl(
-      name
-    );
-
+    buildGoogleNewsRssUrl(name);
 
   console.log(
     `Searching Google News for: "${name}"`
   );
 
-
   try {
 
     const feed =
-      await fetchRss(
-        rssUrl
-      );
-
+      await fetchRss(rssUrl);
 
     const items =
       feed?.rss?.channel?.item || [];
-
 
     const itemList =
       Array.isArray(items)
         ? items
         : [items];
-
 
     for (const item of itemList) {
 
@@ -712,7 +497,6 @@ async function processNameSearch({
         String(
           item?.title || ""
         ).trim();
-
 
       const link =
         String(
@@ -727,19 +511,19 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 1. HEADLINE RELEVANCE
+       * 1. STRICT HEADLINE CHECK
        * --------------------------------------------------------
        */
 
       if (
         !titleContainsAcademician(
           title,
-          group.names
+          group.headlineNames
         )
       ) {
 
         console.log(
-          `Rejected - academician not in headline: ${title}`
+          `Rejected - approved name not in headline: ${title}`
         );
 
         continue;
@@ -748,15 +532,12 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 2. BLACKLIST
+       * 2. BLACKLIST CHECK
        * --------------------------------------------------------
        */
 
       if (
-        articleIsBlacklisted(
-          item,
-          link
-        )
+        articleIsBlacklisted(item)
       ) {
 
         console.log(
@@ -769,73 +550,14 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 3. RSS LINK VALIDATION
-       * --------------------------------------------------------
-       *
-       * The actual Google News RSS result must look like
-       * a valid article link.
-       */
-
-      if (
-        !isValidArticleUrl(
-          link
-        )
-      ) {
-
-        console.log(
-          `Rejected - invalid RSS URL: ${link}`
-        );
-
-        continue;
-      }
-
-
-      /*
-       * --------------------------------------------------------
-       * 4. PUBLISHER URL
-       * --------------------------------------------------------
-       *
-       * IMPORTANT:
-       *
-       * Google News often gives us the publisher homepage
-       * in <source>, for example:
-       *
-       * https://www.kathimerini.gr/
-       *
-       * That does NOT mean the article itself is invalid.
-       *
-       * We therefore use the publisher URL only when it looks
-       * like a genuine individual article URL.
-       *
-       * Otherwise we fall back to the Google News article link.
-       */
-
-      const publisherUrl =
-        getPublisherUrl(item);
-
-
-      const validPublisherArticleUrl =
-        publisherUrl &&
-        isValidArticleUrl(
-          publisherUrl
-        )
-          ? publisherUrl
-          : "";
-
-
-      /*
-       * --------------------------------------------------------
-       * 5. DATE
+       * 3. DATE
        * --------------------------------------------------------
        */
 
       let pubDate =
         item.pubDate
-          ? new Date(
-              item.pubDate
-            )
+          ? new Date(item.pubDate)
           : new Date();
-
 
       if (
         Number.isNaN(
@@ -849,13 +571,12 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 6. PUBLISHER INFORMATION
+       * 4. PUBLISHER
        * --------------------------------------------------------
        */
 
       const publisher =
         getPublisher(item);
-
 
       const publisherDomain =
         getPublisherDomain(item);
@@ -863,8 +584,16 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 7. CREATE ARTICLE
+       * 5. ARTICLE
        * --------------------------------------------------------
+       *
+       * IMPORTANT:
+       *
+       * Always keep the Google News RSS article link.
+       *
+       * We do not use the publisher's <source> URL as the
+       * article URL because Google frequently provides a
+       * homepage/category/archive URL there.
        */
 
       const article = {
@@ -884,21 +613,14 @@ async function processNameSearch({
         academicianEl:
           group.academicianEl,
 
-        /*
-         * Use publisher article URL only when it passed
-         * article URL validation.
-         *
-         * Otherwise keep the Google News link.
-         */
         url:
-          validPublisherArticleUrl ||
           link,
 
         publisher,
 
         domain:
           publisherDomain ||
-          getDomain(link),
+          "news.google.com",
 
         approved:
           true
@@ -907,7 +629,7 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 8. DEDUPLICATE
+       * 6. DEDUPLICATION
        * --------------------------------------------------------
        */
 
@@ -940,21 +662,18 @@ async function main() {
 
 
   /*
-   * Search only recognised name variants.
+   * Search only recognised names.
    *
-   * There are:
-   * - no surname-only searches
-   * - no article-body searches
+   * NO surname-only searches.
+   * NO article-body searches.
    */
 
   for (
-    const group
-    of SEARCH_GROUPS
+    const group of SEARCH_GROUPS
   ) {
 
     for (
-      const name
-      of group.names
+      const name of group.searchNames
     ) {
 
       await processNameSearch({
@@ -969,17 +688,13 @@ async function main() {
 
 
   /*
-   * ==========================================================
-   * FINAL DEDUPLICATION
-   * ==========================================================
+   * Final deduplication.
    */
 
   const uniqueResults = [];
 
-
   for (
-    const article
-    of results
+    const article of results
   ) {
 
     addUniqueArticle(
@@ -991,9 +706,7 @@ async function main() {
 
 
   /*
-   * ==========================================================
-   * SORT NEWEST FIRST
-   * ==========================================================
+   * Newest first.
    */
 
   uniqueResults.sort(
@@ -1004,9 +717,7 @@ async function main() {
 
 
   /*
-   * ==========================================================
-   * WRITE NEWS.JSON
-   * ==========================================================
+   * Rewrite news.json.
    */
 
   fs.writeFileSync(
@@ -1023,17 +734,11 @@ async function main() {
 
 
   console.log(
-    `Updated data/news.json with ${uniqueResults.length} unique, validated articles.`
+    `Updated data/news.json with ${uniqueResults.length} unique approved articles.`
   );
 
 }
 
-
-/*
- * ============================================================
- * RUN
- * ============================================================
- */
 
 main().catch(error => {
 
