@@ -4,35 +4,45 @@ let allPublications = [];
 let visibleCount = PUBLICATIONS_BATCH_SIZE;
 let selectedResearcherId = "all";
 
+const ALLOWED_RESEARCHER_IDS = [
+  "Costas Synolakis",
+  "Georgios Marios Karagiannis"
+];
+
 const RESEARCHER_NAME_MAP = {
   "Costas Synolakis": [
     "Costas Synolakis"
-  ],
-
-  "Stamatios M. Krimigis": [
-    "Stamatios Krimigis"
-  ],
-
-  "Athanasios Fokas": [
-    "Athanassios S. Fokas"
-  ],
-
-  "Christos S. Zerefos": [
-    "Christos Zerefos"
-  ],
-
-  "Andreas Karamanos": [
-    "Karamanos Andreas"
-  ],
-
-  "Emmanouil Floratos": [
-    "EMMANUEL FLORATOS"
   ],
 
   "Georgios Marios Karagiannis": [
     "Georgios Marios Karagiannis"
   ]
 };
+
+function getAllowedResearcherNames(publication) {
+  if (!Array.isArray(publication.researchers)) {
+    return [];
+  }
+
+  return ALLOWED_RESEARCHER_IDS.filter(researcherId => {
+    const acceptedNames =
+      RESEARCHER_NAME_MAP[researcherId] ||
+      [researcherId];
+
+    return publication.researchers.some(
+      researcher =>
+        acceptedNames.includes(researcher)
+    );
+  });
+}
+
+
+function isAllowedPublication(publication) {
+  return (
+    getAllowedResearcherNames(publication)
+      .length > 0
+  );
+}
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -93,7 +103,7 @@ function createPublicationCard(publication) {
   const citations = Number(publication.citations || 0);
 
   const researchers = formatResearchers(
-    publication.researchers
+    getAllowedResearcherNames(publication)
   );
 
   return `
@@ -136,8 +146,8 @@ function createPublicationCard(publication) {
             <p class="publication-researchers">
               <strong>
                 ${translate(
-                  "Centre academician:",
-                  "Ακαδημαϊκός του Κέντρου:"
+                  "Centre scientist:",
+                  "Επιστήμονας του Κέντρου:"
                 )}
               </strong>
 
@@ -311,8 +321,8 @@ function renderFullPublicationsList() {
     container.innerHTML = `
       <p class="empty-state">
         ${translate(
-          "No publications were found for this researcher.",
-          "Δεν βρέθηκαν δημοσιεύσεις για αυτόν τον ερευνητή."
+          "No publications were found for this scientist.",
+          "Δεν βρέθηκαν δημοσιεύσεις για αυτόν τον επιστήμονα."
         )}
       </p>
     `;
@@ -470,7 +480,10 @@ async function loadPublications() {
       );
     }
 
-    allPublications = publicationData;
+    allPublications =
+      publicationData.filter(
+        isAllowedPublication
+      );
 
     containers.forEach(container => {
       const limitSetting =
