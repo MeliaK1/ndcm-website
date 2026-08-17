@@ -297,38 +297,79 @@ async function loadNews() {
 
 
   try {
-
-    const response =
-      await fetch(
-        "data/news.json",
-        {
-          cache: "no-store"
-        }
-      );
-
-
-    if (!response.ok) {
-      throw new Error(
-        "News file could not be loaded"
-      );
+    const [
+  autoResponse,
+  manualResponse
+] = await Promise.all([
+  fetch(
+    "data/news.json",
+    {
+      cache: "no-store"
     }
+  ),
 
-
-    const articles =
-      await response.json();
-
-
-    if (!Array.isArray(articles)) {
-      throw new Error(
-        "News data is invalid"
-      );
+  fetch(
+    "data/manual-news.json",
+    {
+      cache: "no-store"
     }
+  )
+]);
 
 
-    cachedNewsArticles =
-      articles;
+if (!autoResponse.ok) {
+  throw new Error(
+    "Automatic news file could not be loaded"
+  );
+}
 
 
+/*
+ * manual-news.json is allowed to be empty,
+ * but the file itself must exist.
+ */
+if (!manualResponse.ok) {
+  throw new Error(
+    "Manual news file could not be loaded"
+  );
+}
+
+
+const autoArticles =
+  await autoResponse.json();
+
+const manualArticles =
+  await manualResponse.json();
+
+
+if (
+  !Array.isArray(autoArticles) ||
+  !Array.isArray(manualArticles)
+) {
+  throw new Error(
+    "News data is invalid"
+  );
+}
+
+
+/*
+ * Merge automatic + manual news.
+ */
+cachedNewsArticles = [
+  ...autoArticles,
+  ...manualArticles
+];
+
+
+/*
+ * Sort newest first.
+ */
+cachedNewsArticles.sort(
+  (a, b) =>
+    new Date(b.date) -
+    new Date(a.date)
+);
+    
     renderNews();
 
 
