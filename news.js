@@ -257,8 +257,8 @@ function renderNews() {
               <strong>
                 ${
                   getNewsLanguage() === "el"
-                    ? "Ακαδημαϊκός:"
-                    : "Academician:"
+                    ? "Επιστήμονας:"
+                    : "Scientist:"
                 }
               </strong>
 
