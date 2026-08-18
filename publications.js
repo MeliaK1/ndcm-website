@@ -146,7 +146,7 @@ function createPublicationCard(publication) {
             <p class="publication-researchers">
               <strong>
                 ${translate(
-                  "Centre scientist:",
+                  "Center scientist:",
                   "Επιστήμονας του Κέντρου:"
                 )}
               </strong>
