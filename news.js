@@ -14,6 +14,12 @@ const ALLOWED_ACADEMICIANS = [
 let cachedNewsArticles = [];
 
 
+/*
+ * ---------------------------------------------------------
+ * Domain helpers
+ * ---------------------------------------------------------
+ */
+
 function normaliseDomain(value) {
   return String(value || "")
     .toLowerCase()
@@ -36,6 +42,12 @@ function isBlacklistedDomain(domain) {
 }
 
 
+/*
+ * ---------------------------------------------------------
+ * Language
+ * ---------------------------------------------------------
+ */
+
 function getNewsLanguage() {
   return (
     document.documentElement.lang === "el"
@@ -45,11 +57,34 @@ function getNewsLanguage() {
 }
 
 
+/*
+ * ---------------------------------------------------------
+ * Internal academician identifier
+ * ---------------------------------------------------------
+ *
+ * IMPORTANT:
+ * Keep the internal identifier as:
+ *
+ * "Georgios Marios Karagiannis"
+ *
+ * even though visitors see:
+ *
+ * English: George Karagiannis
+ * Greek:   Γιώργος Καραγιάννης
+ */
+
 function getAcademicianEnglishName(article) {
   /*
-   * New JSON structure.
+   * Current JSON structure.
    */
   if (article.academicianEn) {
+    if (
+      article.academicianEn ===
+      "George Karagiannis"
+    ) {
+      return "Georgios Marios Karagiannis";
+    }
+
     return article.academicianEn;
   }
 
@@ -83,7 +118,13 @@ function getAcademicianEnglishName(article) {
       "Georgios Marios Karagiannis"
     ) ||
     oldValue.includes(
+      "George Karagiannis"
+    ) ||
+    oldValue.includes(
       "Γεώργιος Μάριος Καραγιάννης"
+    ) ||
+    oldValue.includes(
+      "Γιώργος Καραγιάννης"
     )
   ) {
     return "Georgios Marios Karagiannis";
@@ -93,6 +134,12 @@ function getAcademicianEnglishName(article) {
   return "";
 }
 
+
+/*
+ * ---------------------------------------------------------
+ * Restrict news to the two allowed scientists
+ * ---------------------------------------------------------
+ */
 
 function isAllowedAcademician(article) {
   const academician =
@@ -106,38 +153,64 @@ function isAllowedAcademician(article) {
 }
 
 
+/*
+ * ---------------------------------------------------------
+ * Display name
+ * ---------------------------------------------------------
+ */
+
 function getAcademicianName(article) {
   const language =
     getNewsLanguage();
 
+  const academician =
+    getAcademicianEnglishName(
+      article
+    );
+
 
   if (language === "el") {
-    return (
-      article.academicianEl ||
-      article.professorEl ||
-      (
-        getAcademicianEnglishName(article) ===
-        "Costas Synolakis"
-          ? "Κώστας Συνολάκης"
-          : getAcademicianEnglishName(article) ===
-            "Georgios Marios Karagiannis"
-            ? "Γεώργιος Μάριος Καραγιάννης"
-            : ""
-      )
-    );
+    if (
+      academician ===
+      "Costas Synolakis"
+    ) {
+      return "Κώστας Συνολάκης";
+    }
+
+    if (
+      academician ===
+      "Georgios Marios Karagiannis"
+    ) {
+      return "Γιώργος Καραγιάννης";
+    }
+
+    return "";
   }
 
 
-  return (
-    article.academicianEn ||
-    article.professorEn ||
-    getAcademicianEnglishName(
-      article
-    ) ||
-    ""
-  );
+  if (
+    academician ===
+    "Costas Synolakis"
+  ) {
+    return "Costas Synolakis";
+  }
+
+  if (
+    academician ===
+    "Georgios Marios Karagiannis"
+  ) {
+    return "George Karagiannis";
+  }
+
+  return "";
 }
 
+
+/*
+ * ---------------------------------------------------------
+ * HTML escaping
+ * ---------------------------------------------------------
+ */
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -148,6 +221,12 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+
+/*
+ * ---------------------------------------------------------
+ * Render news
+ * ---------------------------------------------------------
+ */
 
 function renderNews() {
   const newsContainer =
@@ -194,7 +273,6 @@ function renderNews() {
   if (
     approvedArticles.length === 0
   ) {
-
     newsContainer.innerHTML = `
       <p class="empty-state">
         ${
@@ -284,6 +362,12 @@ function renderNews() {
 }
 
 
+/*
+ * ---------------------------------------------------------
+ * Load automatic + manual news
+ * ---------------------------------------------------------
+ */
+
 async function loadNews() {
   const newsContainer =
     document.querySelector(
@@ -297,79 +381,77 @@ async function loadNews() {
 
 
   try {
+
     const [
-  autoResponse,
-  manualResponse
-] = await Promise.all([
-  fetch(
-    "data/news.json",
-    {
-      cache: "no-store"
+      autoResponse,
+      manualResponse
+    ] = await Promise.all([
+      fetch(
+        "data/news.json",
+        {
+          cache: "no-store"
+        }
+      ),
+
+      fetch(
+        "data/manual-news.json",
+        {
+          cache: "no-store"
+        }
+      )
+    ]);
+
+
+    if (!autoResponse.ok) {
+      throw new Error(
+        "Automatic news file could not be loaded"
+      );
     }
-  ),
 
-  fetch(
-    "data/manual-news.json",
-    {
-      cache: "no-store"
+
+    if (!manualResponse.ok) {
+      throw new Error(
+        "Manual news file could not be loaded"
+      );
     }
-  )
-]);
 
 
-if (!autoResponse.ok) {
-  throw new Error(
-    "Automatic news file could not be loaded"
-  );
-}
+    const autoArticles =
+      await autoResponse.json();
+
+    const manualArticles =
+      await manualResponse.json();
 
 
-/*
- * manual-news.json is allowed to be empty,
- * but the file itself must exist.
- */
-if (!manualResponse.ok) {
-  throw new Error(
-    "Manual news file could not be loaded"
-  );
-}
+    if (
+      !Array.isArray(autoArticles) ||
+      !Array.isArray(manualArticles)
+    ) {
+      throw new Error(
+        "News data is invalid"
+      );
+    }
 
 
-const autoArticles =
-  await autoResponse.json();
-
-const manualArticles =
-  await manualResponse.json();
-
-
-if (
-  !Array.isArray(autoArticles) ||
-  !Array.isArray(manualArticles)
-) {
-  throw new Error(
-    "News data is invalid"
-  );
-}
+    /*
+     * Merge automatic + manual news.
+     */
+    cachedNewsArticles = [
+      ...autoArticles,
+      ...manualArticles
+    ];
 
 
-/*
- * Merge automatic + manual news.
- */
-cachedNewsArticles = [
-  ...autoArticles,
-  ...manualArticles
-];
+    /*
+     * Sort newest first.
+     */
+    cachedNewsArticles.sort(
+      (a, b) =>
+        new Date(b.date) -
+        new Date(a.date)
+    );
 
 
-/*
- * Sort newest first.
- */
-cachedNewsArticles.sort(
-  (a, b) =>
-    new Date(b.date) -
-    new Date(a.date)
-);
-    
     renderNews();
 
 
@@ -390,15 +472,16 @@ cachedNewsArticles.sort(
         }
       </p>
     `;
-
   }
 }
 
 
 /*
- * Re-render dynamically generated cards
- * whenever script.js changes the language.
+ * ---------------------------------------------------------
+ * Re-render whenever the language changes
+ * ---------------------------------------------------------
  */
+
 document.addEventListener(
   "languageChanged",
   () => {
