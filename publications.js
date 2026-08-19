@@ -67,7 +67,27 @@ function formatResearchers(researchers) {
   }
 
   return researchers
-    .map(researcher => escapeHtml(researcher))
+    .map(researcher => {
+      if (researcher === "Costas Synolakis") {
+        return escapeHtml(
+          translate(
+            "Costas Synolakis",
+            "Κώστας Συνολάκης"
+          )
+        );
+      }
+
+      if (researcher === "Georgios Marios Karagiannis") {
+        return escapeHtml(
+          translate(
+            "George Karagiannis",
+            "Γιώργος Καραγιάννης"
+          )
+        );
+      }
+
+      return escapeHtml(researcher);
+    })
     .join(", ");
 }
 
