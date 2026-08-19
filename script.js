@@ -6,17 +6,53 @@ function applyLanguage(language) {
   const selectedLanguage =
     language === "el" ? "el" : "en";
 
-  document.documentElement.lang = selectedLanguage;
+  document.documentElement.lang =
+    selectedLanguage;
 
   document
     .querySelectorAll("[data-en][data-el]")
     .forEach(element => {
+
       element.textContent =
         element.dataset[selectedLanguage];
+
+      /*
+       * If this translated element also has
+       * bilingual URLs, update the href too.
+       */
+      if (
+        element.hasAttribute("data-href-en") &&
+        element.hasAttribute("data-href-el")
+      ) {
+        element.setAttribute(
+          "href",
+          selectedLanguage === "el"
+            ? element.getAttribute("data-href-el")
+            : element.getAttribute("data-href-en")
+        );
+      }
+    });
+
+  /*
+   * Also update bilingual links that do not
+   * themselves contain translated text.
+   */
+  document
+    .querySelectorAll(
+      "[data-href-en][data-href-el]"
+    )
+    .forEach(element => {
+      element.setAttribute(
+        "href",
+        selectedLanguage === "el"
+          ? element.getAttribute("data-href-el")
+          : element.getAttribute("data-href-en")
+      );
     });
 
   if (languageButton) {
-    languageButton.dataset.lang = selectedLanguage;
+    languageButton.dataset.lang =
+      selectedLanguage;
 
     languageButton.textContent =
       selectedLanguage === "en"
@@ -24,7 +60,6 @@ function applyLanguage(language) {
         : "ΕΛ | EN";
   }
 }
-
 /*
  * Restore the visitor's saved language.
  * English is used only if no language
