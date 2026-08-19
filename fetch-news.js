@@ -2,34 +2,24 @@ const fs = require("fs");
 const { XMLParser } = require("fast-xml-parser");
 
 
+const NEWS_FILE_PATH =
+  "data/news.json";
+
+
 /*
  * ============================================================
- * ACADEMICIANS INCLUDED IN THE AUTOMATED NEWS FEED
+ * SCIENTISTS INCLUDED IN THE AUTOMATED NEWS FEED
  * ============================================================
- *
- * Only:
- * - Costas Synolakis
- * - Georgios Marios Karagiannis
- *
- * Articles are accepted only when an approved version
- * of the name appears in the HEADLINE.
- *
- * We do NOT:
- * - search surnames alone
- * - inspect article body text
- * - accept generic "Γιώργος Καραγιάννης"
- * - accept generic "Karagiannis"
  */
 
 const SEARCH_GROUPS = [
   {
-    academicianEn: "Costas Synolakis",
-    academicianEl: "Κώστας Συνολάκης",
+    academicianEn:
+      "Costas Synolakis",
 
-    /*
-     * Synolakis has a distinctive surname, so a broader
-     * set of full-name / initial variants is acceptable.
-     */
+    academicianEl:
+      "Κώστας Συνολάκης",
+
     searchNames: [
       "Κώστας Συνολάκης",
       "Κωνσταντίνος Συνολάκης",
@@ -54,14 +44,15 @@ const SEARCH_GROUPS = [
   },
 
   {
-    academicianEn: "Georgios Marios Karagiannis",
-    academicianEl: "Γεώργιος Μάριος Καραγιάννης",
+    academicianEn:
+      "Georgios Marios Karagiannis",
+
+    academicianEl:
+      "Γεώργιος Μάριος Καραγιάννης",
 
     /*
-     * Karagiannis is deliberately much stricter.
-     *
-     * We search and accept only highly specific
-     * versions of his full name.
+     * Karagiannis remains deliberately strict.
+     * Do not add surname-only variants here.
      */
     searchNames: [
       "Γεώργιος Μάριος Καραγιάννης",
@@ -157,7 +148,9 @@ function getPublisher(item) {
     return "";
   }
 
-  if (typeof item.source === "string") {
+  if (
+    typeof item.source === "string"
+  ) {
     return item.source;
   }
 
@@ -174,7 +167,9 @@ function getPublisherUrl(item) {
     return "";
   }
 
-  if (typeof item.source === "string") {
+  if (
+    typeof item.source === "string"
+  ) {
     return "";
   }
 
@@ -210,7 +205,9 @@ function isBlacklistedDomain(domain) {
   return BLACKLISTED_DOMAINS.some(
     blockedDomain => {
       const blocked =
-        normaliseDomain(blockedDomain);
+        normaliseDomain(
+          blockedDomain
+        );
 
       return (
         cleanDomain === blocked ||
@@ -223,7 +220,9 @@ function isBlacklistedDomain(domain) {
 }
 
 
-function isBlacklistedPublisher(publisher) {
+function isBlacklistedPublisher(
+  publisher
+) {
   const cleanPublisher =
     normaliseText(publisher);
 
@@ -262,11 +261,6 @@ function articleIsBlacklisted(item) {
  * ============================================================
  * HEADLINE RELEVANCE
  * ============================================================
- *
- * This is the main relevance safeguard.
- *
- * Google can return broad results.
- * The website accepts narrowly.
  */
 
 function titleContainsAcademician(
@@ -336,6 +330,70 @@ async function fetchRss(url) {
 
 /*
  * ============================================================
+ * DATE HELPERS
+ * ============================================================
+ */
+
+function isValidDateString(value) {
+  if (!value) {
+    return false;
+  }
+
+  const date =
+    new Date(value);
+
+  return !Number.isNaN(
+    date.getTime()
+  );
+}
+
+
+function earliestDate(
+  firstDate,
+  secondDate
+) {
+  const firstValid =
+    isValidDateString(firstDate);
+
+  const secondValid =
+    isValidDateString(secondDate);
+
+
+  if (
+    firstValid &&
+    !secondValid
+  ) {
+    return firstDate;
+  }
+
+
+  if (
+    !firstValid &&
+    secondValid
+  ) {
+    return secondDate;
+  }
+
+
+  if (
+    !firstValid &&
+    !secondValid
+  ) {
+    return "";
+  }
+
+
+  return (
+    new Date(firstDate) <=
+    new Date(secondDate)
+      ? firstDate
+      : secondDate
+  );
+}
+
+
+/*
+ * ============================================================
  * TITLE DEDUPLICATION
  * ============================================================
  */
@@ -377,7 +435,9 @@ function stripPublisherFromTitle(
 }
 
 
-function stripGenericPublisherSuffix(title) {
+function stripGenericPublisherSuffix(
+  title
+) {
   const value =
     String(title || "").trim();
 
@@ -397,7 +457,9 @@ function stripGenericPublisherSuffix(title) {
    * A short final fragment is likely
    * to be the publisher name.
    */
-  if (possiblePublisher.length > 45) {
+  if (
+    possiblePublisher.length > 45
+  ) {
     return value;
   }
 
@@ -430,32 +492,179 @@ function createArticleKey(article) {
 }
 
 
-function addUniqueArticle(
-  results,
-  article
+/*
+ * ============================================================
+ * EXISTING ARCHIVE
+ * ============================================================
+ */
+
+function readExistingNews() {
+  if (
+    !fs.existsSync(
+      NEWS_FILE_PATH
+    )
+  ) {
+    return [];
+  }
+
+  try {
+    const raw =
+      fs.readFileSync(
+        NEWS_FILE_PATH,
+        "utf8"
+      );
+
+    const data =
+      JSON.parse(raw);
+
+    if (!Array.isArray(data)) {
+      console.warn(
+        "Existing news.json is not an array. Starting with an empty archive."
+      );
+
+      return [];
+    }
+
+    return data;
+
+  } catch (error) {
+    console.error(
+      "Could not read existing news.json:",
+      error.message
+    );
+
+    /*
+     * Safer to fail than overwrite
+     * the existing archive accidentally.
+     */
+    throw error;
+  }
+}
+
+
+/*
+ * ============================================================
+ * ARCHIVE MERGING
+ * ============================================================
+ *
+ * Existing articles are preserved.
+ *
+ * If Google resurfaces the same story later,
+ * we keep the EARLIEST date we have already
+ * recorded for that story.
+ */
+
+function mergeArticle(
+  archiveMap,
+  incomingArticle
 ) {
-  const newKey =
-    createArticleKey(article);
+  const key =
+    createArticleKey(
+      incomingArticle
+    );
 
-  if (!newKey) {
+  if (!key) {
     return;
   }
 
-  const duplicate =
-    results.some(existing =>
-      createArticleKey(existing) ===
-      newKey
+
+  const existing =
+    archiveMap.get(key);
+
+
+  /*
+   * Completely new story.
+   */
+  if (!existing) {
+    archiveMap.set(
+      key,
+      incomingArticle
     );
 
-  if (duplicate) {
     console.log(
-      `Duplicate rejected: ${article.title}`
+      `Added new article: ${incomingArticle.title}`
     );
 
     return;
   }
 
-  results.push(article);
+
+  /*
+   * Story already exists.
+   *
+   * The earliest date wins. This stops an
+   * older article jumping to the top simply
+   * because Google News resurfaces it later.
+   */
+  const preservedDate =
+    earliestDate(
+      existing.date,
+      incomingArticle.date
+    );
+
+
+  const mergedArticle = {
+    ...existing,
+
+    /*
+     * Fill gaps from the newer RSS record,
+     * but preserve existing archive data
+     * whenever it is already available.
+     */
+    title:
+      existing.title ||
+      incomingArticle.title,
+
+    category:
+      existing.category ||
+      incomingArticle.category,
+
+    academicianEn:
+      existing.academicianEn ||
+      incomingArticle.academicianEn,
+
+    academicianEl:
+      existing.academicianEl ||
+      incomingArticle.academicianEl,
+
+    url:
+      existing.url ||
+      incomingArticle.url,
+
+    publisher:
+      existing.publisher ||
+      incomingArticle.publisher,
+
+    domain:
+      existing.domain ||
+      incomingArticle.domain,
+
+    approved:
+      existing.approved !== false,
+
+    date:
+      preservedDate
+  };
+
+
+  archiveMap.set(
+    key,
+    mergedArticle
+  );
+
+
+  if (
+    existing.date !==
+    incomingArticle.date
+  ) {
+    console.log(
+      `Existing article preserved with earliest date ${preservedDate}: ${incomingArticle.title}`
+    );
+  } else {
+    console.log(
+      `Duplicate already in archive: ${incomingArticle.title}`
+    );
+  }
 }
 
 
@@ -468,9 +677,8 @@ function addUniqueArticle(
 async function processNameSearch({
   name,
   group,
-  results
+  archiveMap
 }) {
-
   const rssUrl =
     buildGoogleNewsRssUrl(name);
 
@@ -478,21 +686,24 @@ async function processNameSearch({
     `Searching Google News for: "${name}"`
   );
 
-  try {
 
+  try {
     const feed =
       await fetchRss(rssUrl);
 
     const items =
-      feed?.rss?.channel?.item || [];
+      feed?.rss?.channel?.item ||
+      [];
 
     const itemList =
       Array.isArray(items)
         ? items
         : [items];
 
-    for (const item of itemList) {
 
+    for (
+      const item of itemList
+    ) {
       const title =
         String(
           item?.title || ""
@@ -521,7 +732,6 @@ async function processNameSearch({
           group.headlineNames
         )
       ) {
-
         console.log(
           `Rejected - approved name not in headline: ${title}`
         );
@@ -539,7 +749,6 @@ async function processNameSearch({
       if (
         articleIsBlacklisted(item)
       ) {
-
         console.log(
           `Rejected - blacklisted publisher: ${title}`
         );
@@ -550,22 +759,38 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 3. DATE
+       * 3. RSS DATE
        * --------------------------------------------------------
+       *
+       * Do NOT replace an invalid date with today's
+       * date. That can make an old article appear new.
        */
 
-      let pubDate =
-        item.pubDate
-          ? new Date(item.pubDate)
-          : new Date();
+      if (!item.pubDate) {
+        console.log(
+          `Rejected - missing publication date: ${title}`
+        );
+
+        continue;
+      }
+
+
+      const pubDate =
+        new Date(
+          item.pubDate
+        );
+
 
       if (
         Number.isNaN(
           pubDate.getTime()
         )
       ) {
-        pubDate =
-          new Date();
+        console.log(
+          `Rejected - invalid publication date: ${title}`
+        );
+
+        continue;
       }
 
 
@@ -586,14 +811,6 @@ async function processNameSearch({
        * --------------------------------------------------------
        * 5. ARTICLE
        * --------------------------------------------------------
-       *
-       * IMPORTANT:
-       *
-       * Always keep the Google News RSS article link.
-       *
-       * We do not use the publisher's <source> URL as the
-       * article URL because Google frequently provides a
-       * homepage/category/archive URL there.
        */
 
       const article = {
@@ -613,6 +830,9 @@ async function processNameSearch({
         academicianEl:
           group.academicianEl,
 
+        /*
+         * Keep the Google News RSS article link.
+         */
         url:
           link,
 
@@ -629,23 +849,21 @@ async function processNameSearch({
 
       /*
        * --------------------------------------------------------
-       * 6. DEDUPLICATION
+       * 6. MERGE INTO ARCHIVE
        * --------------------------------------------------------
        */
 
-      addUniqueArticle(
-        results,
+      mergeArticle(
+        archiveMap,
         article
       );
     }
 
   } catch (error) {
-
     console.error(
       `Could not fetch news for "${name}":`,
       error.message
     );
-
   }
 }
 
@@ -657,96 +875,158 @@ async function processNameSearch({
  */
 
 async function main() {
+  /*
+   * ----------------------------------------------------------
+   * 1. Load the existing archive FIRST.
+   * ----------------------------------------------------------
+   */
 
-  const results = [];
+  const existingArticles =
+    readExistingNews();
+
+
+  console.log(
+    `Loaded ${existingArticles.length} existing news articles.`
+  );
 
 
   /*
-   * Search only recognised names.
+   * ----------------------------------------------------------
+   * 2. Build archive map from existing articles.
+   * ----------------------------------------------------------
+   */
+
+  const archiveMap =
+    new Map();
+
+
+  for (
+    const article of
+    existingArticles
+  ) {
+    const key =
+      createArticleKey(
+        article
+      );
+
+    if (!key) {
+      continue;
+    }
+
+
+    /*
+     * If the existing JSON itself contains duplicates,
+     * merge them and keep the earliest known date.
+     */
+    if (
+      archiveMap.has(key)
+    ) {
+      mergeArticle(
+        archiveMap,
+        article
+      );
+    } else {
+      archiveMap.set(
+        key,
+        article
+      );
+    }
+  }
+
+
+  /*
+   * ----------------------------------------------------------
+   * 3. Search Google News.
+   * ----------------------------------------------------------
    *
-   * NO surname-only searches.
-   * NO article-body searches.
+   * No surname-only searches.
+   * No article-body searches.
    */
 
   for (
     const group of SEARCH_GROUPS
   ) {
-
     for (
-      const name of group.searchNames
+      const name of
+      group.searchNames
     ) {
-
       await processNameSearch({
         name,
         group,
-        results
+        archiveMap
       });
-
     }
-
   }
 
 
   /*
-   * Final deduplication.
+   * ----------------------------------------------------------
+   * 4. Convert archive back to an array.
+   * ----------------------------------------------------------
    */
 
-  const uniqueResults = [];
-
-  for (
-    const article of results
-  ) {
-
-    addUniqueArticle(
-      uniqueResults,
-      article
+  const finalArticles =
+    Array.from(
+      archiveMap.values()
     );
 
-  }
-
 
   /*
-   * Newest first.
+   * ----------------------------------------------------------
+   * 5. Newest first.
+   * ----------------------------------------------------------
    */
 
-  uniqueResults.sort(
-    (a, b) =>
-      new Date(b.date) -
-      new Date(a.date)
+  finalArticles.sort(
+    (a, b) => {
+      const firstDate =
+        new Date(
+          a.date || 0
+        );
+
+      const secondDate =
+        new Date(
+          b.date || 0
+        );
+
+      return (
+        secondDate -
+        firstDate
+      );
+    }
   );
 
 
   /*
-   * Rewrite news.json.
+   * ----------------------------------------------------------
+   * 6. Write the COMPLETE archive.
+   * ----------------------------------------------------------
    */
 
   fs.writeFileSync(
-    "data/news.json",
+    NEWS_FILE_PATH,
 
     JSON.stringify(
-      uniqueResults,
+      finalArticles,
       null,
       2
-    ),
+    ) + "\n",
 
     "utf8"
   );
 
 
   console.log(
-    `Updated data/news.json with ${uniqueResults.length} unique approved articles.`
+    `Updated ${NEWS_FILE_PATH} with ${finalArticles.length} archived approved articles.`
   );
-
 }
 
 
 main().catch(error => {
-
   console.error(
     "News update failed:",
     error
   );
 
   process.exitCode = 1;
-
 });
