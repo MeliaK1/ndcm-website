@@ -520,10 +520,9 @@
       }
 
       const response =
-        await fetch(
-          "/.netlify/functions/news-admin",
-          options
-        );
+        await fetch("https://resplendent-youtiao-fe2f0b.netlify.app/.netlify/functions/news-admin",
+      options
+      );
 
       const data =
         await response.json();
