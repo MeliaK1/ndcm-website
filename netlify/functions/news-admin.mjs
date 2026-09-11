@@ -6,6 +6,17 @@ const GITHUB_API =
 const FILE_PATH =
   "data/manual-news.json";
 
+  const CORS_HEADERS = {
+  "Access-Control-Allow-Origin":
+    "https://meliak1.github.io",
+
+  "Access-Control-Allow-Headers":
+    "Content-Type, Authorization",
+
+  "Access-Control-Allow-Methods":
+    "GET, POST, PUT, DELETE, OPTIONS"
+};
+
 const ALLOWED_ACADEMICIANS = {
   "Costas Synolakis":
     "Κώστας Συνολάκης",
@@ -25,7 +36,8 @@ function jsonResponse(
       status,
       headers: {
         "Content-Type":
-          "application/json"
+          "application/json",
+        ...CORS_HEADERS
       }
     }
   );
@@ -423,24 +435,21 @@ export default async function handler(
   request
 ) {
   try {
-    const config =
-      getConfig();
-
-
     if (
-      !isAuthenticated(
-        request,
-        config.adminPassword
-      )
+      request.method.toUpperCase() ===
+      "OPTIONS"
     ) {
-      return jsonResponse(
+      return new Response(
+        null,
         {
-          error:
-            "Unauthorized."
-        },
-        401
+          status: 204,
+          headers: CORS_HEADERS
+        }
       );
     }
+
+    const config =
+      getConfig();
 
 
     const method =
