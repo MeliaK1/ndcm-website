@@ -24,5 +24,18 @@
     "domain": "ertnews.gr",
     "approved": true,
     "manual": true
+  },
+  {
+    "id": "a881bafb-987f-4b9a-98f1-d08749e86827",
+    "title": "Γ. Καραγιάννης στο ΕΡΤnews: «Πρέπει να μάθουμε να ζούμε με τις δασικές πυρκαγιές, όπως μάθαμε να ζούμε με τους σεισμούς»",
+    "date": "2026-08-03",
+    "category": "In the Media",
+    "academicianEn": "Georgios Marios Karagiannis",
+    "academicianEl": "Γεώργιος Μάριος Καραγιάννης",
+    "url": "https://www.ertnews.gr/eidiseis/ellada/g-karagiannis-sto-ertnews-prepei-na-mathoume-na-zoume-me-tis-dasikes-pyrkagies-opos-mathame-na-zoume-me-tous-seismous/",
+    "publisher": "ΕΡΤ News",
+    "domain": "ertnews.gr",
+    "approved": true,
+    "manual": true
   }
 ]
