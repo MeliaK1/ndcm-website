@@ -128,5 +128,18 @@
     "domain": "ekathimerini.com",
     "approved": true,
     "manual": true
+  },
+  {
+    "id": "161236d5-e297-4e59-ae19-ae22600b44d0",
+    "title": "The Global Lessons of Italy’s Earthquake",
+    "date": "2016-08-28",
+    "category": "In the Media",
+    "academicianEn": "Costas Synolakis",
+    "academicianEl": "Κώστας Συνολάκης",
+    "url": "https://www.wsj.com/articles/the-global-lessons-of-italys-earthquake-1472421264",
+    "publisher": "WSJ",
+    "domain": "wsj.com",
+    "approved": true,
+    "manual": true
   }
 ]
