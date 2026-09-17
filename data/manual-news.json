@@ -115,5 +115,18 @@
     "domain": "nytimes.com",
     "approved": true,
     "manual": true
+  },
+  {
+    "id": "338e02e2-97be-4203-9efd-5b51a6065c06",
+    "title": "Heatwaves and wildfires: How Greece is handling the double whammy",
+    "date": "2023-07-30",
+    "category": "In the Media",
+    "academicianEn": "Costas Synolakis",
+    "academicianEl": "Κώστας Συνολάκης",
+    "url": "https://www.ekathimerini.com/opinion/1216624/heatwaves-and-wildfires-how-greece-is-handling-the-double-whammy/",
+    "publisher": "EKATHIMERINI",
+    "domain": "ekathimerini.com",
+    "approved": true,
+    "manual": true
   }
 ]
