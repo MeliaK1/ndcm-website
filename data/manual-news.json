@@ -76,5 +76,18 @@
     "domain": "ertnews.gr",
     "approved": true,
     "manual": true
+  },
+  {
+    "id": "e0edd200-9e58-4fb4-b915-af762860a042",
+    "title": "Οι δασικές πυρκαγιές στην εποχή της κλιµατικής αλλαγής, άρθρο των Κώστα Συνολάκη και Γιώργου Καραγιάννη",
+    "date": "2024-08-21",
+    "category": "In the Media",
+    "academicianEn": "Costas Synolakis",
+    "academicianEl": "Κώστας Συνολάκης",
+    "url": "https://www.parapolitika.gr/ellada/article/1440220/oi-dasikes-purkagies-stin-epohi-tis-kliatikis-allagis-arthro-ton-kosta-sunolaki-kai-giorgou-karagianni/",
+    "publisher": "PARAPOLITIKA",
+    "domain": "parapolitika.gr",
+    "approved": true,
+    "manual": true
   }
 ]
