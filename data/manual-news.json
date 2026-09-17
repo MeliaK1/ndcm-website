@@ -102,5 +102,18 @@
     "domain": "parapolitika.gr",
     "approved": true,
     "manual": true
+  },
+  {
+    "id": "e285a652-6903-4186-a750-4240683cb186",
+    "title": "Why Didn’t Hawaii Evacuate Sooner During the Fires?",
+    "date": "2023-08-19",
+    "category": "In the Media",
+    "academicianEn": "Costas Synolakis",
+    "academicianEl": "Κώστας Συνολάκης",
+    "url": "https://www.nytimes.com/2023/08/19/opinion/maui-wildfires-hawaii-sirens.html",
+    "publisher": "NY TIMES",
+    "domain": "nytimes.com",
+    "approved": true,
+    "manual": true
   }
 ]
