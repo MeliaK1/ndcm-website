@@ -293,7 +293,9 @@ function renderNews() {
 
         const title =
           escapeHtml(
-            article.title || ""
+            getNewsLanguage() === "en"
+            ? (article.titleEn || article.title || "")
+            : (article.title || "")
           );
 
         const category =

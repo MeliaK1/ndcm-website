@@ -221,17 +221,31 @@
           <div class="admin-form-grid">
 
             <div class="admin-field admin-field-full">
-              <label for="title">
-                Title
-              </label>
+  <label for="title">
+    Original article title
+  </label>
 
-              <input
-                id="title"
-                name="title"
-                type="text"
-                required
-              />
-            </div>
+  <input
+    id="title"
+    name="title"
+    type="text"
+    required
+  />
+</div>
+
+
+<div class="admin-field admin-field-full">
+  <label for="titleEn">
+    English title
+  </label>
+
+  <input
+    id="titleEn"
+    name="titleEn"
+    type="text"
+    placeholder="English translation of the headline"
+  />
+</div>
 
 
             <div class="admin-field">
@@ -719,6 +733,11 @@
         "title"
       ).value =
         article.title || "";
+        
+      document.getElementById(
+        "titleEn"
+      ).value =
+        article.titleEn || "";
 
       document.getElementById(
         "date"
