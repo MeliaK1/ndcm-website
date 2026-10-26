@@ -219,6 +219,11 @@ function sanitiseArticle(
       String(
         article.title || ""
       ).trim(),
+    
+    titleEn:
+      String(
+      article.titleEn || ""
+    ).trim(),
 
     date:
       String(
