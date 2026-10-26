@@ -1,15 +1,14 @@
 const fs = require("fs");
 const { XMLParser } = require("fast-xml-parser");
 
-
-const NEWS_FILE_PATH =
-  "data/news.json";
+const NEWS_FILE_PATH = "data/news.json";
 
 const GOOGLE_TRANSLATE_API_KEY =
   process.env.GOOGLE_TRANSLATE_API_KEY || "";
 
 const GOOGLE_TRANSLATE_URL =
   "https://translation.googleapis.com/language/translate/v2";
+
 /*
  * ============================================================
  * SCIENTISTS INCLUDED IN THE AUTOMATED NEWS FEED
@@ -18,11 +17,8 @@ const GOOGLE_TRANSLATE_URL =
 
 const SEARCH_GROUPS = [
   {
-    academicianEn:
-      "Costas Synolakis",
-
-    academicianEl:
-      "Κώστας Συνολάκης",
+    academicianEn: "Costas Synolakis",
+    academicianEl: "Κώστας Συνολάκης",
 
     searchNames: [
       "Κώστας Συνολάκης",
@@ -48,11 +44,8 @@ const SEARCH_GROUPS = [
   },
 
   {
-    academicianEn:
-      "Georgios Marios Karagiannis",
-
-    academicianEl:
-      "Γεώργιος Μάριος Καραγιάννης",
+    academicianEn: "Georgios Marios Karagiannis",
+    academicianEl: "Γεώργιος Μάριος Καραγιάννης",
 
     /*
      * Karagiannis remains deliberately strict.
@@ -72,7 +65,6 @@ const SEARCH_GROUPS = [
   }
 ];
 
-
 /*
  * ============================================================
  * BLACKLIST
@@ -85,7 +77,6 @@ const BLACKLISTED_DOMAINS = [
   "avgi.gr"
 ];
 
-
 const BLACKLISTED_PUBLISHER_NAMES = [
   "documentonews",
   "documento",
@@ -94,7 +85,6 @@ const BLACKLISTED_PUBLISHER_NAMES = [
   "avgi",
   "η αυγή"
 ];
-
 
 /*
  * ============================================================
@@ -112,6 +102,7 @@ function normaliseText(value) {
     .replace(/\s+/g, " ")
     .trim();
 }
+
 function containsGreekText(value) {
   return /[\u0370-\u03FF\u1F00-\u1FFF]/u.test(
     String(value || "")
@@ -212,7 +203,6 @@ function normaliseDomain(value) {
     .replace(/\/.*$/, "");
 }
 
-
 function getDomain(url) {
   try {
     return normaliseDomain(
@@ -222,7 +212,6 @@ function getDomain(url) {
     return "";
   }
 }
-
 
 /*
  * ============================================================
@@ -248,7 +237,6 @@ function getPublisher(item) {
   );
 }
 
-
 function getPublisherUrl(item) {
   if (!item?.source) {
     return "";
@@ -267,13 +255,11 @@ function getPublisherUrl(item) {
   );
 }
 
-
 function getPublisherDomain(item) {
   return getDomain(
     getPublisherUrl(item)
   );
 }
-
 
 /*
  * ============================================================
@@ -306,7 +292,6 @@ function isBlacklistedDomain(domain) {
   );
 }
 
-
 function isBlacklistedPublisher(
   publisher
 ) {
@@ -325,7 +310,6 @@ function isBlacklistedPublisher(
   );
 }
 
-
 function articleIsBlacklisted(item) {
   const publisher =
     getPublisher(item);
@@ -342,7 +326,6 @@ function articleIsBlacklisted(item) {
     )
   );
 }
-
 
 /*
  * ============================================================
@@ -364,7 +347,6 @@ function titleContainsAcademician(
   );
 }
 
-
 /*
  * ============================================================
  * GOOGLE NEWS RSS SEARCH
@@ -385,7 +367,6 @@ function buildGoogleNewsRssUrl(name) {
     "&ceid=GR:el"
   );
 }
-
 
 /*
  * ============================================================
@@ -414,7 +395,6 @@ async function fetchRss(url) {
   return parser.parse(xml);
 }
 
-
 /*
  * ============================================================
  * DATE HELPERS
@@ -434,7 +414,6 @@ function isValidDateString(value) {
   );
 }
 
-
 function earliestDate(
   firstDate,
   secondDate
@@ -445,14 +424,12 @@ function earliestDate(
   const secondValid =
     isValidDateString(secondDate);
 
-
   if (
     firstValid &&
     !secondValid
   ) {
     return firstDate;
   }
-
 
   if (
     !firstValid &&
@@ -461,14 +438,12 @@ function earliestDate(
     return secondDate;
   }
 
-
   if (
     !firstValid &&
     !secondValid
   ) {
     return "";
   }
-
 
   return (
     new Date(firstDate) <=
@@ -478,10 +453,18 @@ function earliestDate(
   );
 }
 
-
 /*
  * ============================================================
- * TITLE DEDUPLICATION
+ * ARTICLE IDENTITY / DEDUPLICATION
+ * ============================================================
+ *
+ * sourceTitle is the untouched headline received from Google
+ * News. It is kept internally so an administrator can edit the
+ * visible Greek title without changing the identity of the
+ * article.
+ *
+ * Existing archive items created before sourceTitle was added
+ * continue to work because we fall back to title.
  * ============================================================
  */
 
@@ -492,7 +475,6 @@ function escapeRegExp(value) {
       "\\$&"
     );
 }
-
 
 function stripPublisherFromTitle(
   title,
@@ -520,7 +502,6 @@ function stripPublisherFromTitle(
     .replace(pattern, "")
     .trim();
 }
-
 
 function stripGenericPublisherSuffix(
   title
@@ -556,11 +537,21 @@ function stripGenericPublisherSuffix(
     .trim();
 }
 
-
 function createArticleKey(article) {
+  /*
+   * IMPORTANT:
+   * Always prefer sourceTitle for automatic news.
+   * This allows article.title to be manually edited
+   * without causing the RSS article to be added again.
+   */
+  const identityTitle =
+    article.sourceTitle ||
+    article.title ||
+    "";
+
   let title =
     stripPublisherFromTitle(
-      article.title,
+      identityTitle,
       article.publisher
     );
 
@@ -577,7 +568,6 @@ function createArticleKey(article) {
     .replace(/\s+/g, " ")
     .trim();
 }
-
 
 /*
  * ============================================================
@@ -628,7 +618,6 @@ function readExistingNews() {
   }
 }
 
-
 /*
  * ============================================================
  * ARCHIVE MERGING
@@ -639,6 +628,10 @@ function readExistingNews() {
  * If Google resurfaces the same story later,
  * we keep the EARLIEST date we have already
  * recorded for that story.
+ *
+ * The visible title and titleEn are also preserved.
+ * This means manual headline corrections survive future runs.
+ * ============================================================
  */
 
 function mergeArticle(
@@ -654,10 +647,8 @@ function mergeArticle(
     return;
   }
 
-
   const existing =
     archiveMap.get(key);
-
 
   /*
    * Completely new story.
@@ -675,7 +666,6 @@ function mergeArticle(
     return;
   }
 
-
   /*
    * Story already exists.
    *
@@ -689,16 +679,26 @@ function mergeArticle(
       incomingArticle.date
     );
 
-
   const mergedArticle = {
     ...existing,
 
     /*
-     * Fill gaps from the newer RSS record,
-     * but preserve existing archive data
-     * whenever it is already available.
+     * Preserve the original Google News headline permanently.
+     *
+     * Existing sourceTitle wins. Otherwise the sourceTitle
+     * supplied by the current RSS record is saved.
      */
-        title:
+    sourceTitle:
+      existing.sourceTitle ||
+      incomingArticle.sourceTitle ||
+      incomingArticle.title ||
+      existing.title ||
+      "",
+
+    /*
+     * Preserve manually edited visible headlines.
+     */
+    title:
       existing.title ||
       incomingArticle.title,
 
@@ -738,12 +738,10 @@ function mergeArticle(
       preservedDate
   };
 
-
   archiveMap.set(
     key,
     mergedArticle
   );
-
 
   if (
     existing.date !==
@@ -758,7 +756,6 @@ function mergeArticle(
     );
   }
 }
-
 
 /*
  * ============================================================
@@ -778,7 +775,6 @@ async function processNameSearch({
     `Searching Google News for: "${name}"`
   );
 
-
   try {
     const feed =
       await fetchRss(rssUrl);
@@ -791,7 +787,6 @@ async function processNameSearch({
       Array.isArray(items)
         ? items
         : [items];
-
 
     for (
       const item of itemList
@@ -806,18 +801,15 @@ async function processNameSearch({
           item?.link || ""
         ).trim();
 
-
       if (!title || !link) {
         continue;
       }
-
 
       /*
        * --------------------------------------------------------
        * 1. STRICT HEADLINE CHECK
        * --------------------------------------------------------
        */
-
       if (
         !titleContainsAcademician(
           title,
@@ -831,13 +823,11 @@ async function processNameSearch({
         continue;
       }
 
-
       /*
        * --------------------------------------------------------
        * 2. BLACKLIST CHECK
        * --------------------------------------------------------
        */
-
       if (
         articleIsBlacklisted(item)
       ) {
@@ -848,7 +838,6 @@ async function processNameSearch({
         continue;
       }
 
-
       /*
        * --------------------------------------------------------
        * 3. RSS DATE
@@ -857,7 +846,6 @@ async function processNameSearch({
        * Do NOT replace an invalid date with today's
        * date. That can make an old article appear new.
        */
-
       if (!item.pubDate) {
         console.log(
           `Rejected - missing publication date: ${title}`
@@ -866,12 +854,10 @@ async function processNameSearch({
         continue;
       }
 
-
       const pubDate =
         new Date(
           item.pubDate
         );
-
 
       if (
         Number.isNaN(
@@ -885,44 +871,61 @@ async function processNameSearch({
         continue;
       }
 
-
       /*
        * --------------------------------------------------------
        * 4. PUBLISHER
        * --------------------------------------------------------
        */
-
       const publisher =
         getPublisher(item);
 
       const publisherDomain =
         getPublisherDomain(item);
 
-
       /*
        * --------------------------------------------------------
        * 5. ARTICLE
        * --------------------------------------------------------
+       *
+       * The RSS headline is stored as sourceTitle.
+       *
+       * title remains the visible Greek/original headline and
+       * can later be edited manually in News Admin.
        */
-      const existingArticle =
-  archiveMap.get(
-    createArticleKey({
-      title,
-      publisher
-    })
-  );
+      const sourceTitle =
+        title;
 
-const titleEn =
-  existingArticle?.titleEn ||
-  await translateHeadlineToEnglish(
-    title
-  );
+      const articleKey =
+        createArticleKey({
+          sourceTitle,
+          title,
+          publisher
+        });
+
+      const existingArticle =
+        archiveMap.get(
+          articleKey
+        );
+
+      const titleEn =
+        existingArticle?.titleEn ||
+        await translateHeadlineToEnglish(
+          title
+        );
 
       const article = {
+        sourceTitle,
+
+        /*
+         * Visible Greek/original headline.
+         */
         title,
-        
+
+        /*
+         * Visible English headline.
+         */
         titleEn,
-    
+
         date:
           pubDate
             .toISOString()
@@ -953,13 +956,11 @@ const titleEn =
           true
       };
 
-
       /*
        * --------------------------------------------------------
        * 6. MERGE INTO ARCHIVE
        * --------------------------------------------------------
        */
-
       mergeArticle(
         archiveMap,
         article
@@ -974,7 +975,6 @@ const titleEn =
   }
 }
 
-
 /*
  * ============================================================
  * MAIN
@@ -987,25 +987,23 @@ async function main() {
    * 1. Load the existing archive FIRST.
    * ----------------------------------------------------------
    */
-
   const existingArticles =
     readExistingNews();
-
 
   console.log(
     `Loaded ${existingArticles.length} existing news articles.`
   );
 
-
   /*
    * ----------------------------------------------------------
    * 2. Build archive map from existing articles.
    * ----------------------------------------------------------
+   *
+   * Old archive entries may not yet contain sourceTitle.
+   * That is fine: createArticleKey falls back to title.
    */
-
   const archiveMap =
     new Map();
-
 
   for (
     const article of
@@ -1019,7 +1017,6 @@ async function main() {
     if (!key) {
       continue;
     }
-
 
     /*
      * If the existing JSON itself contains duplicates,
@@ -1040,7 +1037,6 @@ async function main() {
     }
   }
 
-
   /*
    * ----------------------------------------------------------
    * 3. Search Google News.
@@ -1049,7 +1045,6 @@ async function main() {
    * No surname-only searches.
    * No article-body searches.
    */
-
   for (
     const group of SEARCH_GROUPS
   ) {
@@ -1065,48 +1060,71 @@ async function main() {
     }
   }
 
-
   /*
    * ----------------------------------------------------------
    * 4. Convert archive back to an array.
    * ----------------------------------------------------------
    */
-
   const finalArticles =
     Array.from(
       archiveMap.values()
     );
-  
-  for (const article of finalArticles) {
-  if (
-    !article.titleEn &&
-    containsGreekText(article.title)
-  ) {
-    article.titleEn =
-      await translateHeadlineToEnglish(
-        article.title
-      );
-  }
 
-  /*
-   * English headlines use their original
-   * title as the English title.
-   */
-  if (
-    !article.titleEn &&
-    !containsGreekText(article.title)
+  for (
+    const article of
+    finalArticles
   ) {
-    article.titleEn =
-      article.title || "";
+    /*
+     * Backfill sourceTitle for old articles.
+     *
+     * Before an administrator edits an old article, its current
+     * title is also its best available original/source headline.
+     *
+     * Once sourceTitle exists, future title edits do not alter it.
+     */
+    if (!article.sourceTitle) {
+      article.sourceTitle =
+        article.title || "";
+    }
+
+    /*
+     * Backfill missing English translations only.
+     *
+     * Existing titleEn values, including manual corrections,
+     * are never translated again.
+     */
+    if (
+      !article.titleEn &&
+      containsGreekText(
+        article.title
+      )
+    ) {
+      article.titleEn =
+        await translateHeadlineToEnglish(
+          article.title
+        );
+    }
+
+    /*
+     * English headlines use their original
+     * title as the English title.
+     */
+    if (
+      !article.titleEn &&
+      !containsGreekText(
+        article.title
+      )
+    ) {
+      article.titleEn =
+        article.title || "";
+    }
   }
-}
 
   /*
    * ----------------------------------------------------------
    * 5. Newest first.
    * ----------------------------------------------------------
    */
-
   finalArticles.sort(
     (a, b) => {
       const firstDate =
@@ -1126,13 +1144,11 @@ async function main() {
     }
   );
 
-
   /*
    * ----------------------------------------------------------
    * 6. Write the COMPLETE archive.
    * ----------------------------------------------------------
    */
-
   fs.writeFileSync(
     NEWS_FILE_PATH,
 
@@ -1145,12 +1161,10 @@ async function main() {
     "utf8"
   );
 
-
   console.log(
     `Updated ${NEWS_FILE_PATH} with ${finalArticles.length} archived approved articles.`
   );
 }
-
 
 main().catch(error => {
   console.error(

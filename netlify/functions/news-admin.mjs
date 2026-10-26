@@ -1,12 +1,18 @@
 import crypto from "node:crypto";
 
+
 const GITHUB_API =
   "https://api.github.com";
 
-const FILE_PATH =
+
+const MANUAL_FILE_PATH =
   "data/manual-news.json";
 
-  const CORS_HEADERS = {
+const AUTOMATIC_FILE_PATH =
+  "data/news.json";
+
+
+const CORS_HEADERS = {
   "Access-Control-Allow-Origin":
     "https://meliak1.github.io",
 
@@ -17,6 +23,7 @@ const FILE_PATH =
     "GET, POST, PUT, DELETE, OPTIONS"
 };
 
+
 const ALLOWED_ACADEMICIANS = {
   "Costas Synolakis":
     "Κώστας Συνολάκης",
@@ -26,6 +33,12 @@ const ALLOWED_ACADEMICIANS = {
 };
 
 
+/*
+ * ============================================================
+ * RESPONSE
+ * ============================================================
+ */
+
 function jsonResponse(
   data,
   status = 200
@@ -34,15 +47,23 @@ function jsonResponse(
     JSON.stringify(data),
     {
       status,
+
       headers: {
         "Content-Type":
           "application/json",
+
         ...CORS_HEADERS
       }
     }
   );
 }
 
+
+/*
+ * ============================================================
+ * CONFIGURATION
+ * ============================================================
+ */
 
 function getConfig() {
   const token =
@@ -84,6 +105,12 @@ function getConfig() {
 }
 
 
+/*
+ * ============================================================
+ * AUTHENTICATION
+ * ============================================================
+ */
+
 function isAuthenticated(
   request,
   adminPassword
@@ -102,6 +129,12 @@ function isAuthenticated(
 }
 
 
+/*
+ * ============================================================
+ * HELPERS
+ * ============================================================
+ */
+
 function normaliseDomain(value) {
   return String(value || "")
     .toLowerCase()
@@ -112,7 +145,262 @@ function normaliseDomain(value) {
 }
 
 
-function validateArticle(article) {
+function githubHeaders(token) {
+  return {
+    "Accept":
+      "application/vnd.github+json",
+
+    "Authorization":
+      `Bearer ${token}`,
+
+    "X-GitHub-Api-Version":
+      "2022-11-28",
+
+    "User-Agent":
+      "ndcm-news-admin"
+  };
+}
+
+
+async function parseBody(request) {
+  try {
+    return await request.json();
+  } catch {
+    return null;
+  }
+}
+
+
+/*
+ * ============================================================
+ * GENERIC GITHUB FILE READER
+ * ============================================================
+ */
+
+async function readJsonFile(
+  config,
+  filePath
+) {
+  const url =
+    `${GITHUB_API}/repos/` +
+    `${config.owner}/` +
+    `${config.repo}/contents/` +
+    `${filePath}` +
+    `?ref=${encodeURIComponent(
+      config.branch
+    )}`;
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        headers:
+          githubHeaders(
+            config.token
+          )
+      }
+    );
+
+
+  if (!response.ok) {
+    throw new Error(
+      `Unable to read ${filePath}: ${response.status}`
+    );
+  }
+
+
+  const fileData =
+    await response.json();
+
+
+  const content =
+    Buffer
+      .from(
+        fileData.content,
+        "base64"
+      )
+      .toString("utf8");
+
+
+  let articles;
+
+
+  try {
+    articles =
+      JSON.parse(content);
+  } catch {
+    throw new Error(
+      `${filePath} contains invalid JSON.`
+    );
+  }
+
+
+  if (!Array.isArray(articles)) {
+    throw new Error(
+      `${filePath} must contain an array.`
+    );
+  }
+
+
+  return {
+    articles,
+    sha: fileData.sha
+  };
+}
+
+
+/*
+ * ============================================================
+ * GENERIC GITHUB FILE WRITER
+ * ============================================================
+ */
+
+async function writeJsonFile(
+  config,
+  filePath,
+  articles,
+  sha,
+  message
+) {
+  const url =
+    `${GITHUB_API}/repos/` +
+    `${config.owner}/` +
+    `${config.repo}/contents/` +
+    `${filePath}`;
+
+
+  const content =
+    Buffer
+      .from(
+        JSON.stringify(
+          articles,
+          null,
+          2
+        ) + "\n",
+        "utf8"
+      )
+      .toString("base64");
+
+
+  const response =
+    await fetch(
+      url,
+      {
+        method: "PUT",
+
+        headers: {
+          ...githubHeaders(
+            config.token
+          ),
+
+          "Content-Type":
+            "application/json"
+        },
+
+        body:
+          JSON.stringify({
+            message,
+            content,
+            sha,
+
+            branch:
+              config.branch
+          })
+      }
+    );
+
+
+  if (!response.ok) {
+    const details =
+      await response.text();
+
+    console.error(
+      "GitHub write failed:",
+      details
+    );
+
+    throw new Error(
+      `Unable to update ${filePath}: ${response.status}`
+    );
+  }
+
+
+  return response.json();
+}
+
+
+/*
+ * ============================================================
+ * MANUAL NEWS
+ * ============================================================
+ */
+
+async function readManualNews(
+  config
+) {
+  return readJsonFile(
+    config,
+    MANUAL_FILE_PATH
+  );
+}
+
+
+async function writeManualNews(
+  config,
+  articles,
+  sha,
+  message
+) {
+  return writeJsonFile(
+    config,
+    MANUAL_FILE_PATH,
+    articles,
+    sha,
+    message
+  );
+}
+
+
+/*
+ * ============================================================
+ * AUTOMATIC NEWS
+ * ============================================================
+ */
+
+async function readAutomaticNews(
+  config
+) {
+  return readJsonFile(
+    config,
+    AUTOMATIC_FILE_PATH
+  );
+}
+
+
+async function writeAutomaticNews(
+  config,
+  articles,
+  sha,
+  message
+) {
+  return writeJsonFile(
+    config,
+    AUTOMATIC_FILE_PATH,
+    articles,
+    sha,
+    message
+  );
+}
+
+
+/*
+ * ============================================================
+ * MANUAL ARTICLE VALIDATION
+ * ============================================================
+ */
+
+function validateManualArticle(article) {
   if (
     !article ||
     typeof article !== "object"
@@ -126,6 +414,7 @@ function validateArticle(article) {
       article.title || ""
     ).trim();
 
+
   if (!title) {
     return "Title is required.";
   }
@@ -135,6 +424,7 @@ function validateArticle(article) {
     String(
       article.date || ""
     ).trim();
+
 
   if (
     !/^\d{4}-\d{2}-\d{2}$/.test(
@@ -150,6 +440,7 @@ function validateArticle(article) {
       article.url || ""
     ).trim();
 
+
   try {
     const parsed =
       new URL(url);
@@ -162,6 +453,7 @@ function validateArticle(article) {
         "Article URL must use HTTPS."
       );
     }
+
   } catch {
     return "Article URL is invalid.";
   }
@@ -200,7 +492,13 @@ function validateArticle(article) {
 }
 
 
-function sanitiseArticle(
+/*
+ * ============================================================
+ * MANUAL ARTICLE SANITISATION
+ * ============================================================
+ */
+
+function sanitiseManualArticle(
   article,
   existingId = null
 ) {
@@ -219,11 +517,11 @@ function sanitiseArticle(
       String(
         article.title || ""
       ).trim(),
-    
+
     titleEn:
       String(
-      article.titleEn || ""
-    ).trim(),
+        article.titleEn || ""
+      ).trim(),
 
     date:
       String(
@@ -267,179 +565,253 @@ function sanitiseArticle(
 }
 
 
-function githubHeaders(token) {
-  return {
-    "Accept":
-      "application/vnd.github+json",
+/*
+ * ============================================================
+ * AUTOMATIC ARTICLE VALIDATION
+ * ============================================================
+ */
 
-    "Authorization":
-      `Bearer ${token}`,
-
-    "X-GitHub-Api-Version":
-      "2022-11-28",
-
-    "User-Agent":
-      "ndcm-news-admin"
-  };
-}
+function validateAutomaticEdit(body) {
+  if (
+    !body ||
+    typeof body !== "object"
+  ) {
+    return "Invalid article.";
+  }
 
 
-async function readManualNews(
-  config
-) {
+  const title =
+    String(
+      body.title || ""
+    ).trim();
+
+
+  const titleEn =
+    String(
+      body.titleEn || ""
+    ).trim();
+
+
+  if (!title) {
+    return (
+      "Greek/original title is required."
+    );
+  }
+
+
+  if (!titleEn) {
+    return (
+      "English title is required."
+    );
+  }
+
+
+  const sourceTitle =
+    String(
+      body.sourceTitle || ""
+    ).trim();
+
+
   const url =
-    `${GITHUB_API}/repos/` +
-    `${config.owner}/` +
-    `${config.repo}/contents/` +
-    `${FILE_PATH}` +
-    `?ref=${encodeURIComponent(
-      config.branch
-    )}`;
+    String(
+      body.url || ""
+    ).trim();
 
 
-  const response =
-    await fetch(
-      url,
-      {
-        headers:
-          githubHeaders(
-            config.token
-          )
-      }
-    );
-
-
-  if (!response.ok) {
-    throw new Error(
-      `Unable to read manual news: ${response.status}`
+  /*
+   * At least one stable identifier must be supplied.
+   *
+   * sourceTitle is preferred. URL provides a fallback
+   * for older archive items that do not yet contain
+   * sourceTitle.
+   */
+  if (
+    !sourceTitle &&
+    !url
+  ) {
+    return (
+      "Automatic article identifier is missing."
     );
   }
 
 
-  const fileData =
-    await response.json();
-
-
-  const content =
-    Buffer
-      .from(
-        fileData.content,
-        "base64"
-      )
-      .toString("utf8");
-
-
-  let articles;
-
-  try {
-    articles =
-      JSON.parse(content);
-  } catch {
-    throw new Error(
-      "manual-news.json contains invalid JSON."
-    );
-  }
-
-
-  if (!Array.isArray(articles)) {
-    throw new Error(
-      "manual-news.json must contain an array."
-    );
-  }
-
-
-  return {
-    articles,
-    sha: fileData.sha
-  };
+  return null;
 }
 
 
-async function writeManualNews(
+/*
+ * ============================================================
+ * AUTOMATIC ARTICLE EDIT
+ * ============================================================
+ */
+
+async function updateAutomaticArticle(
   config,
-  articles,
-  sha,
-  message
+  body
 ) {
-  const url =
-    `${GITHUB_API}/repos/` +
-    `${config.owner}/` +
-    `${config.repo}/contents/` +
-    `${FILE_PATH}`;
+  const validationError =
+    validateAutomaticEdit(body);
 
 
-  const content =
-    Buffer
-      .from(
-        JSON.stringify(
-          articles,
-          null,
-          2
-        ) + "\n",
-        "utf8"
-      )
-      .toString("base64");
+  if (validationError) {
+    return {
+      error:
+        validationError,
 
-
-  const response =
-    await fetch(
-      url,
-      {
-        method: "PUT",
-
-        headers: {
-          ...githubHeaders(
-            config.token
-          ),
-
-          "Content-Type":
-            "application/json"
-        },
-
-        body:
-          JSON.stringify({
-            message,
-            content,
-            sha,
-            branch:
-              config.branch
-          })
-      }
-    );
-
-
-  if (!response.ok) {
-    const details =
-      await response.text();
-
-    console.error(
-      "GitHub write failed:",
-      details
-    );
-
-    throw new Error(
-      `Unable to update manual news: ${response.status}`
-    );
+      status:
+        400
+    };
   }
 
 
-  return response.json();
-}
+  const {
+    articles,
+    sha
+  } =
+    await readAutomaticNews(
+      config
+    );
 
 
-async function parseBody(request) {
-  try {
-    return await request.json();
-  } catch {
-    return null;
+  const requestedSourceTitle =
+    String(
+      body.sourceTitle || ""
+    ).trim();
+
+
+  const requestedUrl =
+    String(
+      body.url || ""
+    ).trim();
+
+
+  /*
+   * Locate the article.
+   *
+   * Prefer sourceTitle when it already exists.
+   * Fall back to URL for older articles.
+   */
+  let index = -1;
+
+
+  if (requestedSourceTitle) {
+    index =
+      articles.findIndex(
+        article =>
+          String(
+            article.sourceTitle ||
+            ""
+          ).trim() ===
+          requestedSourceTitle
+      );
   }
+
+
+  if (
+    index === -1 &&
+    requestedUrl
+  ) {
+    index =
+      articles.findIndex(
+        article =>
+          String(
+            article.url || ""
+          ).trim() ===
+          requestedUrl
+      );
+  }
+
+
+  if (index === -1) {
+    return {
+      error:
+        "Automatic article was not found.",
+
+      status:
+        404
+    };
+  }
+
+
+  const existingArticle =
+    articles[index];
+
+
+  /*
+   * IMPORTANT:
+   *
+   * For older automatic articles sourceTitle does not
+   * exist yet. Before changing the visible title, save
+   * the existing title as sourceTitle.
+   *
+   * Once sourceTitle exists it is never changed by the
+   * News Admin.
+   */
+  const preservedSourceTitle =
+    String(
+      existingArticle.sourceTitle ||
+      existingArticle.title ||
+      requestedSourceTitle ||
+      ""
+    ).trim();
+
+
+  const updatedArticle = {
+    ...existingArticle,
+
+    sourceTitle:
+      preservedSourceTitle,
+
+    title:
+      String(
+        body.title || ""
+      ).trim(),
+
+    titleEn:
+      String(
+        body.titleEn || ""
+      ).trim()
+  };
+
+
+  articles[index] =
+    updatedArticle;
+
+
+  await writeAutomaticNews(
+    config,
+    articles,
+    sha,
+    `Update automatic news headlines: ${updatedArticle.title}`
+  );
+
+
+  return {
+    article:
+      updatedArticle,
+
+    status:
+      200
+  };
 }
 
+
+/*
+ * ============================================================
+ * MAIN HANDLER
+ * ============================================================
+ */
 
 export default async function handler(
   request
 ) {
   try {
+
+    /*
+     * --------------------------------------------------------
+     * CORS PREFLIGHT
+     * --------------------------------------------------------
+     */
     if (
       request.method.toUpperCase() ===
       "OPTIONS"
@@ -453,19 +825,98 @@ export default async function handler(
       );
     }
 
+
     const config =
       getConfig();
+
+
+    /*
+     * --------------------------------------------------------
+     * AUTHENTICATION
+     * --------------------------------------------------------
+     */
+    if (
+      !isAuthenticated(
+        request,
+        config.adminPassword
+      )
+    ) {
+      return jsonResponse(
+        {
+          error:
+            "Unauthorized."
+        },
+        401
+      );
+    }
 
 
     const method =
       request.method.toUpperCase();
 
 
+    const requestUrl =
+      new URL(request.url);
+
+
+    const newsType =
+      String(
+        requestUrl.searchParams.get(
+          "type"
+        ) || "manual"
+      )
+        .toLowerCase()
+        .trim();
+
+
     /*
+     * ========================================================
      * GET
-     * Return all manual news.
+     * ========================================================
+     *
+     * Existing behaviour:
+     *
+     * GET
+     * returns manual news.
+     *
+     * New behaviour:
+     *
+     * GET ?type=automatic
+     * returns automatic news.
+     * ========================================================
      */
+
     if (method === "GET") {
+
+      if (
+        newsType ===
+        "automatic"
+      ) {
+        const {
+          articles
+        } =
+          await readAutomaticNews(
+            config
+          );
+
+
+        articles.sort(
+          (a, b) =>
+            new Date(
+              b.date || 0
+            ) -
+            new Date(
+              a.date || 0
+            )
+        );
+
+
+        return jsonResponse(
+          articles
+        );
+      }
+
+
       const {
         articles
       } =
@@ -476,8 +927,12 @@ export default async function handler(
 
       articles.sort(
         (a, b) =>
-          new Date(b.date) -
-          new Date(a.date)
+          new Date(
+            b.date || 0
+          ) -
+          new Date(
+            a.date || 0
+          )
       );
 
 
@@ -488,9 +943,14 @@ export default async function handler(
 
 
     /*
+     * ========================================================
      * POST
-     * Add a manual news item.
+     * ========================================================
+     *
+     * Add a MANUAL news item.
+     * ========================================================
      */
+
     if (method === "POST") {
       const body =
         await parseBody(
@@ -499,7 +959,7 @@ export default async function handler(
 
 
       const validationError =
-        validateArticle(
+        validateManualArticle(
           body
         );
 
@@ -525,7 +985,7 @@ export default async function handler(
 
 
       const article =
-        sanitiseArticle(
+        sanitiseManualArticle(
           body
         );
 
@@ -558,8 +1018,12 @@ export default async function handler(
 
       articles.sort(
         (a, b) =>
-          new Date(b.date) -
-          new Date(a.date)
+          new Date(
+            b.date || 0
+          ) -
+          new Date(
+            a.date || 0
+          )
       );
 
 
@@ -579,15 +1043,63 @@ export default async function handler(
 
 
     /*
+     * ========================================================
      * PUT
-     * Edit an existing item.
+     * ========================================================
+     *
+     * Edit either:
+     *
+     * 1. A manual article
+     * 2. The Greek and English headlines of an
+     *    automatic article
+     * ========================================================
      */
+
     if (method === "PUT") {
       const body =
         await parseBody(
           request
         );
 
+
+      /*
+       * ------------------------------------------------------
+       * AUTOMATIC NEWS EDIT
+       * ------------------------------------------------------
+       */
+      if (
+        newsType ===
+        "automatic"
+      ) {
+        const result =
+          await updateAutomaticArticle(
+            config,
+            body
+          );
+
+
+        if (result.error) {
+          return jsonResponse(
+            {
+              error:
+                result.error
+            },
+            result.status
+          );
+        }
+
+
+        return jsonResponse(
+          result.article
+        );
+      }
+
+
+      /*
+       * ------------------------------------------------------
+       * MANUAL NEWS EDIT
+       * ------------------------------------------------------
+       */
 
       if (!body?.id) {
         return jsonResponse(
@@ -601,7 +1113,7 @@ export default async function handler(
 
 
       const validationError =
-        validateArticle(
+        validateManualArticle(
           body
         );
 
@@ -650,12 +1162,14 @@ export default async function handler(
           article =>
             article.id !==
               body.id &&
+
             String(
               article.url || ""
             ).trim() ===
-              String(
-                body.url || ""
-              ).trim()
+
+            String(
+              body.url || ""
+            ).trim()
         );
 
 
@@ -671,7 +1185,7 @@ export default async function handler(
 
 
       const updatedArticle =
-        sanitiseArticle(
+        sanitiseManualArticle(
           body,
           body.id
         );
@@ -683,8 +1197,12 @@ export default async function handler(
 
       articles.sort(
         (a, b) =>
-          new Date(b.date) -
-          new Date(a.date)
+          new Date(
+            b.date || 0
+          ) -
+          new Date(
+            a.date || 0
+          )
       );
 
 
@@ -703,9 +1221,18 @@ export default async function handler(
 
 
     /*
+     * ========================================================
      * DELETE
-     * Delete an item by ID.
+     * ========================================================
+     *
+     * Delete MANUAL news only.
+     *
+     * Automatic news cannot be deleted through this
+     * endpoint. This prevents an accidental admin action
+     * from damaging the automated archive.
+     * ========================================================
      */
+
     if (method === "DELETE") {
       const body =
         await parseBody(
@@ -778,6 +1305,12 @@ export default async function handler(
     }
 
 
+    /*
+     * ========================================================
+     * UNSUPPORTED METHOD
+     * ========================================================
+     */
+
     return jsonResponse(
       {
         error:
@@ -789,6 +1322,7 @@ export default async function handler(
 
   } catch (error) {
     console.error(error);
+
 
     return jsonResponse(
       {

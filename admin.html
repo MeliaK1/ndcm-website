@@ -130,6 +130,19 @@
       font-size: 0.9rem;
     }
 
+    .admin-news-english {
+      margin: 0 0 10px;
+      color: #334155;
+    }
+
+    .automatic-edit-form {
+      margin-bottom: 22px;
+      padding: 20px;
+      border: 1px solid #dce5ec;
+      border-radius: 12px;
+      background: #f8fafc;
+    }
+
     .admin-news-item-actions {
       display: flex;
       gap: 10px;
@@ -221,31 +234,31 @@
           <div class="admin-form-grid">
 
             <div class="admin-field admin-field-full">
-  <label for="title">
-    Original article title
-  </label>
+              <label for="title">
+                Original article title
+              </label>
 
-  <input
-    id="title"
-    name="title"
-    type="text"
-    required
-  />
-</div>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                required
+              />
+            </div>
 
 
-<div class="admin-field admin-field-full">
-  <label for="titleEn">
-    English title
-  </label>
+            <div class="admin-field admin-field-full">
+              <label for="titleEn">
+                English title
+              </label>
 
-  <input
-    id="titleEn"
-    name="titleEn"
-    type="text"
-    placeholder="English translation of the headline"
-  />
-</div>
+              <input
+                id="titleEn"
+                name="titleEn"
+                type="text"
+                placeholder="English translation of the headline"
+              />
+            </div>
 
 
             <div class="admin-field">
@@ -434,6 +447,98 @@
 
       </section>
 
+
+      <!-- AUTOMATIC NEWS -->
+      <section class="admin-card">
+
+        <h2>
+          Automatic news
+        </h2>
+
+        <p>
+          Edit only the Greek and English headlines. The source,
+          date, publisher, academician and article link remain automatic.
+        </p>
+
+        <form
+          id="automaticNewsForm"
+          class="automatic-edit-form is-hidden"
+        >
+          <input
+            id="automaticSourceTitle"
+            type="hidden"
+          />
+
+          <input
+            id="automaticUrl"
+            type="hidden"
+          />
+
+          <div class="admin-form-grid">
+
+            <div class="admin-field admin-field-full">
+              <label for="automaticTitle">
+                Greek / displayed headline
+              </label>
+
+              <input
+                id="automaticTitle"
+                type="text"
+                required
+              />
+            </div>
+
+            <div class="admin-field admin-field-full">
+              <label for="automaticTitleEn">
+                English headline
+              </label>
+
+              <input
+                id="automaticTitleEn"
+                type="text"
+                required
+              />
+            </div>
+
+          </div>
+
+          <div class="admin-actions">
+
+            <button
+              class="admin-button admin-button-primary"
+              type="submit"
+            >
+              Save headline changes
+            </button>
+
+            <button
+              id="cancelAutomaticEditButton"
+              class="admin-button admin-button-secondary"
+              type="button"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+          <p
+            id="automaticFormStatus"
+            class="admin-status"
+          ></p>
+
+        </form>
+
+        <div
+          id="automaticNewsList"
+          class="admin-news-list"
+        >
+          <p>
+            Loading...
+          </p>
+        </div>
+
+      </section>
+
     </div>
 
   </div>
@@ -476,9 +581,34 @@
     const manualNewsList =
       document.getElementById("manualNewsList");
 
+    const automaticNewsList =
+      document.getElementById("automaticNewsList");
+
+    const automaticNewsForm =
+      document.getElementById("automaticNewsForm");
+
+    const automaticSourceTitle =
+      document.getElementById("automaticSourceTitle");
+
+    const automaticUrl =
+      document.getElementById("automaticUrl");
+
+    const automaticTitle =
+      document.getElementById("automaticTitle");
+
+    const automaticTitleEn =
+      document.getElementById("automaticTitleEn");
+
+    const automaticFormStatus =
+      document.getElementById("automaticFormStatus");
+
+    const cancelAutomaticEditButton =
+      document.getElementById("cancelAutomaticEditButton");
+
 
     let sessionPassword = "";
     let manualArticles = [];
+    let automaticArticles = [];
 
 
     function getAcademicianData(name) {
@@ -522,7 +652,8 @@
 
     async function apiRequest(
       method,
-      body = null
+      body = null,
+      type = "manual"
     ) {
       const options = {
         method,
@@ -535,9 +666,11 @@
       }
 
       const response =
-        await fetch("https://resplendent-youtiao-fe2f0b.netlify.app/.netlify/functions/news-admin",
-      options
-      );
+        await fetch(
+          "https://resplendent-youtiao-fe2f0b.netlify.app/.netlify/functions/news-admin" +
+          `?type=${encodeURIComponent(type)}`,
+          options
+        );
 
       const data =
         await response.json();
@@ -568,7 +701,10 @@
         password;
 
       try {
-        await loadManualNews();
+        await Promise.all([
+          loadManualNews(),
+          loadAutomaticNews()
+        ]);
 
         loginSection.classList.add(
           "is-hidden"
@@ -614,6 +750,81 @@
           : [];
 
       renderManualNews();
+    }
+
+
+    async function loadAutomaticNews() {
+      const data =
+        await apiRequest(
+          "GET",
+          null,
+          "automatic"
+        );
+
+      automaticArticles =
+        Array.isArray(data)
+          ? data
+          : [];
+
+      renderAutomaticNews();
+    }
+
+
+    function renderAutomaticNews() {
+      if (
+        automaticArticles.length === 0
+      ) {
+        automaticNewsList.innerHTML =
+          "<p>No automatic news items yet.</p>";
+
+        return;
+      }
+
+      automaticNewsList.innerHTML =
+        automaticArticles
+          .map((article, index) => `
+            <article
+              class="admin-news-item"
+            >
+              <h3>
+                ${escapeHtml(article.title)}
+              </h3>
+
+              <p class="admin-news-english">
+                <strong>English:</strong>
+                ${escapeHtml(article.titleEn || "")}
+              </p>
+
+              <p class="admin-news-meta">
+                ${escapeHtml(article.date)}
+                ·
+                ${escapeHtml(article.academicianEn || "")}
+                ·
+                ${escapeHtml(article.publisher || "")}
+              </p>
+
+              <a
+                href="${escapeHtml(article.url)}"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open article
+              </a>
+
+              <div
+                class="admin-news-item-actions"
+              >
+                <button
+                  class="admin-button admin-button-secondary"
+                  type="button"
+                  onclick="editAutomaticArticle(${index})"
+                >
+                  Edit headlines
+                </button>
+              </div>
+            </article>
+          `)
+          .join("");
     }
 
 
@@ -791,6 +1002,55 @@
     }
 
 
+    function editAutomaticArticle(index) {
+      const article =
+        automaticArticles[index];
+
+      if (!article) {
+        return;
+      }
+
+      automaticSourceTitle.value =
+        article.sourceTitle ||
+        article.title ||
+        "";
+
+      automaticUrl.value =
+        article.url || "";
+
+      automaticTitle.value =
+        article.title || "";
+
+      automaticTitleEn.value =
+        article.titleEn || "";
+
+      automaticFormStatus.textContent =
+        "";
+
+      automaticNewsForm.classList.remove(
+        "is-hidden"
+      );
+
+      automaticNewsForm.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+
+    function resetAutomaticForm() {
+      automaticNewsForm.reset();
+
+      automaticSourceTitle.value = "";
+      automaticUrl.value = "";
+      automaticFormStatus.textContent = "";
+
+      automaticNewsForm.classList.add(
+        "is-hidden"
+      );
+    }
+
+
     async function deleteArticle(id) {
       const confirmed =
         window.confirm(
@@ -844,9 +1104,9 @@
 
           titleEn:
             document.getElementById(
-            "titleEn"
-          ).value.trim(),
-          
+              "titleEn"
+            ).value.trim(),
+
           date:
             document.getElementById(
               "date"
@@ -915,6 +1175,50 @@
     );
 
 
+    automaticNewsForm.addEventListener(
+      "submit",
+      async event => {
+        event.preventDefault();
+
+        automaticFormStatus.textContent =
+          "Saving...";
+
+        const article = {
+          sourceTitle:
+            automaticSourceTitle.value.trim(),
+
+          url:
+            automaticUrl.value.trim(),
+
+          title:
+            automaticTitle.value.trim(),
+
+          titleEn:
+            automaticTitleEn.value.trim()
+        };
+
+        try {
+          await apiRequest(
+            "PUT",
+            article,
+            "automatic"
+          );
+
+          automaticFormStatus.textContent =
+            "Saved successfully.";
+
+          await loadAutomaticNews();
+
+          resetAutomaticForm();
+
+        } catch (error) {
+          automaticFormStatus.textContent =
+            error.message;
+        }
+      }
+    );
+
+
     loginButton.addEventListener(
       "click",
       login
@@ -940,6 +1244,12 @@
     cancelEditButton.addEventListener(
       "click",
       resetForm
+    );
+
+
+    cancelAutomaticEditButton.addEventListener(
+      "click",
+      resetAutomaticForm
     );
   </script>
 
