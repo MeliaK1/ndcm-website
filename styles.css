@@ -347,25 +347,88 @@ img {
 
 .stats-card {
   padding: 34px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 26px;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 }
 
-.stats-card strong {
+/* Academy of Athens extreme-event research timeline */
+
+.history-timeline-card {
   display: block;
-  color: var(--navy);
-  font-family: "IBM Plex Sans", Arial, sans-serif;
-  font-size: 36px;
 }
 
-.stats-card span {
-  color: var(--muted);
+.history-timeline-header {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
 }
+
+.history-timeline-header h3 {
+  margin: 0 0 6px;
+  color: var(--navy);
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.history-timeline-header p {
+  margin: 0;
+  color: var(--teal-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.history-timeline {
+  position: relative;
+  display: grid;
+  gap: 24px;
+  padding-left: 22px;
+}
+
+.history-timeline::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 5px;
+  width: 1px;
+  background: var(--line);
+}
+
+.history-timeline-item {
+  position: relative;
+}
+
+.history-timeline-marker {
+  position: absolute;
+  top: 7px;
+  left: -22px;
+  width: 11px;
+  height: 11px;
+  background: var(--teal);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--teal);
+}
+
+.history-timeline-item strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--navy);
+  font-family: "IBM Plex Sans", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.history-timeline-item span:not(.history-timeline-marker) {
+  display: block;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+
 
 .section-head {
   margin-bottom: 32px;
