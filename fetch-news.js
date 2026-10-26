@@ -5,7 +5,11 @@ const { XMLParser } = require("fast-xml-parser");
 const NEWS_FILE_PATH =
   "data/news.json";
 
+const GOOGLE_TRANSLATE_API_KEY =
+  process.env.GOOGLE_TRANSLATE_API_KEY || "";
 
+const GOOGLE_TRANSLATE_URL =
+  "https://translation.googleapis.com/language/translate/v2";
 /*
  * ============================================================
  * SCIENTISTS INCLUDED IN THE AUTOMATED NEWS FEED
@@ -108,7 +112,90 @@ function normaliseText(value) {
     .replace(/\s+/g, " ")
     .trim();
 }
+function containsGreekText(value) {
+  return /[\u0370-\u03FF\u1F00-\u1FFF]/u.test(
+    String(value || "")
+  );
+}
 
+async function translateHeadlineToEnglish(title) {
+  const cleanTitle =
+    String(title || "").trim();
+
+  if (!cleanTitle) {
+    return "";
+  }
+
+  /*
+   * Headlines already written in English
+   * do not need translation.
+   */
+  if (!containsGreekText(cleanTitle)) {
+    return cleanTitle;
+  }
+
+  /*
+   * If the API key is unavailable, keep the
+   * news workflow running instead of failing.
+   */
+  if (!GOOGLE_TRANSLATE_API_KEY) {
+    console.warn(
+      "Google Translation API key is unavailable. Keeping original headline."
+    );
+
+    return "";
+  }
+
+  try {
+    const response =
+      await fetch(
+        `${GOOGLE_TRANSLATE_URL}?key=${encodeURIComponent(
+          GOOGLE_TRANSLATE_API_KEY
+        )}`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            q: cleanTitle,
+            source: "el",
+            target: "en",
+            format: "text"
+          })
+        }
+      );
+
+    if (!response.ok) {
+      throw new Error(
+        `Google Translation returned ${response.status}`
+      );
+    }
+
+    const data =
+      await response.json();
+
+    return String(
+      data?.data?.translations?.[0]
+        ?.translatedText || ""
+    ).trim();
+
+  } catch (error) {
+    console.error(
+      `Could not translate headline: ${cleanTitle}`,
+      error.message
+    );
+
+    /*
+     * Translation failure must never stop
+     * the automatic news update.
+     */
+    return "";
+  }
+}
 
 /*
  * ============================================================
@@ -611,9 +698,14 @@ function mergeArticle(
      * but preserve existing archive data
      * whenever it is already available.
      */
-    title:
+        title:
       existing.title ||
       incomingArticle.title,
+
+    titleEn:
+      existing.titleEn ||
+      incomingArticle.titleEn ||
+      "",
 
     category:
       existing.category ||
@@ -812,10 +904,25 @@ async function processNameSearch({
        * 5. ARTICLE
        * --------------------------------------------------------
        */
+      const existingArticle =
+  archiveMap.get(
+    createArticleKey({
+      title,
+      publisher
+    })
+  );
+
+const titleEn =
+  existingArticle?.titleEn ||
+  await translateHeadlineToEnglish(
+    title
+  );
 
       const article = {
         title,
-
+        
+        titleEn,
+    
         date:
           pubDate
             .toISOString()
@@ -969,7 +1076,30 @@ async function main() {
     Array.from(
       archiveMap.values()
     );
+  
+  for (const article of finalArticles) {
+  if (
+    !article.titleEn &&
+    containsGreekText(article.title)
+  ) {
+    article.titleEn =
+      await translateHeadlineToEnglish(
+        article.title
+      );
+  }
 
+  /*
+   * English headlines use their original
+   * title as the English title.
+   */
+  if (
+    !article.titleEn &&
+    !containsGreekText(article.title)
+  ) {
+    article.titleEn =
+      article.title || "";
+  }
+}
 
   /*
    * ----------------------------------------------------------

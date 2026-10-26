@@ -26,6 +26,8 @@ jobs:
 
       - name: Fetch latest news
         run: node fetch-news.js
+        env:
+          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
 
       - name: Commit updated news
         uses: stefanzweifel/git-auto-commit-action@v5
